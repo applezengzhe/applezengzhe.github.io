@@ -170,15 +170,39 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <ul>
-<li>准备<br>– 一.软件准备<br>1.一个<a href="Github">github.com</a>账号（必须）<br>2.<a href="Node">https://nodejs.org/en</a>(必须)<br>3.<a href="Git">https://git-scm.com/downloads</a>(必须)<br>4<a href="VSCode">https://code.visualstudio.com/</a>（建议,非必须）</li>
+            <h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><h2 id="一-软件准备"><a href="#一-软件准备" class="headerlink" title="一.软件准备"></a>一.软件准备</h2><p>1.一个<a href="github.com">Github</a>账号（必须）<br>2.<a target="_blank" rel="noopener" href="https://nodejs.org/en">Node</a>(必须)<br>3.<a target="_blank" rel="noopener" href="https://git-scm.com/downloads">Git</a>(必须)<br>4<a target="_blank" rel="noopener" href="https://code.visualstudio.com/">VSCode</a>（建议,非必须）</p>
+<h2 id="二-检查"><a href="#二-检查" class="headerlink" title="二.检查"></a>二.检查</h2><p>1.在键盘按下win + R键，输入CMD，然后回车，打开CMD窗口，执行node -v命令，看到版本信息，则说明Node安装成功。<br>2.Node换华为源（会快一点）：</p>
+<ul>
+<li>npm config set registry <a target="_blank" rel="noopener" href="https://mirrors.huaweicloud.com/repository/npm/">https://mirrors.huaweicloud.com/repository/npm/</a></li>
 </ul>
-<p>– 二.检查<br>1.在键盘按下win + R键，输入CMD，然后回车，打开CMD窗口，执行node -v命令，看到版本信息，则说明Node安装成功。<br>2.Node换华为源（会快一点）：<br>— npm config set registry <a target="_blank" rel="noopener" href="https://mirrors.huaweicloud.com/repository/npm/">https://mirrors.huaweicloud.com/repository/npm/</a></p>
-<p>– 三.配置 Git 密钥并连接至 Github<br>1.配置用户名和邮箱<br>— git config –global user.name “你的用户名”<br>— git config –global user.email “你的邮箱”<br>之后通过通过git config -l 检查是否配置成功。<br>2.配置公钥连接Github<br>— ssh-keygen -t rsa -C “你的邮箱”<br>3.用记事本打开上述图片中的公钥id_rsa.pub，复制里面的内容，然后开始在github中配置ssh密钥。<br>4.进入github，点击右上角头像 选择settings，进入设置页后选择 SSH and GPG keys，名字随便起，公钥填到Key那一栏。<br>5.测试连接，输入以下命令（不要开stam++连接）<br>— ssh -T <a href="mailto:&#x67;&#x69;&#x74;&#64;&#x67;&#x69;&#116;&#x68;&#x75;&#x62;&#46;&#99;&#111;&#109;">&#x67;&#x69;&#x74;&#64;&#x67;&#x69;&#116;&#x68;&#x75;&#x62;&#46;&#99;&#111;&#109;</a><br>第一次连接会提示Are you sure you want to continue connecting (yes&#x2F;no&#x2F;[fingerprint])?，输入yes即可<br>出现连接到账户的信息，说明已经大功告成。</p>
-<p>– 四. 创建GitHub.io仓库<br>1.点击右上角的+按钮，选择New repository，创建一个&lt;用户名&gt;.github.io的仓库。<br>2.仓库名字的格式必须为：&lt;用户名&gt;.github.io (注意：前缀必须为用户名，此为预览博客需要，后期可修改仓库名)<br>3.可见性必须选择 Public 方便第一次部署检查问题，点击 Creat repository 进行创建即可</p>
-<p>– 五.初始化 Hexo 博客<br>1.创建一个文件夹来保存博客源码（我这里选的路径为D:&#x2F;Hexo-Blog），在文件夹内右键鼠标，选择Open Git Bash here<br>2.在Git BASH输入如下命令安装 Hexo<br>— npm install -g hexo-cli &amp;&amp; hexo -v<br>安装完后输入hexo -v验证是否安装成功。<br>3.初始化 Hexo 项目安装相关依赖。<br>—hexo init blog<br>—cd blog<br>—npm i<br>4.输入<br>–hexo cl &amp;&amp; hexo s<br>启动项目,打开浏览器，输入地址：<a target="_blank" rel="noopener" href="http://localhost:4000/.%E5%BD%93%E7%9C%8B%E5%88%B0%E7%BD%91%E7%AB%99%EF%BC%8C%E5%B0%B1%E6%88%90%E5%8A%9F%E4%BA%86">http://localhost:4000/.当看到网站，就成功了</a></p>
-<p>– 六.将静态博客挂载到 GitHub Pages<br>1.安装 hexo-deployer-git<br>— npm install hexo-deployer-git –save<br>2.修改 _config.yml 文件在blog-demo目录下的_config.yml，就是整个Hexo框架的配置文件了。可以在里面修改大部分的配置。详细可参考官方的配置描述。修改最后一行的配置，将repository修改为你自己的github项目地址即可，还有分支要改为main代表主分支（注意缩进）。<br>— deploy:<br>—   type: git<br>—   repository: <a href="mailto:&#103;&#105;&#116;&#x40;&#x67;&#105;&#x74;&#104;&#x75;&#98;&#x2e;&#x63;&#111;&#109;">&#103;&#105;&#116;&#x40;&#x67;&#105;&#x74;&#104;&#x75;&#98;&#x2e;&#x63;&#111;&#109;</a>:applezengzhe&#x2F;applezengzhe.github.io.git<br>—   branch: main<br>3.修改好配置后，运行如下命令，将代码部署到 GitHub（Hexo三连）<br>VSCODE终端<br>— hexo cl&amp;&amp;hexo g&amp;&amp;hexo d<br>如果出现Deploy done，则说明部署成功了。<br>稍等两分钟，打开浏览器访问：<a target="_blank" rel="noopener" href="https://applezengzhe.github.io/">https://applezengzhe.github.io</a> ，这时候我们就可以看到博客内容了。</p>
-<p>– 七.更换主题<br>1.打开<a href="Hexo%E4%B8%BB%E9%A2%98%E7%BD%91%E7%AB%99">https://hexo.io/themes/</a>找到喜欢的主题打开github根据教程clone主题，或者将主题下载到本地hexo主题文件夹中进行使用。<br>2.以particlex为例<br>— cd themes<br>— git clone <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex.git">https://github.com/theme-particlex/hexo-theme-particlex.git</a> particlex –depth&#x3D;1<br>3.然后在根目录 _config.yml 设置主题为 ParticleX 即可。<br>— theme: particlex</p>
+<h2 id="三-配置-Git-密钥并连接至-Github"><a href="#三-配置-Git-密钥并连接至-Github" class="headerlink" title="三.配置 Git 密钥并连接至 Github"></a>三.配置 Git 密钥并连接至 Github</h2><p>1.配置用户名和邮箱</p>
+<ul>
+<li>git config –global user.name “你的用户名”</li>
+<li>git config –global user.email “你的邮箱”<br>之后通过通过git config -l 检查是否配置成功。<br>2.配置公钥连接Github</li>
+<li>ssh-keygen -t rsa -C “你的邮箱”<br>3.用记事本打开上述图片中的公钥id_rsa.pub，复制里面的内容，然后开始在github中配置ssh密钥。<br>4.进入github，点击右上角头像 选择settings，进入设置页后选择 SSH and GPG keys，名字随便起，公钥填到Key那一栏。<br>5.测试连接，输入以下命令（不要开stam++连接）</li>
+<li>ssh -T <a href="mailto:&#x67;&#x69;&#116;&#64;&#103;&#105;&#x74;&#x68;&#117;&#x62;&#46;&#99;&#x6f;&#x6d;">&#x67;&#x69;&#116;&#64;&#103;&#105;&#x74;&#x68;&#117;&#x62;&#46;&#99;&#x6f;&#x6d;</a><br>第一次连接会提示Are you sure you want to continue connecting (yes&#x2F;no&#x2F;[fingerprint])?，输入yes即可<br>出现连接到账户的信息，说明已经大功告成。</li>
+</ul>
+<h2 id="四-创建GitHub-io仓库"><a href="#四-创建GitHub-io仓库" class="headerlink" title="四. 创建GitHub.io仓库"></a>四. 创建GitHub.io仓库</h2><p>1.点击右上角的+按钮，选择New repository，创建一个&lt;用户名&gt;.github.io的仓库。<br>2.仓库名字的格式必须为：&lt;用户名&gt;.github.io (注意：前缀必须为用户名，此为预览博客需要，后期可修改仓库名)<br>3.可见性必须选择 Public 方便第一次部署检查问题，点击 Creat repository 进行创建即可</p>
+<h2 id="五-初始化-Hexo-博客"><a href="#五-初始化-Hexo-博客" class="headerlink" title="五.初始化 Hexo 博客"></a>五.初始化 Hexo 博客</h2><p>1.创建一个文件夹来保存博客源码（我这里选的路径为D:&#x2F;Hexo-Blog），在文件夹内右键鼠标，选择Open Git Bash here<br>2.在Git BASH输入如下命令安装 Hexo</p>
+<ul>
+<li>npm install -g hexo-cli &amp;&amp; hexo -v<br>安装完后输入hexo -v验证是否安装成功。<br>3.初始化 Hexo 项目安装相关依赖。<br>-hexo init blog<br>-cd blog<br>-npm i<br>4.输入</li>
+<li>hexo cl &amp;&amp; hexo s<br>启动项目,打开浏览器，输入地址：<a target="_blank" rel="noopener" href="http://localhost:4000/.%E5%BD%93%E7%9C%8B%E5%88%B0%E7%BD%91%E7%AB%99%EF%BC%8C%E5%B0%B1%E6%88%90%E5%8A%9F%E4%BA%86">http://localhost:4000/.当看到网站，就成功了</a></li>
+</ul>
+<h2 id="六-将静态博客挂载到-GitHub-Pages"><a href="#六-将静态博客挂载到-GitHub-Pages" class="headerlink" title="六.将静态博客挂载到 GitHub Pages"></a>六.将静态博客挂载到 GitHub Pages</h2><p>1.安装 hexo-deployer-git</p>
+<ul>
+<li>npm install hexo-deployer-git –save<br>2.修改 _config.yml 文件在blog-demo目录下的_config.yml，就是整个Hexo框架的配置文件了。可以在里面修改大部分的配置。详细可参考官方的配置描述。修改最后一行的配置，将repository修改为你自己的github项目地址即可，还有分支要改为main代表主分支（注意缩进）。</li>
+<li>deploy:</li>
+<li>type: git</li>
+<li>repository: <a href="mailto:&#103;&#105;&#x74;&#x40;&#x67;&#x69;&#116;&#104;&#x75;&#98;&#x2e;&#99;&#111;&#x6d;">&#103;&#105;&#x74;&#x40;&#x67;&#x69;&#116;&#104;&#x75;&#98;&#x2e;&#99;&#111;&#x6d;</a>:applezengzhe&#x2F;applezengzhe.github.io.git</li>
+<li>branch: main<br>3.修改好配置后，运行如下命令，将代码部署到 GitHub（Hexo三连）<br>VSCODE终端</li>
+<li>hexo cl&amp;&amp;hexo g&amp;&amp;hexo d<br>如果出现Deploy done，则说明部署成功了。<br>稍等两分钟，打开浏览器访问：<a target="_blank" rel="noopener" href="https://applezengzhe.github.io/">https://applezengzhe.github.io</a> ，这时候我们就可以看到博客内容了。</li>
+</ul>
+<h2 id="七-更换主题"><a href="#七-更换主题" class="headerlink" title="七.更换主题"></a>七.更换主题</h2><p>1.打开<a href="Hexo%E4%B8%BB%E9%A2%98%E7%BD%91%E7%AB%99">https://hexo.io/themes/</a>找到喜欢的主题打开github根据教程clone主题，或者将主题下载到本地hexo主题文件夹中进行使用。<br>2.以particlex为例</p>
+<ul>
+<li>cd themes</li>
+<li>git clone <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex.git">https://github.com/theme-particlex/hexo-theme-particlex.git</a> particlex –depth&#x3D;1<br>3.然后在根目录 _config.yml 设置主题为 ParticleX 即可。</li>
+<li>theme: particlex</li>
+</ul>
 
             
         </div>
@@ -198,7 +222,7 @@
         
         <span class="tag">
             
-            <a href="/tags/hexo/" style="color: #03a9f4">hexo</a>
+            <a href="/tags/hexo/" style="color: #00bcd4">hexo</a>
         </span>
         
     </div>
@@ -224,28 +248,33 @@
         <div class="content" v-pre>
             
             <ul>
-<li>我手上的手机是oppo reno5 pro，警告提前备份数据，一但变砖，本人概不负责<br>– 一.准备工作：<br>1.安装python环境（Download Python | Python.org）记得勾选Add Python X.X to PATH</li>
+<li>我手上的手机是oppo reno5 pro，警告提前备份数据，一但变砖，本人概不负责</li>
 </ul>
+<h2 id="一-准备工作："><a href="#一-准备工作：" class="headerlink" title="一.准备工作："></a>一.准备工作：</h2><p>1.安装python环境（Download Python | Python.org）记得勾选Add Python X.X to PATH</p>
 <p>2.必要驱动</p>
 <p>3.安装强解工具mtkclient</p>
 <p>4.手机一定要降级到c11，因为c12及以后封了强解端口，不过好像可以拆机开端口，不过本人没有测试</p>
-<p>– 二.mtkclient配置：<br>1.进入解压后的mtkclient文件夹</p>
+<h2 id="二-mtkclient配置："><a href="#二-mtkclient配置：" class="headerlink" title="二.mtkclient配置："></a>二.mtkclient配置：</h2><p>1.进入解压后的mtkclient文件夹</p>
 <p>2.在此文件夹打开powershell</p>
 <p>3.换清华或其他源（不一定，但会更快一些）：</p>
 <p>pip config set global.index-url <a target="_blank" rel="noopener" href="https://pypi.tuna.tsinghua.edu.cn/simple">https://pypi.tuna.tsinghua.edu.cn/simple</a></p>
 <p>4.安装mtkclient需要的第三方库：</p>
 <p>pip install -r requirements.txt</p>
-<p>– 三.解锁bl锁：<br>—解锁安卓10以下设备的bl锁：<br>1.先将设备关机</p>
+<h2 id="三-解锁bl锁："><a href="#三-解锁bl锁：" class="headerlink" title="三.解锁bl锁："></a>三.解锁bl锁：</h2><h3 id="解锁安卓10以下设备的bl锁："><a href="#解锁安卓10以下设备的bl锁：" class="headerlink" title="解锁安卓10以下设备的bl锁："></a>解锁安卓10以下设备的bl锁：</h3><p>1.先将设备关机</p>
 <p>2.在powershell里输入：</p>
 <p>python mtk da seccfg unlock</p>
 <p>3按住电源键+音量上下键，进入深刷模式，第一次会自动安装驱动，等待进度条完毕</p>
 <p>4.如果重启出现：</p>
-<p>Your device has been unlocked and can’t be trusted.</p>
-<p>Your device will boot in 5 seconds.</p>
+<ul>
+<li><p>Your device has been unlocked and can’t be trusted.</p>
+</li>
+<li><p>Your device will boot in 5 seconds.</p>
+</li>
+</ul>
 <p>就解锁完毕</p>
 <p>4.此时可能无法启动手机，一直让它开机进入rec模式（大约半个小时），如果不行手动进入rec模式</p>
 <p>5.直接清除数据分区，然后重启</p>
-<p>— 解锁安卓11以上设备bl锁：<br>1.备份lk（因为安卓11之后有dm校验，又把它藏在了lk分区里）：</p>
+<h3 id="解锁安卓11以上设备bl锁："><a href="#解锁安卓11以上设备bl锁：" class="headerlink" title="解锁安卓11以上设备bl锁："></a>解锁安卓11以上设备bl锁：</h3><p>1.备份lk（因为安卓11之后有dm校验，又把它藏在了lk分区里）：</p>
 <p>python mtk r lk,lk2 lk.bin,lk2.bin（网上看自己有几个lk分区，不要找着抄）</p>
 <p>备份后自己重名后缀，例如我有两个lk分区：lk.base,lk2.base</p>
 <p>2.下载我提供的lk文件</p>
@@ -262,7 +291,7 @@
 <p>就成功了，不过之后重启可能像我的手机一样要再按一次电源键</p>
 <p>7.此时可能无法启动手机，一直让它开机进入rec模式（大约半个小时，如果不行手动进入rec模式</p>
 <p>8.清除数据分区，然后重启</p>
-<p>– 四.Root手机：<br>1.重新进入深刷模式，输入</p>
+<h2 id="四-Root手机："><a href="#四-Root手机：" class="headerlink" title="四.Root手机："></a>四.Root手机：</h2><p>1.重新进入深刷模式，输入</p>
 <p>python mtk r boot boot.img</p>
 <p>提取boot分区，因为boot分区不对可能会掉wifi</p>
 <p>2.安装面具</p>
@@ -270,9 +299,9 @@
 <p>4.重新进入深刷模式，输入</p>
 <p>python mtk w boot 你修补的镜像</p>
 <p>5.不出意外应当后成功root了(如果升级c12，可以用官方升级工具，之后找到升级包，获得boot，修补之后fastbootd刷入)</p>
-<p>– 五.去除dm检验<br>1.安装模块 wwi.lanzoup.com&#x2F;i1KEp0toq8kd<br>不是全系统通用</p>
+<h2 id="五-去除dm检验"><a href="#五-去除dm检验" class="headerlink" title="五.去除dm检验"></a>五.去除dm检验</h2><p>1.<a href="wwi.lanzoup.com/i1KEp0toq8kd">安装模块</a><br>不是全系统通用</p>
 <p>2.通用法<br>用软件提取vbmeta.img<br>进入fastbootd 之后fastboot –disable-verity –disable-verification flash vbmeta vbmeta.img</p>
-<p>– 六.资源<br>123盘:<a href="http://www.123865">www.123865</a>. com&#x2F;s&#x2F;rRU4Td-WiEMd<br>提取码:1213</p>
+<p>– 六.资源<br>[123盘](<a href="http://www.123865">www.123865</a>. com&#x2F;s&#x2F;rRU4Td-WiEMd提取码:1213)</p>
 
             
         </div>
@@ -287,7 +316,7 @@
         
         <span class="tag">
             
-            <a href="/tags/%E5%BC%BA%E8%A7%A3/" style="color: #ffa2c4">强解</a>
+            <a href="/tags/%E5%BC%BA%E8%A7%A3/" style="color: #00a596">强解</a>
         </span>
         
         <span class="tag">
@@ -317,41 +346,43 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <ul>
-<li>驱动与Debian<br>所需文件<br>高通 9008 驱动<br>ADB 工具<br>Miko 备份工具<br>Debian 刷机包<br>备份的全量包<br>如果不确定下载哪个，请先查看板子型号再下载刷机包。</li>
+            <h2 id="驱动与Debian"><a href="#驱动与Debian" class="headerlink" title="驱动与Debian"></a>驱动与Debian</h2><p>所需文件</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.123pan.com/s/7368Vv-3TyQh.html">高通 9008 驱动</a></li>
+<li><a target="_blank" rel="noopener" href="https://googledownloads.cn/android/repository/platform-tools-latest-windows.zip">ADB 工具</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.123pan.com/s/7368Vv-hTyQh.html">Miko 备份工具</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.123pan.com/s/XwVDVv-WICn3">Debian 刷机包</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.123pan.com/s/NCtmjv-zRLav.html%E6%8F%90%E5%8F%96%E7%A0%81:1188">备份的全量包</a><br>如果不确定下载哪个，请先查看板子型号再下载刷机包。</li>
 </ul>
 <p>查看板子型号<br>用螺丝刀将随身 WiFi 的外壳拆开，查看板子上方的丝印，型号一般以 UFI、UZ 或 SP 开头。如红框中所示，此型号是 UFI003。</p>
 <p>安装 9008 驱动<br>执行 driver.exe，并点击立即安装。在弹出如下窗口中，点击“安装”。</p>
 <p>安装 ADB 工具<br>解压 platform-tools_r34.0.5-windows.zip</p>
 <p>打开命令提示符，执行 adb version。如果出现<br>Android Debug Bridge version 1.0.41<br>Version 34.0.5-10900879<br>即为正确</p>
 <p>安装 Miko 备份工具<br>解压 MiKo_Loder Pro.zip，运行 miko.exe 安装备份工具。安装完成后，桌面上会出现 Miko 备份工具的快捷方式。在图标上右键，打开文件所在位置，将解压得到的 Loader.exe 复制到 Miko 安装目录即可。</p>
+<h2 id="开启-ADB"><a href="#开启-ADB" class="headerlink" title="开启 ADB"></a>开启 ADB</h2><p>将随身 WiFi 插入电脑 USB 接口。打开设备管理器，如果此时多了一个名叫 Android Composite ADB Interface 的设备，则表明随身 WiFi 已经开启 ADB，无需执行其他操作。<br>如果没有出现这个设备，则需要手动开启 ADB。以 UZ801 型号为例，连上随身 WiFi 的热点，并访问 <a target="_blank" rel="noopener" href="http://192.168.100.1/usbdebug.html">http://192.168.100.1/usbdebug.html</a> 即可开启 ADB，再次访问即可关闭。</p>
 <ul>
-<li>开启 ADB<br>将随身 WiFi 插入电脑 USB 接口。打开设备管理器，如果此时多了一个名叫 Android Composite ADB Interface 的设备，则表明随身 WiFi 已经开启 ADB，无需执行其他操作。<br>如果没有出现这个设备，则需要手动开启 ADB。以 UZ801 型号为例，连上随身 WiFi 的热点，并访问 <a target="_blank" rel="noopener" href="http://192.168.100.1/usbdebug.html">http://192.168.100.1/usbdebug.html</a> 即可开启 ADB，再次访问即可关闭。</li>
+<li><p>提示<br>部分 UFI003 型号的随身 WiFi 默认不开 ADB，需要手动进 9008 模式刷入已开启 ADB 的安卓固件。</p>
+<p><a target="_blank" rel="noopener" href="https://www.123pan.com/s/NUK8Vv-nRdl%E6%8F%90%E5%8F%96%E7%A0%81%EF%BC%9A1LEW">固件下载</a></p>
+</li>
 </ul>
-<p>提示<br>部分 UFI003 型号的随身 WiFi 默认不开 ADB，需要手动进 9008 模式刷入已开启 ADB 的安卓固件。</p>
-<p>固件下载地址：<a target="_blank" rel="noopener" href="https://www.123pan.com/s/NUK8Vv-nRdl">https://www.123pan.com/s/NUK8Vv-nRdl</a> 提取码：1LEW</p>
 <p>手动进 9008 模式的方法：按住 reset 键不放（随身 WiFi 背面二维码右上角的小孔，用取卡针或牙签戳即可），并将随身 WiFi 插入电脑，松开 reset 键。</p>
 <p>备份原厂固件<br>为避免刷错固件变砖等情况，强烈建议备份原厂固件。</p>
 <p>打开命令提示符，执行 adb reboot edl，此时设备管理器中会多出高通 9008 设备。</p>
-<p>6576ce79b5a9c<br>我们运行上文所提到的 Loader.exe（即 Miko 工具）进行备份数据。</p>
+<p>我们运行上文所提到的 Loader.exe（即 Miko 工具）进行备份数据。</p>
 <p>此时窗口右侧显示设备信息，表明随身 WiFi 已被成功识别。如果显示 Not Found 字样，请重新安装 9008 驱动并再次尝试。</p>
 <p>依次点击 Read –&gt;Partition Backup&#x2F;Erase–&gt;Load Partition Structure。然后双击红色 Option 下面的灰条，选择备份目录，并点击 Read Full Image。再次选择备份目录，并取一个文件名，点击确定，即可开始备份。</p>
 <p>等待几分钟，直到进度条达到 100%，右侧输出 Sucess 字样和用时，则表明备份完成 。</p>
-<p>6576ce8b43166</p>
 <p>如果需要恢复备份，依次点击 Flash –&gt;emmc block0 flasher。然后双击 Emmc Data，选择之前备份的文件（.bin 格式），并点击下方 Flash 按钮，等待刷机完成即可。</p>
-<p>668b9b21e9950</p>
 <p>刷入 Debian<br>拔掉随身 WiFi 并重新插入 USB 接口，解压 Debian 刷机包。打开命令提示符，执行 adb reboot bootloader 进入 fastboot 模式。运行刷机包中的 flash.bat刷入系统，等待刷机完成。</p>
 <p>输出 all done! 则表明刷机完成。</p>
 <p>安装 RNDIS 网络驱动</p>
-<p>提示<br>如果设备管理器只显示 Android Device，右键更新驱动程序，依次选择 Microsoft - USB 移动宽带网络适配器，然后重新插入随身 WiFi，会出现一个未知设备，再根据下述步骤进行操作。</p>
-<p>重新插入随身 WiFI，打开任务管理器，在其他设备中会出现一个未知设备或以 RNDIS 开头的设备。</p>
-<p>6576ceae713b7</p>
+<ul>
+<li>提示<br>如果设备管理器只显示 Android Device，右键更新驱动程序，依次选择 Microsoft - USB 移动宽带网络适配器，然后重新插入随身 WiFi，会出现一个未知设备，再根据下述步骤进行操作。<br>重新插入随身 WiFI，打开任务管理器，在其他设备中会出现一个未知设备或以 RNDIS 开头的设备。</li>
+</ul>
 <p>右键，更新驱动程序–&gt;浏览我的电脑以查找驱动程序–&gt;让我从计算机上的可用驱动程序列表中选取–&gt;显示所有设备，等待列表加载完成。</p>
-<p>6576ced636acb</p>
 <p>左侧选择 Microsoft，右侧选择 基于远程 NDIS 的 Internet 共享设备，在弹出窗口中选择是，并确定。</p>
-<p>6576cee2bd3a7</p>
 <p>至此，RNDIS 驱动安装成功。</p>
-<p>连接随身 WiFi 终端<br>image-20231211004205761</p>
+<p>连接随身 WiFi 终端</p>
 <p>驱动安装成功后，电脑上会多出一个名叫 4G_UFI_123456 的 NDIS 设备，同时会出现一个同名的热点，密码为 12345678。</p>
 <p>Debian 默认用户名为 user，密码为 1，root 密码也为 1。请务必及时修改密码（命令：passwd）。</p>
 <p>此时可以通过 adb 或 ssh 连接到 Debian 终端。</p>
@@ -361,7 +392,7 @@
 <p>root@openstick:&#x2F;# nmtui<br>TERM environment variable needs set.<br>设置 TERM 环境变量即可解决。</p>
 <p>export TERM&#x3D;linux</p>
 <p>通过 ssh 连接<br>将随身 WiFi 插入电脑 USB 接口或连接上随身 WiFi 的热点，使用以下指令进行连接：</p>
-<p>ssh <a href="mailto:&#x72;&#111;&#111;&#x74;&#64;&#49;&#57;&#x32;&#46;&#x31;&#x36;&#x38;&#46;&#54;&#x38;&#46;&#x31;">&#x72;&#111;&#111;&#x74;&#64;&#49;&#57;&#x32;&#46;&#x31;&#x36;&#x38;&#46;&#54;&#x38;&#46;&#x31;</a><br>如果连不上说明系统还在启动，请稍后再试。</p>
+<p>ssh <a href="mailto:&#114;&#x6f;&#x6f;&#x74;&#x40;&#x31;&#x39;&#50;&#46;&#x31;&#x36;&#x38;&#46;&#54;&#x38;&#x2e;&#49;">&#114;&#x6f;&#x6f;&#x74;&#x40;&#x31;&#x39;&#50;&#46;&#x31;&#x36;&#x38;&#46;&#54;&#x38;&#x2e;&#49;</a><br>如果连不上说明系统还在启动，请稍后再试。</p>
 <p>随身 WiFi 联网<br>此时随身 WiFi 并没有联网，必须要关闭热点才能连接 WiFi。下面介绍详细步骤。</p>
 <p>首先打开命令提示符，执行 adb shell 进入 Debian 终端。然后设置 TERM 环境变量：export TERM&#x3D;linux。</p>
 <p>执行 nmtui，选择“编辑连接”。</p>
@@ -380,7 +411,7 @@
 <p>apt clean</p>
 <p>关闭 LED 灯（可选）<br>随身 WiFi 开机后，LED 灯会不停地闪烁，如果不喜欢的话，执行以下命令即可关闭。<br>echo none &gt; &#x2F;sys&#x2F;class&#x2F;leds&#x2F;blue:wifi&#x2F;trigger<br>echo none &gt; &#x2F;sys&#x2F;class&#x2F;leds&#x2F;red:os&#x2F;trigger<br>执行后会立即生效。为避免重启后失效，建议设置开机自动执行。</p>
 <p>编辑 &#x2F;etc&#x2F;rc.local 文件，并将以上两行命令添加到 exit 0 之前，并保存。<br>6576cfab93361</p>
-<p>– 救砖<br>变砖后的棒子接入电脑直接进入9008模式,（如果没有可以尝试拆机按住reset键不动，再接入电脑）:</p>
+<h2 id="救砖"><a href="#救砖" class="headerlink" title="救砖"></a>救砖</h2><p>变砖后的棒子接入电脑直接进入9008模式,（如果没有可以尝试拆机按住reset键不动，再接入电脑）:</p>
 <p>打开miko，如下选择就可以全量刷了，我当时用这个连分区表都恢复了：<br>1435469-20231021221718815-1848663133</p>
 
             
@@ -396,12 +427,12 @@
         
         <span class="tag">
             
-            <a href="/tags/%E5%88%B7%E6%9C%BA/" style="color: #ffa2c4">刷机</a>
+            <a href="/tags/%E5%88%B7%E6%9C%BA/" style="color: #ff7d73">刷机</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/%E6%95%91%E7%A0%96/" style="color: #03a9f4">救砖</a>
+            <a href="/tags/%E6%95%91%E7%A0%96/" style="color: #ffa2c4">救砖</a>
         </span>
         
     </div>

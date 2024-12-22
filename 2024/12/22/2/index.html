@@ -147,14 +147,14 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E5%BC%BA%E8%A7%A3/" style="color: #ff7d73">
+                <a href="/tags/%E5%BC%BA%E8%A7%A3/" style="color: #00a596">
                     强解
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/Root/" style="color: #00a596">
+                <a href="/tags/Root/" style="color: #00bcd4">
                     Root
                 </a>
             </span>
@@ -165,28 +165,33 @@
     
     <div class="content" v-pre>
         <ul>
-<li>我手上的手机是oppo reno5 pro，警告提前备份数据，一但变砖，本人概不负责<br>– 一.准备工作：<br>1.安装python环境（Download Python | Python.org）记得勾选Add Python X.X to PATH</li>
+<li>我手上的手机是oppo reno5 pro，警告提前备份数据，一但变砖，本人概不负责</li>
 </ul>
+<h2 id="一-准备工作："><a href="#一-准备工作：" class="headerlink" title="一.准备工作："></a>一.准备工作：</h2><p>1.安装python环境（Download Python | Python.org）记得勾选Add Python X.X to PATH</p>
 <p>2.必要驱动</p>
 <p>3.安装强解工具mtkclient</p>
 <p>4.手机一定要降级到c11，因为c12及以后封了强解端口，不过好像可以拆机开端口，不过本人没有测试</p>
-<p>– 二.mtkclient配置：<br>1.进入解压后的mtkclient文件夹</p>
+<h2 id="二-mtkclient配置："><a href="#二-mtkclient配置：" class="headerlink" title="二.mtkclient配置："></a>二.mtkclient配置：</h2><p>1.进入解压后的mtkclient文件夹</p>
 <p>2.在此文件夹打开powershell</p>
 <p>3.换清华或其他源（不一定，但会更快一些）：</p>
 <p>pip config set global.index-url <a target="_blank" rel="noopener" href="https://pypi.tuna.tsinghua.edu.cn/simple">https://pypi.tuna.tsinghua.edu.cn/simple</a></p>
 <p>4.安装mtkclient需要的第三方库：</p>
 <p>pip install -r requirements.txt</p>
-<p>– 三.解锁bl锁：<br>—解锁安卓10以下设备的bl锁：<br>1.先将设备关机</p>
+<h2 id="三-解锁bl锁："><a href="#三-解锁bl锁：" class="headerlink" title="三.解锁bl锁："></a>三.解锁bl锁：</h2><h3 id="解锁安卓10以下设备的bl锁："><a href="#解锁安卓10以下设备的bl锁：" class="headerlink" title="解锁安卓10以下设备的bl锁："></a>解锁安卓10以下设备的bl锁：</h3><p>1.先将设备关机</p>
 <p>2.在powershell里输入：</p>
 <p>python mtk da seccfg unlock</p>
 <p>3按住电源键+音量上下键，进入深刷模式，第一次会自动安装驱动，等待进度条完毕</p>
 <p>4.如果重启出现：</p>
-<p>Your device has been unlocked and can’t be trusted.</p>
-<p>Your device will boot in 5 seconds.</p>
+<ul>
+<li><p>Your device has been unlocked and can’t be trusted.</p>
+</li>
+<li><p>Your device will boot in 5 seconds.</p>
+</li>
+</ul>
 <p>就解锁完毕</p>
 <p>4.此时可能无法启动手机，一直让它开机进入rec模式（大约半个小时），如果不行手动进入rec模式</p>
 <p>5.直接清除数据分区，然后重启</p>
-<p>— 解锁安卓11以上设备bl锁：<br>1.备份lk（因为安卓11之后有dm校验，又把它藏在了lk分区里）：</p>
+<h3 id="解锁安卓11以上设备bl锁："><a href="#解锁安卓11以上设备bl锁：" class="headerlink" title="解锁安卓11以上设备bl锁："></a>解锁安卓11以上设备bl锁：</h3><p>1.备份lk（因为安卓11之后有dm校验，又把它藏在了lk分区里）：</p>
 <p>python mtk r lk,lk2 lk.bin,lk2.bin（网上看自己有几个lk分区，不要找着抄）</p>
 <p>备份后自己重名后缀，例如我有两个lk分区：lk.base,lk2.base</p>
 <p>2.下载我提供的lk文件</p>
@@ -203,7 +208,7 @@
 <p>就成功了，不过之后重启可能像我的手机一样要再按一次电源键</p>
 <p>7.此时可能无法启动手机，一直让它开机进入rec模式（大约半个小时，如果不行手动进入rec模式</p>
 <p>8.清除数据分区，然后重启</p>
-<p>– 四.Root手机：<br>1.重新进入深刷模式，输入</p>
+<h2 id="四-Root手机："><a href="#四-Root手机：" class="headerlink" title="四.Root手机："></a>四.Root手机：</h2><p>1.重新进入深刷模式，输入</p>
 <p>python mtk r boot boot.img</p>
 <p>提取boot分区，因为boot分区不对可能会掉wifi</p>
 <p>2.安装面具</p>
@@ -211,9 +216,9 @@
 <p>4.重新进入深刷模式，输入</p>
 <p>python mtk w boot 你修补的镜像</p>
 <p>5.不出意外应当后成功root了(如果升级c12，可以用官方升级工具，之后找到升级包，获得boot，修补之后fastbootd刷入)</p>
-<p>– 五.去除dm检验<br>1.安装模块 wwi.lanzoup.com&#x2F;i1KEp0toq8kd<br>不是全系统通用</p>
+<h2 id="五-去除dm检验"><a href="#五-去除dm检验" class="headerlink" title="五.去除dm检验"></a>五.去除dm检验</h2><p>1.<a href="wwi.lanzoup.com/i1KEp0toq8kd">安装模块</a><br>不是全系统通用</p>
 <p>2.通用法<br>用软件提取vbmeta.img<br>进入fastbootd 之后fastboot –disable-verity –disable-verification flash vbmeta vbmeta.img</p>
-<p>– 六.资源<br>123盘:<a href="http://www.123865">www.123865</a>. com&#x2F;s&#x2F;rRU4Td-WiEMd<br>提取码:1213</p>
+<p>– 六.资源<br>[123盘](<a href="http://www.123865">www.123865</a>. com&#x2F;s&#x2F;rRU4Td-WiEMd提取码:1213)</p>
 
     </div>
     

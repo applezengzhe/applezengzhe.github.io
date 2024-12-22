@@ -147,14 +147,14 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E5%88%B7%E6%9C%BA/" style="color: #00a596">
+                <a href="/tags/%E5%88%B7%E6%9C%BA/" style="color: #03a9f4">
                     刷机
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/%E6%95%91%E7%A0%96/" style="color: #00bcd4">
+                <a href="/tags/%E6%95%91%E7%A0%96/" style="color: #ff7d73">
                     救砖
                 </a>
             </span>
@@ -164,41 +164,43 @@
     </div>
     
     <div class="content" v-pre>
-        <ul>
-<li>驱动与Debian<br>所需文件<br>高通 9008 驱动<br>ADB 工具<br>Miko 备份工具<br>Debian 刷机包<br>备份的全量包<br>如果不确定下载哪个，请先查看板子型号再下载刷机包。</li>
+        <h2 id="驱动与Debian"><a href="#驱动与Debian" class="headerlink" title="驱动与Debian"></a>驱动与Debian</h2><p>所需文件</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.123pan.com/s/7368Vv-3TyQh.html">高通 9008 驱动</a></li>
+<li><a target="_blank" rel="noopener" href="https://googledownloads.cn/android/repository/platform-tools-latest-windows.zip">ADB 工具</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.123pan.com/s/7368Vv-hTyQh.html">Miko 备份工具</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.123pan.com/s/XwVDVv-WICn3">Debian 刷机包</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.123pan.com/s/NCtmjv-zRLav.html%E6%8F%90%E5%8F%96%E7%A0%81:1188">备份的全量包</a><br>如果不确定下载哪个，请先查看板子型号再下载刷机包。</li>
 </ul>
 <p>查看板子型号<br>用螺丝刀将随身 WiFi 的外壳拆开，查看板子上方的丝印，型号一般以 UFI、UZ 或 SP 开头。如红框中所示，此型号是 UFI003。</p>
 <p>安装 9008 驱动<br>执行 driver.exe，并点击立即安装。在弹出如下窗口中，点击“安装”。</p>
 <p>安装 ADB 工具<br>解压 platform-tools_r34.0.5-windows.zip</p>
 <p>打开命令提示符，执行 adb version。如果出现<br>Android Debug Bridge version 1.0.41<br>Version 34.0.5-10900879<br>即为正确</p>
 <p>安装 Miko 备份工具<br>解压 MiKo_Loder Pro.zip，运行 miko.exe 安装备份工具。安装完成后，桌面上会出现 Miko 备份工具的快捷方式。在图标上右键，打开文件所在位置，将解压得到的 Loader.exe 复制到 Miko 安装目录即可。</p>
+<h2 id="开启-ADB"><a href="#开启-ADB" class="headerlink" title="开启 ADB"></a>开启 ADB</h2><p>将随身 WiFi 插入电脑 USB 接口。打开设备管理器，如果此时多了一个名叫 Android Composite ADB Interface 的设备，则表明随身 WiFi 已经开启 ADB，无需执行其他操作。<br>如果没有出现这个设备，则需要手动开启 ADB。以 UZ801 型号为例，连上随身 WiFi 的热点，并访问 <a target="_blank" rel="noopener" href="http://192.168.100.1/usbdebug.html">http://192.168.100.1/usbdebug.html</a> 即可开启 ADB，再次访问即可关闭。</p>
 <ul>
-<li>开启 ADB<br>将随身 WiFi 插入电脑 USB 接口。打开设备管理器，如果此时多了一个名叫 Android Composite ADB Interface 的设备，则表明随身 WiFi 已经开启 ADB，无需执行其他操作。<br>如果没有出现这个设备，则需要手动开启 ADB。以 UZ801 型号为例，连上随身 WiFi 的热点，并访问 <a target="_blank" rel="noopener" href="http://192.168.100.1/usbdebug.html">http://192.168.100.1/usbdebug.html</a> 即可开启 ADB，再次访问即可关闭。</li>
+<li><p>提示<br>部分 UFI003 型号的随身 WiFi 默认不开 ADB，需要手动进 9008 模式刷入已开启 ADB 的安卓固件。</p>
+<p><a target="_blank" rel="noopener" href="https://www.123pan.com/s/NUK8Vv-nRdl%E6%8F%90%E5%8F%96%E7%A0%81%EF%BC%9A1LEW">固件下载</a></p>
+</li>
 </ul>
-<p>提示<br>部分 UFI003 型号的随身 WiFi 默认不开 ADB，需要手动进 9008 模式刷入已开启 ADB 的安卓固件。</p>
-<p>固件下载地址：<a target="_blank" rel="noopener" href="https://www.123pan.com/s/NUK8Vv-nRdl">https://www.123pan.com/s/NUK8Vv-nRdl</a> 提取码：1LEW</p>
 <p>手动进 9008 模式的方法：按住 reset 键不放（随身 WiFi 背面二维码右上角的小孔，用取卡针或牙签戳即可），并将随身 WiFi 插入电脑，松开 reset 键。</p>
 <p>备份原厂固件<br>为避免刷错固件变砖等情况，强烈建议备份原厂固件。</p>
 <p>打开命令提示符，执行 adb reboot edl，此时设备管理器中会多出高通 9008 设备。</p>
-<p>6576ce79b5a9c<br>我们运行上文所提到的 Loader.exe（即 Miko 工具）进行备份数据。</p>
+<p>我们运行上文所提到的 Loader.exe（即 Miko 工具）进行备份数据。</p>
 <p>此时窗口右侧显示设备信息，表明随身 WiFi 已被成功识别。如果显示 Not Found 字样，请重新安装 9008 驱动并再次尝试。</p>
 <p>依次点击 Read –&gt;Partition Backup&#x2F;Erase–&gt;Load Partition Structure。然后双击红色 Option 下面的灰条，选择备份目录，并点击 Read Full Image。再次选择备份目录，并取一个文件名，点击确定，即可开始备份。</p>
 <p>等待几分钟，直到进度条达到 100%，右侧输出 Sucess 字样和用时，则表明备份完成 。</p>
-<p>6576ce8b43166</p>
 <p>如果需要恢复备份，依次点击 Flash –&gt;emmc block0 flasher。然后双击 Emmc Data，选择之前备份的文件（.bin 格式），并点击下方 Flash 按钮，等待刷机完成即可。</p>
-<p>668b9b21e9950</p>
 <p>刷入 Debian<br>拔掉随身 WiFi 并重新插入 USB 接口，解压 Debian 刷机包。打开命令提示符，执行 adb reboot bootloader 进入 fastboot 模式。运行刷机包中的 flash.bat刷入系统，等待刷机完成。</p>
 <p>输出 all done! 则表明刷机完成。</p>
 <p>安装 RNDIS 网络驱动</p>
-<p>提示<br>如果设备管理器只显示 Android Device，右键更新驱动程序，依次选择 Microsoft - USB 移动宽带网络适配器，然后重新插入随身 WiFi，会出现一个未知设备，再根据下述步骤进行操作。</p>
-<p>重新插入随身 WiFI，打开任务管理器，在其他设备中会出现一个未知设备或以 RNDIS 开头的设备。</p>
-<p>6576ceae713b7</p>
+<ul>
+<li>提示<br>如果设备管理器只显示 Android Device，右键更新驱动程序，依次选择 Microsoft - USB 移动宽带网络适配器，然后重新插入随身 WiFi，会出现一个未知设备，再根据下述步骤进行操作。<br>重新插入随身 WiFI，打开任务管理器，在其他设备中会出现一个未知设备或以 RNDIS 开头的设备。</li>
+</ul>
 <p>右键，更新驱动程序–&gt;浏览我的电脑以查找驱动程序–&gt;让我从计算机上的可用驱动程序列表中选取–&gt;显示所有设备，等待列表加载完成。</p>
-<p>6576ced636acb</p>
 <p>左侧选择 Microsoft，右侧选择 基于远程 NDIS 的 Internet 共享设备，在弹出窗口中选择是，并确定。</p>
-<p>6576cee2bd3a7</p>
 <p>至此，RNDIS 驱动安装成功。</p>
-<p>连接随身 WiFi 终端<br>image-20231211004205761</p>
+<p>连接随身 WiFi 终端</p>
 <p>驱动安装成功后，电脑上会多出一个名叫 4G_UFI_123456 的 NDIS 设备，同时会出现一个同名的热点，密码为 12345678。</p>
 <p>Debian 默认用户名为 user，密码为 1，root 密码也为 1。请务必及时修改密码（命令：passwd）。</p>
 <p>此时可以通过 adb 或 ssh 连接到 Debian 终端。</p>
@@ -208,7 +210,7 @@
 <p>root@openstick:&#x2F;# nmtui<br>TERM environment variable needs set.<br>设置 TERM 环境变量即可解决。</p>
 <p>export TERM&#x3D;linux</p>
 <p>通过 ssh 连接<br>将随身 WiFi 插入电脑 USB 接口或连接上随身 WiFi 的热点，使用以下指令进行连接：</p>
-<p>ssh <a href="mailto:&#x72;&#111;&#111;&#x74;&#64;&#49;&#57;&#x32;&#46;&#x31;&#x36;&#x38;&#46;&#54;&#x38;&#46;&#x31;">&#x72;&#111;&#111;&#x74;&#64;&#49;&#57;&#x32;&#46;&#x31;&#x36;&#x38;&#46;&#54;&#x38;&#46;&#x31;</a><br>如果连不上说明系统还在启动，请稍后再试。</p>
+<p>ssh <a href="mailto:&#114;&#x6f;&#x6f;&#x74;&#x40;&#x31;&#x39;&#50;&#46;&#x31;&#x36;&#x38;&#46;&#54;&#x38;&#x2e;&#49;">&#114;&#x6f;&#x6f;&#x74;&#x40;&#x31;&#x39;&#50;&#46;&#x31;&#x36;&#x38;&#46;&#54;&#x38;&#x2e;&#49;</a><br>如果连不上说明系统还在启动，请稍后再试。</p>
 <p>随身 WiFi 联网<br>此时随身 WiFi 并没有联网，必须要关闭热点才能连接 WiFi。下面介绍详细步骤。</p>
 <p>首先打开命令提示符，执行 adb shell 进入 Debian 终端。然后设置 TERM 环境变量：export TERM&#x3D;linux。</p>
 <p>执行 nmtui，选择“编辑连接”。</p>
@@ -227,7 +229,7 @@
 <p>apt clean</p>
 <p>关闭 LED 灯（可选）<br>随身 WiFi 开机后，LED 灯会不停地闪烁，如果不喜欢的话，执行以下命令即可关闭。<br>echo none &gt; &#x2F;sys&#x2F;class&#x2F;leds&#x2F;blue:wifi&#x2F;trigger<br>echo none &gt; &#x2F;sys&#x2F;class&#x2F;leds&#x2F;red:os&#x2F;trigger<br>执行后会立即生效。为避免重启后失效，建议设置开机自动执行。</p>
 <p>编辑 &#x2F;etc&#x2F;rc.local 文件，并将以上两行命令添加到 exit 0 之前，并保存。<br>6576cfab93361</p>
-<p>– 救砖<br>变砖后的棒子接入电脑直接进入9008模式,（如果没有可以尝试拆机按住reset键不动，再接入电脑）:</p>
+<h2 id="救砖"><a href="#救砖" class="headerlink" title="救砖"></a>救砖</h2><p>变砖后的棒子接入电脑直接进入9008模式,（如果没有可以尝试拆机按住reset键不动，再接入电脑）:</p>
 <p>打开miko，如下选择就可以全量刷了，我当时用这个连分区表都恢复了：<br>1435469-20231021221718815-1848663133</p>
 
     </div>
