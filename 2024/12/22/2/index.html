@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>Tags: 救砖 | 吉祥清风的小窝</title>
+    <title>OPPO/真我手机 MTK强解BL锁 | 吉祥清风的小窝</title>
     <meta name="author" content="Applezengzhe" />
     <meta name="description" content="一个技术和生活分享网站" />
     <meta name="keywords" content="" />
@@ -37,6 +37,10 @@
 
 
 <script src="/js/lib/preview.js"></script>
+
+
+
+
 
 
 
@@ -122,72 +126,80 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="archives">
-    
-    <div class="categories-tags">
-        
-        
-        
-        <span>
-            <a href="/tags/%E5%88%B7%E6%9C%BA/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                刷机
-            </a>
+            <div class="article">
+    <div>
+        <h1>OPPO/真我手机 MTK强解BL锁</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/12/22
         </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E6%95%91%E7%A0%96/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                救砖
-            </a>
-        </span>
-        
-        
         
         
     </div>
     
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2024/12/22</div>
-            <a href="/2024/12/22/1/">
-                <h3>骁龙410随身WiFi刷入Debian 系统和救砖教程</h3>
-            </a>
-            <div class="info">
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/%E5%88%B7%E6%9C%BA/" style="color: #ff7d73">
-                            刷机
-                        </a>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/%E6%95%91%E7%A0%96/" style="color: #ffa2c4">
-                            救砖
-                        </a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
+    <div class="content" v-pre>
+        <ul>
+<li>我手上的手机是oppo reno5 pro，警告提前备份数据，一但变砖，本人概不负责<br>– 一.准备工作：<br>1.安装python环境（Download Python | Python.org）记得勾选Add Python X.X to PATH</li>
+</ul>
+<p>2.必要驱动</p>
+<p>3.安装强解工具mtkclient</p>
+<p>4.手机一定要降级到c11，因为c12及以后封了强解端口，不过好像可以拆机开端口，不过本人没有测试</p>
+<p>– 二.mtkclient配置：<br>1.进入解压后的mtkclient文件夹</p>
+<p>2.在此文件夹打开powershell</p>
+<p>3.换清华或其他源（不一定，但会更快一些）：</p>
+<p>pip config set global.index-url <a target="_blank" rel="noopener" href="https://pypi.tuna.tsinghua.edu.cn/simple">https://pypi.tuna.tsinghua.edu.cn/simple</a></p>
+<p>4.安装mtkclient需要的第三方库：</p>
+<p>pip install -r requirements.txt</p>
+<p>– 三.解锁bl锁：<br>—解锁安卓10以下设备的bl锁：<br>1.先将设备关机</p>
+<p>2.在powershell里输入：</p>
+<p>python mtk da seccfg unlock</p>
+<p>3按住电源键+音量上下键，进入深刷模式，第一次会自动安装驱动，等待进度条完毕</p>
+<p>4.如果重启出现：</p>
+<p>Your device has been unlocked and can’t be trusted.</p>
+<p>Your device will boot in 5 seconds.</p>
+<p>就解锁完毕</p>
+<p>4.此时可能无法启动手机，一直让它开机进入rec模式（大约半个小时），如果不行手动进入rec模式</p>
+<p>5.直接清除数据分区，然后重启</p>
+<p>— 解锁安卓11以上设备bl锁：<br>1.备份lk（因为安卓11之后有dm校验，又把它藏在了lk分区里）：</p>
+<p>python mtk r lk,lk2 lk.bin,lk2.bin（网上看自己有几个lk分区，不要找着抄）</p>
+<p>备份后自己重名后缀，例如我有两个lk分区：lk.base,lk2.base</p>
+<p>2.下载我提供的lk文件</p>
+<p>3.刷入我提供的lk文件</p>
+<p>python mtk w lk,lk2 lk.bin,lk.bin</p>
+<p>4.强解bl锁：</p>
+<p>python mtk da seccfg unlock</p>
+<p>5.此时你可能像我手机变成一块黑砖，不用慌，输入</p>
+<p>python mtk w lk,lk2 lk.base,lk2.base</p>
+<p>刷如原厂lk文件，重新按住电源键+音量上+音量下，等到重新进入深刷模式</p>
+<p>6.按一下电源键 如果看到了</p>
+<p>Your device has been unlocked and can’t be trusted.</p>
+<p>Your device will boot in 5 seconds.</p>
+<p>就成功了，不过之后重启可能像我的手机一样要再按一次电源键</p>
+<p>7.此时可能无法启动手机，一直让它开机进入rec模式（大约半个小时，如果不行手动进入rec模式</p>
+<p>8.清除数据分区，然后重启</p>
+<p>– 四.Root手机：<br>1.重新进入深刷模式，输入</p>
+<p>python mtk r boot boot.img</p>
+<p>提取boot分区，因为boot分区不对可能会掉wifi</p>
+<p>2.安装面具</p>
+<p>3.修补boot镜像，不要开修补vbmeta</p>
+<p>4.重新进入深刷模式，输入</p>
+<p>python mtk w boot 你修补的镜像</p>
+<p>5.不出意外应当后成功root了(如果升级c12，可以用官方升级工具，之后找到升级包，获得boot，修补之后fastbootd刷入)</p>
+<p>– 五.去除dm检验<br>1.安装模块 wwi.lanzoup.com&#x2F;i1KEp0toq8kd<br>不是全系统通用</p>
+<p>2.通用法<br>用软件提取vbmeta.img<br>进入fastbootd 之后fastboot –disable-verity –disable-verification flash vbmeta vbmeta.img</p>
+<p>– 六.资源<br>123盘:<a href="http://www.123865">www.123865</a>. com&#x2F;s&#x2F;rRU4Td-WiEMd<br>提取码:1213</p>
+
     </div>
+    
+    
+    
+    
+    
+    
     
 </div>
 
@@ -219,6 +231,12 @@
         
     </div>
     <script src="/js/main.js"></script>
+    
+    
+
+
+
+
     
 </body>
 </html>
