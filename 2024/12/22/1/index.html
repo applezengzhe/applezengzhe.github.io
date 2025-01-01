@@ -1,0 +1,240 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>骁龙410随身WiFi刷入Debian 系统和救砖教程 | 吉祥清风 の小窝</title><meta name="author" content="Applezengzhe"><meta name="copyright" content="Applezengzhe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一.驱动与Debian所需文件  高通 9008 驱动 ADB 工具 Miko 备份工具 Debian 刷机包 备份的全量包如果不确定下载哪个，请先查看板子型号再下载刷机包。  1.查看板子型号用螺丝刀将随身 WiFi 的外壳拆开，查看板子上方的丝印，型号一般以 UFI、UZ 或 SP 开头。如红框中所示，此型号是 UFI003。 2.安装 9008 驱动执行 driver.exe，并点击立即安装">
+<meta property="og:type" content="article">
+<meta property="og:title" content="骁龙410随身WiFi刷入Debian 系统和救砖教程">
+<meta property="og:url" content="http://example.com/2024/12/22/1/index.html">
+<meta property="og:site_name" content="吉祥清风 の小窝">
+<meta property="og:description" content="一.驱动与Debian所需文件  高通 9008 驱动 ADB 工具 Miko 备份工具 Debian 刷机包 备份的全量包如果不确定下载哪个，请先查看板子型号再下载刷机包。  1.查看板子型号用螺丝刀将随身 WiFi 的外壳拆开，查看板子上方的丝印，型号一般以 UFI、UZ 或 SP 开头。如红框中所示，此型号是 UFI003。 2.安装 9008 驱动执行 driver.exe，并点击立即安装">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/images.jpg">
+<meta property="article:published_time" content="2024-12-22T03:14:00.000Z">
+<meta property="article:modified_time" content="2024-12-31T15:15:52.905Z">
+<meta property="article:author" content="Applezengzhe">
+<meta property="article:tag" content="刷机">
+<meta property="article:tag" content="救砖">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/images.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2024/12/22/1/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '骁龙410随身WiFi刷入Debian 系统和救砖教程',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/background.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/images.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/background.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/images.jpg" alt="Logo"><span class="site-name">吉祥清风 の小窝</span></a><a class="nav-page-title" href="/"><span class="site-name">骁龙410随身WiFi刷入Debian 系统和救砖教程</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">骁龙410随身WiFi刷入Debian 系统和救砖教程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-12-22T03:14:00.000Z" title="发表于 2024-12-22 11:14:00">2024-12-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-12-31T15:15:52.905Z" title="更新于 2024-12-31 23:15:52">2024-12-31</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="一-驱动与Debian"><a href="#一-驱动与Debian" class="headerlink" title="一.驱动与Debian"></a>一.驱动与Debian</h2><p>所需文件</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.123pan.com/s/7368Vv-3TyQh.html">高通 9008 驱动</a></li>
+<li><a target="_blank" rel="noopener" href="https://googledownloads.cn/android/repository/platform-tools-latest-windows.zip">ADB 工具</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.123pan.com/s/7368Vv-hTyQh.html">Miko 备份工具</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.123pan.com/s/XwVDVv-WICn3">Debian 刷机包</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.123pan.com/s/NCtmjv-zRLav.html%E6%8F%90%E5%8F%96%E7%A0%81:1188">备份的全量包</a><br>如果不确定下载哪个，请先查看板子型号再下载刷机包。</li>
+</ul>
+<p>1.查看板子型号<br>用螺丝刀将随身 WiFi 的外壳拆开，查看板子上方的丝印，型号一般以 UFI、UZ 或 SP 开头。如红框中所示，此型号是 UFI003。</p>
+<p>2.安装 9008 驱动<br>执行 driver.exe，并点击立即安装。在弹出如下窗口中，点击“安装”。</p>
+<p>3.安装 ADB 工具<br>解压 platform-tools_r34.0.5-windows.zip</p>
+<p>4.打开命令提示符，执行 adb version。如果出现</p>
+<ul>
+<li>Android Debug Bridge version 1.0.41</li>
+<li>Version 34.0.5-10900879<br>即为正确</li>
+</ul>
+<p>5.安装 Miko 备份工具<br>解压 MiKo_Loder Pro.zip，运行 miko.exe 安装备份工具。安装完成后，桌面上会出现 Miko 备份工具的快捷方式。在图标上右键，打开文件所在位置，将解压得到的 Loader.exe 复制到 Miko 安装目录即可。</p>
+<h2 id="二-开启-ADB"><a href="#二-开启-ADB" class="headerlink" title="二.开启 ADB"></a>二.开启 ADB</h2><p>1.将随身 WiFi 插入电脑 USB 接口。打开设备管理器，如果此时多了一个名叫 Android Composite ADB Interface 的设备，则表明随身 WiFi 已经开启 ADB，无需执行其他操作。<br>如果没有出现这个设备，则需要手动开启 ADB。以 UZ801 型号为例，连上随身 WiFi 的热点，并访问 <a target="_blank" rel="noopener" href="http://192.168.100.1/usbdebug.html">http://192.168.100.1/usbdebug.html</a> 即可开启 ADB，再次访问即可关闭。</p>
+<ul>
+<li>提示</li>
+<li>部分 UFI003 型号的随身 WiFi 默认不开 ADB，需要手动进 9008 模式刷入已开启 ADB 的安卓固件。</li>
+<li><a target="_blank" rel="noopener" href="https://www.123pan.com/s/NUK8Vv-nRdl%E6%8F%90%E5%8F%96%E7%A0%81%EF%BC%9A1LEW">固件下载</a></li>
+</ul>
+<p>2.手动进 9008 模式的方法：按住 reset 键不放（随身 WiFi 背面二维码右上角的小孔，用取卡针或牙签戳即可），并将随身 WiFi 插入电脑，松开 reset 键。</p>
+<p>3.备份原厂固件<br>为避免刷错固件变砖等情况，强烈建议备份原厂固件。</p>
+<p>4.打开命令提示符，执行 </p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb reboot edl</span><br></pre></td></tr></table></figure>
+<p>，此时设备管理器中会多出高通 9008 设备。</p>
+<p>5.我们运行上文所提到的 Loader.exe（即 Miko 工具）进行备份数据。</p>
+<p>6.此时窗口右侧显示设备信息，表明随身 WiFi 已被成功识别。如果显示 Not Found 字样，请重新安装 9008 驱动并再次尝试。</p>
+<p>7.依次点击 Read –&gt;Partition Backup&#x2F;Erase–&gt;Load Partition Structure。然后双击红色 Option 下面的灰条，选择备份目录，并点击 Read Full Image。再次选择备份目录，并取一个文件名，点击确定，即可开始备份。</p>
+<p>8.等待几分钟，直到进度条达到 100%，右侧输出 Sucess 字样和用时，则表明备份完成 。</p>
+<p>9.如果需要恢复备份，依次点击 Flash –&gt;emmc block0 flasher。然后双击 Emmc Data，选择之前备份的文件（.bin 格式），并点击下方 Flash 按钮，等待刷机完成即可。</p>
+<h2 id="三-刷入-Debian"><a href="#三-刷入-Debian" class="headerlink" title="三.刷入 Debian"></a>三.刷入 Debian</h2><p>1.拔掉随身 WiFi 并重新插入 USB 接口，解压 Debian 刷机包。打开命令提示符，执行 adb reboot bootloader 进入 fastboot 模式。运行刷机包中的 flash.bat刷入系统，等待刷机完成。<br>输出 all done! 则表明刷机完成。</p>
+<p>2.安装 RNDIS 网络驱动</p>
+<ul>
+<li>提示</li>
+<li>如果设备管理器只显示 Android Device，右键更新驱动程序，依次选择 Microsoft - USB 移动宽带网络适配器，然后重新插入随身 WiFi，会出现一个未知设备，再根据下述步骤进行操作。</li>
+<li>重新插入随身 WiFI，打开任务管理器，在其他设备中会出现一个未知设备或以 RNDIS 开头的设备。</li>
+</ul>
+<p>3.右键，更新驱动程序–&gt;浏览我的电脑以查找驱动程序–&gt;让我从计算机上的可用驱动程序列表中选取–&gt;显示所有设备，等待列表加载完成。</p>
+<p>4.左侧选择 Microsoft，右侧选择 基于远程 NDIS 的 Internet 共享设备，在弹出窗口中选择是，并确定。<br>至此，RNDIS 驱动安装成功。</p>
+<h2 id="四-连接随身-WiFi-终端"><a href="#四-连接随身-WiFi-终端" class="headerlink" title="四.连接随身 WiFi 终端"></a>四.连接随身 WiFi 终端</h2><p>1.驱动安装成功后，电脑上会多出一个名叫 4G_UFI_123456 的 NDIS 设备，同时会出现一个同名的热点，密码为 12345678。</p>
+<p>2.Debian 默认用户名为 user，密码为 1，root 密码也为 1。请务必及时修改密码（命令：passwd）。</p>
+<p>3.此时可以通过 adb 或 ssh 连接到 Debian 终端。</p>
+<p>4.通过 adb 连接<br>将随身 WiFi 插入电脑 USB 接口，使用以下命令查看已连接 adb 设备：</p>
+<ul>
+<li>adb devices</li>
+<li>List of devices attached</li>
+<li>0123456789 device</li>
+</ul>
+<p>5.有新设备出现时，使用以下指令进入 </p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell</span><br></pre></td></tr></table></figure>
+
+<p>6.通过 adb 连接时，使用 nmtui、htop 等需要显示图形的命令，可能会出现如下错误：<br>root@openstick:&#x2F;# nmtui<br>TERM environment variable needs set.<br>设置 TERM 环境变量即可解决。</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export TERM=linux</span><br></pre></td></tr></table></figure>
+
+<h2 id="五-通过-ssh-连接"><a href="#五-通过-ssh-连接" class="headerlink" title="五.通过 ssh 连接"></a>五.通过 ssh 连接</h2><p>1.将随身 WiFi 插入电脑 USB 接口或连接上随身 WiFi 的热点，使用以下指令进行连接：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh root@192.168.68.1</span><br></pre></td></tr></table></figure>
+<p>如果连不上说明系统还在启动，请稍后再试。</p>
+<h2 id="六-随身-WiFi-联网"><a href="#六-随身-WiFi-联网" class="headerlink" title="六.随身 WiFi 联网"></a>六.随身 WiFi 联网</h2><p>此时随身 WiFi 并没有联网，必须要关闭热点才能连接 WiFi。下面介绍详细步骤。</p>
+<p>1.首先打开命令提示符，执行 adb shell 进入 Debian 终端。然后设置 TERM 环境变量：export TERM&#x3D;linux。</p>
+<p>2.执行 nmtui，选择“编辑连接”。</p>
+<p>3.左侧使用方向键选择 bridge，右侧选择“编辑”。并回车。</p>
+<p>4.删除其中的 wifi，并选择确定。。</p>
+<p>5.返回，选择启用连接，则可连接 WiFi。</p>
+<h2 id="七-优化系统"><a href="#七-优化系统" class="headerlink" title="七.优化系统"></a>七.优化系统</h2><p>1.删除无效软件包仓库</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /etc/apt/sources.list.d/*</span><br></pre></td></tr></table></figure>
+
+<p>2.删除多余软件包</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt autopurge -y adoptopenjdk-8-hotspot</span><br></pre></td></tr></table></figure>
+
+<p>3.更换软件源</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOF&gt; /etc/apt/sources.list</span><br><span class="line">deb http://mirrors.ustc.edu.cn/debian/ bullseye main contrib non-free</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb-src http://mirrors.ustc.edu.cn/debian/ bullseye main contrib non-free</span></span><br><span class="line"></span><br><span class="line">deb http://mirrors.ustc.edu.cn/debian/ bullseye-updates main contrib non-free</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb-src http://mirrors.ustc.edu.cn/debian/ bullseye-updates main contrib non-free</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">deb http://mirrors.ustc.edu.cn/debian/ bullseye-backports main contrib non-free</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb-src http://mirrors.ustc.edu.cn/debian/ bullseye-backports main contrib non-free</span></span><br><span class="line"></span><br><span class="line">deb http://mirrors.ustc.edu.cn/debian-security/ bullseye-security main contrib non-free</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb-src http://mirrors.ustc.edu.cn/debian-security/ bullseye-security main contrib non-free</span></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<p>4.更新软件包</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt update &amp;&amp; apt upgrade -y</span><br></pre></td></tr></table></figure>
+
+<p>5.安装常用软件包</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install -y nano curl</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>删除软件包缓存<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt clean</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="八-关闭-LED-灯（可选）"><a href="#八-关闭-LED-灯（可选）" class="headerlink" title="八.关闭 LED 灯（可选）"></a>八.关闭 LED 灯（可选）</h2><p>1.随身 WiFi 开机后，LED 灯会不停地闪烁，如果不喜欢的话，执行以下命令即可关闭。</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo none &gt; /sys/class/leds/blue:wifi/trigger</span><br><span class="line">echo none &gt; /sys/class/leds/red:os/trigger</span><br></pre></td></tr></table></figure>
+<p>执行后会立即生效。为避免重启后失效，建议设置开机自动执行。</p>
+<p>2.编辑 &#x2F;etc&#x2F;rc.local 文件，并将以上两行命令添加到 exit 0 之前，并保存。-</p>
+<h2 id="九-救砖"><a href="#九-救砖" class="headerlink" title="九.救砖"></a>九.救砖</h2><p>1.变砖后的棒子接入电脑直接进入9008模式,（如果没有可以尝试拆机按住reset键不动，再接入电脑）:</p>
+<p>2.打开miko，分别点击Flash&gt;emmc block0 flasher&gt; Emmc Data&gt;FLASH!<br>如下选择就可以全量刷了，我当时用这个连分区表都恢复了</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Applezengzhe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/12/22/1/">http://example.com/2024/12/22/1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">吉祥清风 の小窝</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%88%B7%E6%9C%BA/">刷机</a><a class="post-meta__tags" href="/tags/%E6%95%91%E7%A0%96/">救砖</a></div><div class="post-share"><div class="social-share" data-image="/img/images.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2024/12/22/2/" title="OPPO/真我手机 MTK强解BL锁"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">OPPO/真我手机 MTK强解BL锁</div></div><div class="info-2"><div class="info-item-1"> 我手上的手机是oppo reno5 pro，警告提前备份数据，一但变砖，本人概不负责  资源与文件 123盘提取码:1213 dm模块  一.准备工作：1.安装python环境（Download Python | Python.org）记得勾选Add Python X.X to PATH 2.必要驱动 3.安装强解工具mtkclient 4.手机一定要降级到c11，因为c12及以后封了强解端口，不过好像可以拆机开端口，不过本人没有测试 二.mtkclient配置：1.进入解压后的mtkclient文件夹 2.在此文件夹打开powershell 3.换清华或其他源（不一定，但会更快一些）： 1pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple  4.安装mtkclient需要的第三方库： 1pip install -r requirements.txt  三.解锁bl锁：解锁安卓10以下设备的bl锁：1.先将设备关机 2.在powershell里输入： 1python mtk da...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/images.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Applezengzhe</div><div class="author-info-description">一个技术和生活分享网站</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/applezengzhe" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="outlook:applezengzhe@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E9%A9%B1%E5%8A%A8%E4%B8%8EDebian"><span class="toc-number">1.</span> <span class="toc-text">一.驱动与Debian</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E5%BC%80%E5%90%AF-ADB"><span class="toc-number">2.</span> <span class="toc-text">二.开启 ADB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-%E5%88%B7%E5%85%A5-Debian"><span class="toc-number">3.</span> <span class="toc-text">三.刷入 Debian</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B-%E8%BF%9E%E6%8E%A5%E9%9A%8F%E8%BA%AB-WiFi-%E7%BB%88%E7%AB%AF"><span class="toc-number">4.</span> <span class="toc-text">四.连接随身 WiFi 终端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94-%E9%80%9A%E8%BF%87-ssh-%E8%BF%9E%E6%8E%A5"><span class="toc-number">5.</span> <span class="toc-text">五.通过 ssh 连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD-%E9%9A%8F%E8%BA%AB-WiFi-%E8%81%94%E7%BD%91"><span class="toc-number">6.</span> <span class="toc-text">六.随身 WiFi 联网</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83-%E4%BC%98%E5%8C%96%E7%B3%BB%E7%BB%9F"><span class="toc-number">7.</span> <span class="toc-text">七.优化系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB-%E5%85%B3%E9%97%AD-LED-%E7%81%AF%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="toc-number">8.</span> <span class="toc-text">八.关闭 LED 灯（可选）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%9D-%E6%95%91%E7%A0%96"><span class="toc-number">9.</span> <span class="toc-text">九.救砖</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/31/4/" title="gmg光猫开Telnet,获得超级管理员密码,改桥接">gmg光猫开Telnet,获得超级管理员密码,改桥接</a><time datetime="2024-12-31T15:27:38.000Z" title="发表于 2024-12-31 23:27:38">2024-12-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/22/3/" title="安装搭建Hexo博客在Github Pager并更换主题 完整指南">安装搭建Hexo博客在Github Pager并更换主题 完整指南</a><time datetime="2024-12-22T05:55:30.000Z" title="发表于 2024-12-22 13:55:30">2024-12-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/22/2/" title="OPPO/真我手机 MTK强解BL锁">OPPO/真我手机 MTK强解BL锁</a><time datetime="2024-12-22T04:16:39.000Z" title="发表于 2024-12-22 12:16:39">2024-12-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/22/1/" title="骁龙410随身WiFi刷入Debian 系统和救砖教程">骁龙410随身WiFi刷入Debian 系统和救砖教程</a><time datetime="2024-12-22T03:14:00.000Z" title="发表于 2024-12-22 11:14:00">2024-12-22</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/background.jpg);"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Applezengzhe</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
