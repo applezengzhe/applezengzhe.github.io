@@ -1,6 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>OPPO/真我手机 MTK强解BL锁</title>
+    <url>/2024/12/22/2/</url>
+    <content><![CDATA[<ul>
+<li>我手上的手机是oppo reno5 pro，警告提前备份数据，一但变砖，本人概不负责</li>
+</ul>
+<h2 id="资源与文件"><a href="#资源与文件" class="headerlink" title="资源与文件"></a>资源与文件</h2><ul>
+<li><a href="www.123865.com/s/rRU4Td-WiEMd">123盘</a><br>提取码:1213</li>
+<li><a href="wwi.lanzoup.com/i1KEp0toq8kd">dm模块</a></li>
+</ul>
+<h2 id="准备工作："><a href="#准备工作：" class="headerlink" title="准备工作："></a>准备工作：</h2><p>1.安装python环境（Download Python | Python.org）记得勾选Add Python X.X to PATH</p>
+<p>2.必要驱动</p>
+<p>3.安装强解工具mtkclient</p>
+<p>4.手机一定要降级到c11，因为c12及以后封了强解端口，不过好像可以拆机开端口，不过本人没有测试</p>
+<h2 id="mtkclient配置："><a href="#mtkclient配置：" class="headerlink" title="mtkclient配置："></a>mtkclient配置：</h2><p>1.进入解压后的mtkclient文件夹</p>
+<p>2.在此文件夹打开powershell</p>
+<p>3.换清华或其他源（不一定，但会更快一些）：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip config <span class="built_in">set</span> global.index-url https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure>
+
+<p>4.安装mtkclient需要的第三方库：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="解锁bl锁："><a href="#解锁bl锁：" class="headerlink" title="解锁bl锁："></a>解锁bl锁：</h2><h3 id="解锁安卓10以下设备的bl锁："><a href="#解锁安卓10以下设备的bl锁：" class="headerlink" title="解锁安卓10以下设备的bl锁："></a>解锁安卓10以下设备的bl锁：</h3><p>1.先将设备关机</p>
+<p>2.在powershell里输入：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python mtk da seccfg unlock</span><br></pre></td></tr></table></figure>
+
+<p>3.按住电源键+音量上下键，进入深刷模式，第一次会自动安装驱动，等待进度条完毕</p>
+<p>4.如果重启出现：</p>
+<ul>
+<li>Your device has been unlocked and can’t be trusted.</li>
+<li>Your device will boot in 5 seconds.<br>就解锁完毕</li>
+</ul>
+<p>5.此时可能无法启动手机，一直让它开机进入rec模式（大约半个小时），如果不行手动进入rec模式</p>
+<p>6.直接清除数据分区，然后重启</p>
+<h3 id="解锁安卓11以上设备bl锁："><a href="#解锁安卓11以上设备bl锁：" class="headerlink" title="解锁安卓11以上设备bl锁："></a>解锁安卓11以上设备bl锁：</h3><p>1.备份lk（因为安卓11之后有dm校验，又把它藏在了lk分区里）：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python mtk r lk,lk2 lk.bin,lk2.bin</span><br></pre></td></tr></table></figure>
+<p>（网上看自己有几个lk分区，不要找着抄）</p>
+<p>2.备份后自己重名后缀，例如我有两个lk分区：lk.base,lk2.base</p>
+<p>3.下载我提供的lk文件</p>
+<p>4.刷入我提供的lk文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python mtk w lk,lk2 lk.bin,lk.bin</span><br></pre></td></tr></table></figure>
+
+<p>5.强解bl锁：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python mtk da seccfg unlock</span><br></pre></td></tr></table></figure>
+
+<p>6.此时你可能像我手机变成一块黑砖，不用慌，输入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python mtk w lk,lk2 lk.base,lk2.base</span><br></pre></td></tr></table></figure>
+
+<p>刷如原厂lk文件，重新按住电源键+音量上+音量下，等到重新进入深刷模式</p>
+<p>7.按一下电源键 如果看到了</p>
+<ul>
+<li>Your device has been unlocked and can’t be trusted.</li>
+<li>Your device will boot in 5 seconds.<br>就成功了，不过之后重启可能像我的手机一样要再按一次电源键</li>
+</ul>
+<p>8.此时可能无法启动手机，一直让它开机进入rec模式（大约半个小时，如果不行手动进入rec模式</p>
+<p>9.清除数据分区，然后重启</p>
+<h2 id="Root手机："><a href="#Root手机：" class="headerlink" title="Root手机："></a>Root手机：</h2><p>1.重新进入深刷模式，输入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python mtk r boot boot.img</span><br></pre></td></tr></table></figure>
+
+<p>提取boot分区，因为boot分区不对可能会掉wifi</p>
+<p>2.安装面具</p>
+<p>3.修补boot镜像，不要开修补vbmeta</p>
+<p>4.重新进入深刷模式，输入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python mtk w boot 你修补的镜像</span><br></pre></td></tr></table></figure>
+
+<p>5.不出意外应当后成功root了(如果升级c12，可以用官方升级工具，之后找到升级包，获得boot，修补之后fastbootd刷入)</p>
+<h2 id="五-去除dm检验"><a href="#五-去除dm检验" class="headerlink" title="五.去除dm检验"></a>五.去除dm检验</h2><p>1.用软件提取vbmeta.img<br>2.进入fastbootd 之后输入:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">fastboot --disable-verity --disable-verification flash vbmeta vbmeta.img</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>强解</tag>
+        <tag>Root</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>骁龙410随身WiFi刷入Debian 系统和救砖教程</title>
     <url>/2024/12/22/1/</url>
     <content><![CDATA[<h2 id="驱动与Debian"><a href="#驱动与Debian" class="headerlink" title="驱动与Debian"></a>驱动与Debian</h2><p>所需文件</p>
@@ -103,147 +181,6 @@
       </tags>
   </entry>
   <entry>
-    <title>安装搭建Hexo博客在Github Pager并更换主题 完整指南</title>
-    <url>/2024/12/22/3/</url>
-    <content><![CDATA[<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><h2 id="软件准备"><a href="#软件准备" class="headerlink" title="软件准备"></a>软件准备</h2><ul>
-<li><a href="https://github.com/">Github账号</a>（必须）</li>
-<li><a href="https://nodejs.org/en/">Node</a>(必须)</li>
-<li><a href="https://git-scm.com/downloads/">Git</a>(必须)</li>
-<li><a href="https://code.visualstudio.com/">VSCode</a>（建议,非必须）</li>
-</ul>
-<h2 id="检查"><a href="#检查" class="headerlink" title="检查"></a>检查</h2><p>1.在键盘按下win + R键，输入CMD，然后回车，打开CMD窗口，执行node -v命令，看到版本信息，则说明Node安装成功。</p>
-<p>2.Node换华为源（会快一点）：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://mirrors.huaweicloud.com/repository/npm/</span><br></pre></td></tr></table></figure>
-<h1 id="正式配置"><a href="#正式配置" class="headerlink" title="正式配置"></a>正式配置</h1><h2 id="配置-Git-密钥并连接至-Github"><a href="#配置-Git-密钥并连接至-Github" class="headerlink" title="配置 Git 密钥并连接至 Github"></a>配置 Git 密钥并连接至 Github</h2><p>1.配置用户名和邮箱</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;你的用户名&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;你的邮箱&quot;</span></span><br></pre></td></tr></table></figure>
-<p>之后通过通过git config -l 检查是否配置成功。</p>
-<p>2.配置公钥连接Github</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;你的邮箱&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>3.用记事本打开上述图片中的公钥id_rsa.pub，复制里面的内容，然后开始在github中配置ssh密钥。</p>
-<p>4.进入github，点击右上角头像 选择settings，进入设置页后选择 SSH and GPG keys，名字随便起，公钥填到Key那一栏。</p>
-<p>5.测试连接，输入以下命令（不要开stam++连接）</p>
-<ul>
-<li>ssh -T <a href="mailto:&#103;&#105;&#116;&#64;&#x67;&#x69;&#x74;&#104;&#117;&#98;&#x2e;&#x63;&#111;&#109;">&#103;&#105;&#116;&#64;&#x67;&#x69;&#x74;&#104;&#117;&#98;&#x2e;&#x63;&#111;&#109;</a><br>第一次连接会提示Are you sure you want to continue connecting (yes&#x2F;no&#x2F;[fingerprint])?，输入yes即可<br>出现连接到账户的信息，说明已经大功告成。</li>
-</ul>
-<h2 id="创建GitHub-io仓库"><a href="#创建GitHub-io仓库" class="headerlink" title="创建GitHub.io仓库"></a>创建GitHub.io仓库</h2><p>1.点击右上角的+按钮，选择New repository，创建一个&lt;用户名&gt;.github.io的仓库。</p>
-<p>2.仓库名字的格式必须为：&lt;用户名&gt;.github.io (注意：前缀必须为用户名，此为预览博客需要，后期可修改仓库名)</p>
-<p>3.可见性必须选择 Public 方便第一次部署检查问题，点击 Creat repository 进行创建即可</p>
-<h2 id="初始化-Hexo-博客"><a href="#初始化-Hexo-博客" class="headerlink" title="初始化 Hexo 博客"></a>初始化 Hexo 博客</h2><p>1.创建一个文件夹来保存博客源码（我这里选的路径为D:&#x2F;Hexo-Blog），在文件夹内右键鼠标，选择Open Git Bash here</p>
-<p>2.在Git BASH输入如下命令安装 Hexo</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli &amp;&amp; hexo -v</span><br></pre></td></tr></table></figure>
-<p>安装完后输入hexo -v验证是否安装成功。</p>
-<p>3.初始化 Hexo 项目安装相关依赖。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo init blog</span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">npm i</span><br></pre></td></tr></table></figure>
-
-<p>4.输入</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo cl &amp;&amp; hexo s</span><br></pre></td></tr></table></figure>
-<p>启动项目,打开浏览器，输入地址：<a href="http://localhost:4000/.%E5%BD%93%E7%9C%8B%E5%88%B0%E7%BD%91%E7%AB%99%EF%BC%8C%E5%B0%B1%E6%88%90%E5%8A%9F%E4%BA%86">http://localhost:4000/.当看到网站，就成功了</a></p>
-<h2 id="将静态博客挂载到-GitHub-Pages"><a href="#将静态博客挂载到-GitHub-Pages" class="headerlink" title="将静态博客挂载到 GitHub Pages"></a>将静态博客挂载到 GitHub Pages</h2><p>1.安装 hexo-deployer-git</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-
-<p>2.修改 _config.yml 文件在blog-demo目录下的_config.yml，就是整个Hexo框架的配置文件了。可以在里面修改大部分的配置。详细可参考官方的配置描述。修改最后一行的配置，将repository修改为你自己的github项目地址即可，还有分支要改为main代表主分支（注意缩进）。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repository: git@github.com:applezengzhe/applezengzhe.github.io.git</span><br><span class="line">  branch: main</span><br></pre></td></tr></table></figure>
-
-<p>3.修改好配置后，运行如下命令，将代码部署到 GitHub（Hexo三连）</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo cl&amp;&amp;hexo g&amp;&amp;hexo d</span><br></pre></td></tr></table></figure>
-<p>如果出现Deploy done，则说明部署成功了。<br>稍等两分钟，打开浏览器访问：<a href="https://applezengzhe.github.io/">https://applezengzhe.github.io</a> ，这时候我们就可以看到博客内容了。</p>
-<h2 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h2><p>1.打开<a href="Hexo%E4%B8%BB%E9%A2%98%E7%BD%91%E7%AB%99">https://hexo.io/themes/</a>找到喜欢的主题打开github根据教程clone主题，或者将主题下载到本地hexo主题文件夹中进行使用。</p>
-<p>2.以particlex为例</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> themes</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/theme-particlex/hexo-theme-particlex.git particlex --depth=1</span><br></pre></td></tr></table></figure>
-
-<p>3.然后在根目录 _config.yml 设置主题为 ParticleX 即可。</p>
-<ul>
-<li>theme: particlex</li>
-</ul>
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>建站</tag>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>OPPO/真我手机 MTK强解BL锁</title>
-    <url>/2024/12/22/2/</url>
-    <content><![CDATA[<ul>
-<li>我手上的手机是oppo reno5 pro，警告提前备份数据，一但变砖，本人概不负责</li>
-</ul>
-<h2 id="资源与文件"><a href="#资源与文件" class="headerlink" title="资源与文件"></a>资源与文件</h2><ul>
-<li><a href="www.123865.com/s/rRU4Td-WiEMd">123盘</a><br>提取码:1213</li>
-<li><a href="wwi.lanzoup.com/i1KEp0toq8kd">dm模块</a></li>
-</ul>
-<h2 id="准备工作："><a href="#准备工作：" class="headerlink" title="准备工作："></a>准备工作：</h2><p>1.安装python环境（Download Python | Python.org）记得勾选Add Python X.X to PATH</p>
-<p>2.必要驱动</p>
-<p>3.安装强解工具mtkclient</p>
-<p>4.手机一定要降级到c11，因为c12及以后封了强解端口，不过好像可以拆机开端口，不过本人没有测试</p>
-<h2 id="mtkclient配置："><a href="#mtkclient配置：" class="headerlink" title="mtkclient配置："></a>mtkclient配置：</h2><p>1.进入解压后的mtkclient文件夹</p>
-<p>2.在此文件夹打开powershell</p>
-<p>3.换清华或其他源（不一定，但会更快一些）：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip config <span class="built_in">set</span> global.index-url https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure>
-
-<p>4.安装mtkclient需要的第三方库：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
-
-<h2 id="解锁bl锁："><a href="#解锁bl锁：" class="headerlink" title="解锁bl锁："></a>解锁bl锁：</h2><h3 id="解锁安卓10以下设备的bl锁："><a href="#解锁安卓10以下设备的bl锁：" class="headerlink" title="解锁安卓10以下设备的bl锁："></a>解锁安卓10以下设备的bl锁：</h3><p>1.先将设备关机</p>
-<p>2.在powershell里输入：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python mtk da seccfg unlock</span><br></pre></td></tr></table></figure>
-
-<p>3.按住电源键+音量上下键，进入深刷模式，第一次会自动安装驱动，等待进度条完毕</p>
-<p>4.如果重启出现：</p>
-<ul>
-<li>Your device has been unlocked and can’t be trusted.</li>
-<li>Your device will boot in 5 seconds.<br>就解锁完毕</li>
-</ul>
-<p>5.此时可能无法启动手机，一直让它开机进入rec模式（大约半个小时），如果不行手动进入rec模式</p>
-<p>6.直接清除数据分区，然后重启</p>
-<h3 id="解锁安卓11以上设备bl锁："><a href="#解锁安卓11以上设备bl锁：" class="headerlink" title="解锁安卓11以上设备bl锁："></a>解锁安卓11以上设备bl锁：</h3><p>1.备份lk（因为安卓11之后有dm校验，又把它藏在了lk分区里）：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python mtk r lk,lk2 lk.bin,lk2.bin</span><br></pre></td></tr></table></figure>
-<p>（网上看自己有几个lk分区，不要找着抄）</p>
-<p>2.备份后自己重名后缀，例如我有两个lk分区：lk.base,lk2.base</p>
-<p>3.下载我提供的lk文件</p>
-<p>4.刷入我提供的lk文件</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python mtk w lk,lk2 lk.bin,lk.bin</span><br></pre></td></tr></table></figure>
-
-<p>5.强解bl锁：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python mtk da seccfg unlock</span><br></pre></td></tr></table></figure>
-
-<p>6.此时你可能像我手机变成一块黑砖，不用慌，输入</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python mtk w lk,lk2 lk.base,lk2.base</span><br></pre></td></tr></table></figure>
-
-<p>刷如原厂lk文件，重新按住电源键+音量上+音量下，等到重新进入深刷模式</p>
-<p>7.按一下电源键 如果看到了</p>
-<ul>
-<li>Your device has been unlocked and can’t be trusted.</li>
-<li>Your device will boot in 5 seconds.<br>就成功了，不过之后重启可能像我的手机一样要再按一次电源键</li>
-</ul>
-<p>8.此时可能无法启动手机，一直让它开机进入rec模式（大约半个小时，如果不行手动进入rec模式</p>
-<p>9.清除数据分区，然后重启</p>
-<h2 id="Root手机："><a href="#Root手机：" class="headerlink" title="Root手机："></a>Root手机：</h2><p>1.重新进入深刷模式，输入</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python mtk r boot boot.img</span><br></pre></td></tr></table></figure>
-
-<p>提取boot分区，因为boot分区不对可能会掉wifi</p>
-<p>2.安装面具</p>
-<p>3.修补boot镜像，不要开修补vbmeta</p>
-<p>4.重新进入深刷模式，输入</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python mtk w boot 你修补的镜像</span><br></pre></td></tr></table></figure>
-
-<p>5.不出意外应当后成功root了(如果升级c12，可以用官方升级工具，之后找到升级包，获得boot，修补之后fastbootd刷入)</p>
-<h2 id="五-去除dm检验"><a href="#五-去除dm检验" class="headerlink" title="五.去除dm检验"></a>五.去除dm检验</h2><p>1.用软件提取vbmeta.img<br>2.进入fastbootd 之后输入:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">fastboot --disable-verity --disable-verification flash vbmeta vbmeta.img</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>强解</tag>
-        <tag>Root</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>gmg光猫开Telnet,获得超级管理员密码,改桥接</title>
     <url>/2024/12/31/4/</url>
     <content><![CDATA[<h2 id="记录关键参数"><a href="#记录关键参数" class="headerlink" title="记录关键参数"></a>记录关键参数</h2><p>1.从WAN设置页，记下拨号帐号</p>
@@ -282,6 +219,69 @@
         <tag>光猫</tag>
         <tag>网络</tag>
         <tag>桥接</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>安装搭建Hexo博客在Github Pager并更换主题 完整指南</title>
+    <url>/2024/12/22/3/</url>
+    <content><![CDATA[<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><h2 id="软件准备"><a href="#软件准备" class="headerlink" title="软件准备"></a>软件准备</h2><ul>
+<li><a href="https://github.com/">Github账号</a>（必须）</li>
+<li><a href="https://nodejs.org/en/">Node</a>(必须)</li>
+<li><a href="https://git-scm.com/downloads/">Git</a>(必须)</li>
+<li><a href="https://code.visualstudio.com/">VSCode</a>（建议,非必须）</li>
+</ul>
+<h2 id="检查"><a href="#检查" class="headerlink" title="检查"></a>检查</h2><p>1.在键盘按下win + R键，输入CMD，然后回车，打开CMD窗口，执行node -v命令，看到版本信息，则说明Node安装成功。</p>
+<p>2.Node换华为源（会快一点）：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://mirrors.huaweicloud.com/repository/npm/</span><br></pre></td></tr></table></figure>
+<h1 id="正式配置"><a href="#正式配置" class="headerlink" title="正式配置"></a>正式配置</h1><h2 id="配置-Git-密钥并连接至-Github"><a href="#配置-Git-密钥并连接至-Github" class="headerlink" title="配置 Git 密钥并连接至 Github"></a>配置 Git 密钥并连接至 Github</h2><p>1.配置用户名和邮箱</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;你的用户名&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;你的邮箱&quot;</span></span><br></pre></td></tr></table></figure>
+<p>之后通过通过git config -l 检查是否配置成功。</p>
+<p>2.配置公钥连接Github</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;你的邮箱&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>3.用记事本打开上述图片中的公钥id_rsa.pub，复制里面的内容，然后开始在github中配置ssh密钥。</p>
+<p>4.进入github，点击右上角头像 选择settings，进入设置页后选择 SSH and GPG keys，名字随便起，公钥填到Key那一栏。</p>
+<p>5.测试连接，输入以下命令（不要开stam++连接）</p>
+<ul>
+<li>ssh -T <a href="mailto:&#x67;&#x69;&#116;&#x40;&#x67;&#x69;&#x74;&#104;&#117;&#98;&#x2e;&#x63;&#111;&#x6d;">&#x67;&#x69;&#116;&#x40;&#x67;&#x69;&#x74;&#104;&#117;&#98;&#x2e;&#x63;&#111;&#x6d;</a><br>第一次连接会提示Are you sure you want to continue connecting (yes&#x2F;no&#x2F;[fingerprint])?，输入yes即可<br>出现连接到账户的信息，说明已经大功告成。</li>
+</ul>
+<h2 id="创建GitHub-io仓库"><a href="#创建GitHub-io仓库" class="headerlink" title="创建GitHub.io仓库"></a>创建GitHub.io仓库</h2><p>1.点击右上角的+按钮，选择New repository，创建一个&lt;用户名&gt;.github.io的仓库。</p>
+<p>2.仓库名字的格式必须为：&lt;用户名&gt;.github.io (注意：前缀必须为用户名，此为预览博客需要，后期可修改仓库名)</p>
+<p>3.可见性必须选择 Public 方便第一次部署检查问题，点击 Creat repository 进行创建即可</p>
+<h2 id="初始化-Hexo-博客"><a href="#初始化-Hexo-博客" class="headerlink" title="初始化 Hexo 博客"></a>初始化 Hexo 博客</h2><p>1.创建一个文件夹来保存博客源码（我这里选的路径为D:&#x2F;Hexo-Blog），在文件夹内右键鼠标，选择Open Git Bash here</p>
+<p>2.在Git BASH输入如下命令安装 Hexo</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli &amp;&amp; hexo -v</span><br></pre></td></tr></table></figure>
+<p>安装完后输入hexo -v验证是否安装成功。</p>
+<p>3.初始化 Hexo 项目安装相关依赖。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo init blog</span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">npm i</span><br></pre></td></tr></table></figure>
+
+<p>4.输入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo cl &amp;&amp; hexo s</span><br></pre></td></tr></table></figure>
+<p>启动项目,打开浏览器，输入地址：<a href="http://localhost:4000/.%E5%BD%93%E7%9C%8B%E5%88%B0%E7%BD%91%E7%AB%99%EF%BC%8C%E5%B0%B1%E6%88%90%E5%8A%9F%E4%BA%86">http://localhost:4000/.当看到网站，就成功了</a></p>
+<h2 id="将静态博客挂载到-GitHub-Pages"><a href="#将静态博客挂载到-GitHub-Pages" class="headerlink" title="将静态博客挂载到 GitHub Pages"></a>将静态博客挂载到 GitHub Pages</h2><p>1.安装 hexo-deployer-git</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<p>2.修改 _config.yml 文件在blog-demo目录下的_config.yml，就是整个Hexo框架的配置文件了。可以在里面修改大部分的配置。详细可参考官方的配置描述。修改最后一行的配置，将repository修改为你自己的github项目地址即可，还有分支要改为main代表主分支（注意缩进）。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repository: git@github.com:applezengzhe/applezengzhe.github.io.git</span><br><span class="line">  branch: main</span><br></pre></td></tr></table></figure>
+
+<p>3.修改好配置后，运行如下命令，将代码部署到 GitHub（Hexo三连）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo cl&amp;&amp;hexo g&amp;&amp;hexo d</span><br></pre></td></tr></table></figure>
+<p>如果出现Deploy done，则说明部署成功了。<br>稍等两分钟，打开浏览器访问：<a href="https://applezengzhe.github.io/">https://applezengzhe.github.io</a> ，这时候我们就可以看到博客内容了。</p>
+<h2 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h2><p>1.打开<a href="Hexo%E4%B8%BB%E9%A2%98%E7%BD%91%E7%AB%99">https://hexo.io/themes/</a>找到喜欢的主题打开github根据教程clone主题，或者将主题下载到本地hexo主题文件夹中进行使用。</p>
+<p>2.以particlex为例</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> themes</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/theme-particlex/hexo-theme-particlex.git particlex --depth=1</span><br></pre></td></tr></table></figure>
+
+<p>3.然后在根目录 _config.yml 设置主题为 ParticleX 即可。</p>
+<ul>
+<li>theme: particlex</li>
+</ul>
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>建站</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
 </search>
