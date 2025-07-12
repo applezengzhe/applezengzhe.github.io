@@ -189,47 +189,6 @@
       </tags>
   </entry>
   <entry>
-    <title>gmg光猫开Telnet,获得超级管理员密码,改桥接</title>
-    <url>/2024/12/31/4/</url>
-    <content><![CDATA[<h2 id="记录关键参数"><a href="#记录关键参数" class="headerlink" title="记录关键参数"></a>记录关键参数</h2><p>1.从WAN设置页，记下拨号帐号</p>
-<p>2.如果不知道拨号密码可以问师傅或去移动官网改密码</p>
-<p>3.WAN设置里INTERNET一项对应的VID</p>
-<p>4.ONT认证密码。在登录页面右键，浏览页面源代码，搜索 LOID，把var pwd &#x3D; “——————“;记录下来</p>
-<h2 id="获取管理员密码"><a href="#获取管理员密码" class="headerlink" title="获取管理员密码"></a>获取管理员密码</h2><ul>
-<li>谨慎操作，很容易无法上网，如不能接受请退出</li>
-</ul>
-<p>1.捅光猫复位键，45～60秒。</p>
-<p>2.打开登录页面，用管理员帐号CMCCAdmin和初始密码aDm8H%MdA登录进去。</p>
-<p>3.在登陆光猫后<a href="http://192.168.1.1/getpage.gch?pid=1002&nextpage=tele_sec_tserver_t.gch">在此页面</a> 开启telnet，保存</p>
-<p>4.退出登录，到主页“注册安装”，填入ONT密码，操作业务下发</p>
-<p>5.下发完成后，现在可以正常上网了</p>
-<p>6.使用windows自带的telnet或其他telnet工具连接到光猫，登录用户CMCCAdmin，密码输入光猫反面写的user密码加上@C1，如xxxxxxxx@C1。（如果不对请尝试省份首字母，比如@BJ）<br>待出现~$符号后，输入sidbg 1 DB p DevAuthInfo，超级密码一目了然。</p>
-<h2 id="设置桥接"><a href="#设置桥接" class="headerlink" title="设置桥接"></a>设置桥接</h2><ul>
-<li>部分地区可能需要删掉TR069才能正常使用，用F12法或者TELNET指令法。请自行删除。</li>
-</ul>
-<p>1.打开光猫网络标签页</p>
-<p>2.在连接名称选择Internet_XXX这一项</p>
-<p>3.点击删除</p>
-<p>4.重新添加一个 Inetrnet</p>
-<p>5.IP协议版本选择 IPv4&#x2F;v6</p>
-<p>6.模式选择 桥接</p>
-<p>7.端口绑定选择需要的LAN口</p>
-<p>8.VLAN ID 填写之前抄</p>
-<p>9.点击保存</p>
-<h2 id="设置路由器"><a href="#设置路由器" class="headerlink" title="设置路由器"></a>设置路由器</h2><p>1.加入路由器后台</p>
-<p>2.点击网络</p>
-<p>3.写入自己的拨号账号和密码</p>
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>光猫</tag>
-        <tag>网络</tag>
-        <tag>桥接</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>安装搭建Hexo博客在Github Pager和Cloudflare并更换主题 完整指南</title>
     <url>/2024/12/22/3/</url>
     <content><![CDATA[<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><h2 id="软件准备"><a href="#软件准备" class="headerlink" title="软件准备"></a>软件准备</h2><ul>
@@ -252,7 +211,7 @@
 <p>4.进入github，点击右上角头像 选择settings，进入设置页后选择 SSH and GPG keys，名字随便起，公钥填到Key那一栏。</p>
 <p>5.测试连接，输入以下命令（不要开stam++连接）</p>
 <ul>
-<li>ssh -T <a href="mailto:&#x67;&#105;&#x74;&#64;&#x67;&#105;&#x74;&#104;&#117;&#98;&#x2e;&#99;&#111;&#x6d;">&#x67;&#105;&#x74;&#64;&#x67;&#105;&#x74;&#104;&#117;&#98;&#x2e;&#99;&#111;&#x6d;</a><br>第一次连接会提示Are you sure you want to continue connecting (yes&#x2F;no&#x2F;[fingerprint])?，输入yes即可<br>出现连接到账户的信息，说明已经大功告成。</li>
+<li>ssh -T <a href="mailto:&#103;&#105;&#x74;&#64;&#103;&#x69;&#x74;&#x68;&#117;&#98;&#x2e;&#99;&#111;&#109;">&#103;&#105;&#x74;&#64;&#103;&#x69;&#x74;&#x68;&#117;&#98;&#x2e;&#99;&#111;&#109;</a><br>第一次连接会提示Are you sure you want to continue connecting (yes&#x2F;no&#x2F;[fingerprint])?，输入yes即可<br>出现连接到账户的信息，说明已经大功告成。</li>
 </ul>
 <h2 id="创建GitHub-io仓库"><a href="#创建GitHub-io仓库" class="headerlink" title="创建GitHub.io仓库"></a>创建GitHub.io仓库</h2><p>1.点击右上角的+按钮，选择New repository，创建一个&lt;用户名&gt;.github.io的仓库。</p>
 <p>2.仓库名字的格式必须为：&lt;用户名&gt;.github.io (注意：前缀必须为用户名，此为预览博客需要，后期可修改仓库名)</p>
@@ -370,6 +329,47 @@
         <tag>刷机</tag>
         <tag>安卓</tag>
         <tag>TV</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>gmg光猫开Telnet,获得超级管理员密码,改桥接</title>
+    <url>/2024/12/31/4/</url>
+    <content><![CDATA[<h2 id="记录关键参数"><a href="#记录关键参数" class="headerlink" title="记录关键参数"></a>记录关键参数</h2><p>1.从WAN设置页，记下拨号帐号</p>
+<p>2.如果不知道拨号密码可以问师傅或去移动官网改密码</p>
+<p>3.WAN设置里INTERNET一项对应的VID</p>
+<p>4.ONT认证密码。在登录页面右键，浏览页面源代码，搜索 LOID，把var pwd &#x3D; “——————“;记录下来</p>
+<h2 id="获取管理员密码"><a href="#获取管理员密码" class="headerlink" title="获取管理员密码"></a>获取管理员密码</h2><ul>
+<li>谨慎操作，很容易无法上网，如不能接受请退出</li>
+</ul>
+<p>1.捅光猫复位键，45～60秒。</p>
+<p>2.打开登录页面，用管理员帐号CMCCAdmin和初始密码aDm8H%MdA登录进去。</p>
+<p>3.在登陆光猫后<a href="http://192.168.1.1/getpage.gch?pid=1002&nextpage=tele_sec_tserver_t.gch">在此页面</a> 开启telnet，保存</p>
+<p>4.退出登录，到主页“注册安装”，填入ONT密码，操作业务下发</p>
+<p>5.下发完成后，现在可以正常上网了</p>
+<p>6.使用windows自带的telnet或其他telnet工具连接到光猫，登录用户CMCCAdmin，密码输入光猫反面写的user密码加上@C1，如xxxxxxxx@C1。（如果不对请尝试省份首字母，比如@BJ）<br>待出现~$符号后，输入sidbg 1 DB p DevAuthInfo，超级密码一目了然。</p>
+<h2 id="设置桥接"><a href="#设置桥接" class="headerlink" title="设置桥接"></a>设置桥接</h2><ul>
+<li>部分地区可能需要删掉TR069才能正常使用，用F12法或者TELNET指令法。请自行删除。</li>
+</ul>
+<p>1.打开光猫网络标签页</p>
+<p>2.在连接名称选择Internet_XXX这一项</p>
+<p>3.点击删除</p>
+<p>4.重新添加一个 Inetrnet</p>
+<p>5.IP协议版本选择 IPv4&#x2F;v6</p>
+<p>6.模式选择 桥接</p>
+<p>7.端口绑定选择需要的LAN口</p>
+<p>8.VLAN ID 填写之前抄</p>
+<p>9.点击保存</p>
+<h2 id="设置路由器"><a href="#设置路由器" class="headerlink" title="设置路由器"></a>设置路由器</h2><p>1.加入路由器后台</p>
+<p>2.点击网络</p>
+<p>3.写入自己的拨号账号和密码</p>
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>光猫</tag>
+        <tag>网络</tag>
+        <tag>桥接</tag>
       </tags>
   </entry>
   <entry>
