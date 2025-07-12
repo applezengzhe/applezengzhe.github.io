@@ -211,7 +211,7 @@
 <p>4.进入github，点击右上角头像 选择settings，进入设置页后选择 SSH and GPG keys，名字随便起，公钥填到Key那一栏。</p>
 <p>5.测试连接，输入以下命令（不要开stam++连接）</p>
 <ul>
-<li>ssh -T <a href="mailto:&#x67;&#x69;&#116;&#x40;&#103;&#105;&#116;&#x68;&#117;&#98;&#x2e;&#99;&#111;&#109;">&#x67;&#x69;&#116;&#x40;&#103;&#105;&#116;&#x68;&#117;&#98;&#x2e;&#99;&#111;&#109;</a><br>第一次连接会提示Are you sure you want to continue connecting (yes&#x2F;no&#x2F;[fingerprint])?，输入yes即可<br>出现连接到账户的信息，说明已经大功告成。</li>
+<li>ssh -T <a href="mailto:&#103;&#105;&#x74;&#x40;&#x67;&#x69;&#116;&#x68;&#x75;&#x62;&#46;&#99;&#x6f;&#x6d;">&#103;&#105;&#x74;&#x40;&#x67;&#x69;&#116;&#x68;&#x75;&#x62;&#46;&#99;&#x6f;&#x6d;</a><br>第一次连接会提示Are you sure you want to continue connecting (yes&#x2F;no&#x2F;[fingerprint])?，输入yes即可<br>出现连接到账户的信息，说明已经大功告成。</li>
 </ul>
 <h2 id="创建GitHub-io仓库"><a href="#创建GitHub-io仓库" class="headerlink" title="创建GitHub.io仓库"></a>创建GitHub.io仓库</h2><p>1.点击右上角的+按钮，选择New repository，创建一个&lt;用户名&gt;.github.io的仓库。</p>
 <p>2.仓库名字的格式必须为：&lt;用户名&gt;.github.io (注意：前缀必须为用户名，此为预览博客需要，后期可修改仓库名)</p>
