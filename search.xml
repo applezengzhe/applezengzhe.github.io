@@ -211,7 +211,7 @@
 <p>4.进入github，点击右上角头像 选择settings，进入设置页后选择 SSH and GPG keys，名字随便起，公钥填到Key那一栏。</p>
 <p>5.测试连接，输入以下命令（不要开stam++连接）</p>
 <ul>
-<li>ssh -T <a href="mailto:&#x67;&#x69;&#116;&#64;&#103;&#x69;&#116;&#104;&#117;&#98;&#46;&#x63;&#111;&#109;">&#x67;&#x69;&#116;&#64;&#103;&#x69;&#116;&#104;&#117;&#98;&#46;&#x63;&#111;&#109;</a><br>第一次连接会提示Are you sure you want to continue connecting (yes&#x2F;no&#x2F;[fingerprint])?，输入yes即可<br>出现连接到账户的信息，说明已经大功告成。</li>
+<li>ssh -T <a href="mailto:&#x67;&#105;&#116;&#64;&#x67;&#105;&#116;&#104;&#117;&#x62;&#x2e;&#x63;&#111;&#x6d;">&#x67;&#105;&#116;&#64;&#x67;&#105;&#116;&#104;&#117;&#x62;&#x2e;&#x63;&#111;&#x6d;</a><br>第一次连接会提示Are you sure you want to continue connecting (yes&#x2F;no&#x2F;[fingerprint])?，输入yes即可<br>出现连接到账户的信息，说明已经大功告成。</li>
 </ul>
 <h2 id="创建GitHub-io仓库"><a href="#创建GitHub-io仓库" class="headerlink" title="创建GitHub.io仓库"></a>创建GitHub.io仓库</h2><p>1.点击右上角的+按钮，选择New repository，创建一个&lt;用户名&gt;.github.io的仓库。</p>
 <p>2.仓库名字的格式必须为：&lt;用户名&gt;.github.io (注意：前缀必须为用户名，此为预览博客需要，后期可修改仓库名)</p>
@@ -303,6 +303,28 @@
       </tags>
   </entry>
   <entry>
+    <title>广东爱家TV(E900V22C-b)刷入ATV</title>
+    <url>/2025/01/22/6/</url>
+    <content><![CDATA[<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><ul>
+<li><a href="https://www.123865.com/s/rRU4Td-CikMd">ATV固件</a>提取码:1213，E900V22C-a或b都可以</li>
+<li>一个U盘</li>
+</ul>
+<h1 id="刷机"><a href="#刷机" class="headerlink" title="刷机"></a>刷机</h1><p>1.把ATV固件放入U盘根目录</p>
+<p>2.打开电视盒子并遥控器狂按右键</p>
+<p>3.不出意外的话你的电视就开始升级了</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><p>1.自带root<br>2.不杀后台</p>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>1.由于是移动端移植，不支持语音和一些按键不支持<br>2.wifi adb 需要拔网线连接wifi，不那么好用</p>
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>刷机</tag>
+        <tag>安卓</tag>
+        <tag>TV</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>电脑安装Android X86和Windows双系统</title>
     <url>/2025/01/22/5/</url>
     <content><![CDATA[<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><h2 id="文件准备"><a href="#文件准备" class="headerlink" title="文件准备"></a>文件准备</h2><ul>
@@ -348,28 +370,6 @@
       <tags>
         <tag>刷机</tag>
         <tag>安卓</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>广东爱家TV(E900V22C-b)刷入ATV</title>
-    <url>/2025/01/22/6/</url>
-    <content><![CDATA[<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><ul>
-<li><a href="https://www.123865.com/s/rRU4Td-CikMd">ATV固件</a>提取码:1213，E900V22C-a或b都可以</li>
-<li>一个U盘</li>
-</ul>
-<h1 id="刷机"><a href="#刷机" class="headerlink" title="刷机"></a>刷机</h1><p>1.把ATV固件放入U盘根目录</p>
-<p>2.打开电视盒子并遥控器狂按右键</p>
-<p>3.不出意外的话你的电视就开始升级了</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><p>1.自带root<br>2.不杀后台</p>
-<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>1.由于是移动端移植，不支持语音和一些按键不支持<br>2.wifi adb 需要拔网线连接wifi，不那么好用</p>
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>刷机</tag>
-        <tag>安卓</tag>
-        <tag>TV</tag>
       </tags>
   </entry>
   <entry>
