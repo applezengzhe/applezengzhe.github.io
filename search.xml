@@ -189,6 +189,47 @@
       </tags>
   </entry>
   <entry>
+    <title>gmg光猫开Telnet,获得超级管理员密码,改桥接</title>
+    <url>/2024/12/31/4/</url>
+    <content><![CDATA[<h2 id="记录关键参数"><a href="#记录关键参数" class="headerlink" title="记录关键参数"></a>记录关键参数</h2><p>1.从WAN设置页，记下拨号帐号</p>
+<p>2.如果不知道拨号密码可以问师傅或去移动官网改密码</p>
+<p>3.WAN设置里INTERNET一项对应的VID</p>
+<p>4.ONT认证密码。在登录页面右键，浏览页面源代码，搜索 LOID，把var pwd &#x3D; “——————“;记录下来</p>
+<h2 id="获取管理员密码"><a href="#获取管理员密码" class="headerlink" title="获取管理员密码"></a>获取管理员密码</h2><ul>
+<li>谨慎操作，很容易无法上网，如不能接受请退出</li>
+</ul>
+<p>1.捅光猫复位键，45～60秒。</p>
+<p>2.打开登录页面，用管理员帐号CMCCAdmin和初始密码aDm8H%MdA登录进去。</p>
+<p>3.在登陆光猫后<a href="http://192.168.1.1/getpage.gch?pid=1002&nextpage=tele_sec_tserver_t.gch">在此页面</a> 开启telnet，保存</p>
+<p>4.退出登录，到主页“注册安装”，填入ONT密码，操作业务下发</p>
+<p>5.下发完成后，现在可以正常上网了</p>
+<p>6.使用windows自带的telnet或其他telnet工具连接到光猫，登录用户CMCCAdmin，密码输入光猫反面写的user密码加上@C1，如xxxxxxxx@C1。（如果不对请尝试省份首字母，比如@BJ）<br>待出现~$符号后，输入sidbg 1 DB p DevAuthInfo，超级密码一目了然。</p>
+<h2 id="设置桥接"><a href="#设置桥接" class="headerlink" title="设置桥接"></a>设置桥接</h2><ul>
+<li>部分地区可能需要删掉TR069才能正常使用，用F12法或者TELNET指令法。请自行删除。</li>
+</ul>
+<p>1.打开光猫网络标签页</p>
+<p>2.在连接名称选择Internet_XXX这一项</p>
+<p>3.点击删除</p>
+<p>4.重新添加一个 Inetrnet</p>
+<p>5.IP协议版本选择 IPv4&#x2F;v6</p>
+<p>6.模式选择 桥接</p>
+<p>7.端口绑定选择需要的LAN口</p>
+<p>8.VLAN ID 填写之前抄</p>
+<p>9.点击保存</p>
+<h2 id="设置路由器"><a href="#设置路由器" class="headerlink" title="设置路由器"></a>设置路由器</h2><p>1.加入路由器后台</p>
+<p>2.点击网络</p>
+<p>3.写入自己的拨号账号和密码</p>
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>光猫</tag>
+        <tag>网络</tag>
+        <tag>桥接</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>安装搭建Hexo博客在Github Pager和Cloudflare并更换主题 完整指南</title>
     <url>/2024/12/22/3/</url>
     <content><![CDATA[<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><h2 id="软件准备"><a href="#软件准备" class="headerlink" title="软件准备"></a>软件准备</h2><ul>
@@ -262,69 +303,6 @@
       </tags>
   </entry>
   <entry>
-    <title>gmg光猫开Telnet,获得超级管理员密码,改桥接</title>
-    <url>/2024/12/31/4/</url>
-    <content><![CDATA[<h2 id="记录关键参数"><a href="#记录关键参数" class="headerlink" title="记录关键参数"></a>记录关键参数</h2><p>1.从WAN设置页，记下拨号帐号</p>
-<p>2.如果不知道拨号密码可以问师傅或去移动官网改密码</p>
-<p>3.WAN设置里INTERNET一项对应的VID</p>
-<p>4.ONT认证密码。在登录页面右键，浏览页面源代码，搜索 LOID，把var pwd &#x3D; “——————“;记录下来</p>
-<h2 id="获取管理员密码"><a href="#获取管理员密码" class="headerlink" title="获取管理员密码"></a>获取管理员密码</h2><ul>
-<li>谨慎操作，很容易无法上网，如不能接受请退出</li>
-</ul>
-<p>1.捅光猫复位键，45～60秒。</p>
-<p>2.打开登录页面，用管理员帐号CMCCAdmin和初始密码aDm8H%MdA登录进去。</p>
-<p>3.在登陆光猫后<a href="http://192.168.1.1/getpage.gch?pid=1002&nextpage=tele_sec_tserver_t.gch">在此页面</a> 开启telnet，保存</p>
-<p>4.退出登录，到主页“注册安装”，填入ONT密码，操作业务下发</p>
-<p>5.下发完成后，现在可以正常上网了</p>
-<p>6.使用windows自带的telnet或其他telnet工具连接到光猫，登录用户CMCCAdmin，密码输入光猫反面写的user密码加上@C1，如xxxxxxxx@C1。（如果不对请尝试省份首字母，比如@BJ）<br>待出现~$符号后，输入sidbg 1 DB p DevAuthInfo，超级密码一目了然。</p>
-<h2 id="设置桥接"><a href="#设置桥接" class="headerlink" title="设置桥接"></a>设置桥接</h2><ul>
-<li>部分地区可能需要删掉TR069才能正常使用，用F12法或者TELNET指令法。请自行删除。</li>
-</ul>
-<p>1.打开光猫网络标签页</p>
-<p>2.在连接名称选择Internet_XXX这一项</p>
-<p>3.点击删除</p>
-<p>4.重新添加一个 Inetrnet</p>
-<p>5.IP协议版本选择 IPv4&#x2F;v6</p>
-<p>6.模式选择 桥接</p>
-<p>7.端口绑定选择需要的LAN口</p>
-<p>8.VLAN ID 填写之前抄</p>
-<p>9.点击保存</p>
-<h2 id="设置路由器"><a href="#设置路由器" class="headerlink" title="设置路由器"></a>设置路由器</h2><p>1.加入路由器后台</p>
-<p>2.点击网络</p>
-<p>3.写入自己的拨号账号和密码</p>
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>光猫</tag>
-        <tag>网络</tag>
-        <tag>桥接</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>广东爱家TV(E900V22C-b)刷入ATV</title>
-    <url>/2025/01/22/6/</url>
-    <content><![CDATA[<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><ul>
-<li><a href="https://www.123865.com/s/rRU4Td-CikMd">ATV固件</a>提取码:1213，E900V22C-a或b都可以</li>
-<li>一个U盘</li>
-</ul>
-<h1 id="刷机"><a href="#刷机" class="headerlink" title="刷机"></a>刷机</h1><p>1.把ATV固件放入U盘根目录</p>
-<p>2.打开电视盒子并遥控器狂按右键</p>
-<p>3.不出意外的话你的电视就开始升级了</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><p>1.自带root<br>2.不杀后台</p>
-<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>1.由于是移动端移植，不支持语音和一些按键不支持<br>2.wifi adb 需要拔网线连接wifi，不那么好用</p>
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>刷机</tag>
-        <tag>安卓</tag>
-        <tag>TV</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>电脑安装Android X86和Windows双系统</title>
     <url>/2025/01/22/5/</url>
     <content><![CDATA[<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><h2 id="文件准备"><a href="#文件准备" class="headerlink" title="文件准备"></a>文件准备</h2><ul>
@@ -370,6 +348,28 @@
       <tags>
         <tag>刷机</tag>
         <tag>安卓</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>广东爱家TV(E900V22C-b)刷入ATV</title>
+    <url>/2025/01/22/6/</url>
+    <content><![CDATA[<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><ul>
+<li><a href="https://www.123865.com/s/rRU4Td-CikMd">ATV固件</a>提取码:1213，E900V22C-a或b都可以</li>
+<li>一个U盘</li>
+</ul>
+<h1 id="刷机"><a href="#刷机" class="headerlink" title="刷机"></a>刷机</h1><p>1.把ATV固件放入U盘根目录</p>
+<p>2.打开电视盒子并遥控器狂按右键</p>
+<p>3.不出意外的话你的电视就开始升级了</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><p>1.自带root<br>2.不杀后台</p>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>1.由于是移动端移植，不支持语音和一些按键不支持<br>2.wifi adb 需要拔网线连接wifi，不那么好用</p>
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>刷机</tag>
+        <tag>安卓</tag>
+        <tag>TV</tag>
       </tags>
   </entry>
   <entry>
