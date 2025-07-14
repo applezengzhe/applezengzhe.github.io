@@ -303,55 +303,6 @@
       </tags>
   </entry>
   <entry>
-    <title>广东爱家TV(E900V22C-b)刷入ATV</title>
-    <url>/2025/01/22/6/</url>
-    <content><![CDATA[<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><ul>
-<li><a href="https://www.123865.com/s/rRU4Td-CikMd">ATV固件</a>提取码:1213，E900V22C-a或b都可以</li>
-<li>一个U盘</li>
-</ul>
-<h1 id="刷机"><a href="#刷机" class="headerlink" title="刷机"></a>刷机</h1><p>1.把ATV固件放入U盘根目录</p>
-<p>2.打开电视盒子并遥控器狂按右键</p>
-<p>3.不出意外的话你的电视就开始升级了</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><p>1.自带root<br>2.不杀后台</p>
-<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>1.由于是移动端移植，不支持语音和一些按键不支持<br>2.wifi adb 需要拔网线连接wifi，不那么好用</p>
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>刷机</tag>
-        <tag>安卓</tag>
-        <tag>TV</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>电脑如何重装Windows系统</title>
-    <url>/2025/01/23/7/</url>
-    <content><![CDATA[<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><h2 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h2><ul>
-<li><a href="https://github.com/c0re100/qBittorrent-Enhanced-Edition/releases">bt下载器qbittorrent增强版</a></li>
-<li>windwos镜像<a href="https://msdn.itellyou.cn/">msdn</a>，<a href="https://hellowindows.cn/">hellowindwos</a></li>
-<li><a href="https://www.wepe.com.cn/download.html">微PE</a></li>
-<li>你的Windwos驱动，自己去官网找(如果找不到就可以安装驱动安装软件，如:驱动人生，但下载一般较慢，还可能不适配)</li>
-</ul>
-<h2 id="软件准备"><a href="#软件准备" class="headerlink" title="软件准备"></a>软件准备</h2><p>1.安装qbittorrent后复制windwos镜像站的bt下载链接下载</p>
-<p>2.在插入U盘，打开微PE安装，安装成功后Windwos镜像拖入U盘</p>
-<p>3.重启电脑进入bios(如果不知道可以去网上查查，一般为Delete)</p>
-<p>4.设置U盘为第一启动项</p>
-<p>5.重启进入微PE，后打开DiskGenius，进行分区然后创建ESP&#x2F;MSR分区，如果有就不用了</p>
-<p>6.打开Dism++，恢复功能&#x3D;&gt;还原系统，目标镜像路径为你的Windwos镜像，然后选择你的目标镜像版本，安装位置选你分的区域，记得勾选格式化，Compact，添加引导</p>
-<p>7.引导为你的ESP分区</p>
-<p>8.之后拔U盘重启应该就可以了进入系统，然后自己进行配置</p>
-<p>9.进入系统后打开你的驱动文件，进行安装</p>
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>刷机</tag>
-        <tag>Windows</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>电脑安装Android X86和Windows双系统</title>
     <url>/2025/01/22/5/</url>
     <content><![CDATA[<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><h2 id="文件准备"><a href="#文件准备" class="headerlink" title="文件准备"></a>文件准备</h2><ul>
@@ -400,7 +351,29 @@
       </tags>
   </entry>
   <entry>
-    <title>8</title>
+    <title>广东爱家TV(E900V22C-b)刷入ATV</title>
+    <url>/2025/01/22/6/</url>
+    <content><![CDATA[<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><ul>
+<li><a href="https://www.123865.com/s/rRU4Td-CikMd">ATV固件</a>提取码:1213，E900V22C-a或b都可以</li>
+<li>一个U盘</li>
+</ul>
+<h1 id="刷机"><a href="#刷机" class="headerlink" title="刷机"></a>刷机</h1><p>1.把ATV固件放入U盘根目录</p>
+<p>2.打开电视盒子并遥控器狂按右键</p>
+<p>3.不出意外的话你的电视就开始升级了</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><p>1.自带root<br>2.不杀后台</p>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>1.由于是移动端移植，不支持语音和一些按键不支持<br>2.wifi adb 需要拔网线连接wifi，不那么好用</p>
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>刷机</tag>
+        <tag>安卓</tag>
+        <tag>TV</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>rax3000m 刷机</title>
     <url>/2025/07/13/8/</url>
     <content><![CDATA[]]></content>
       <categories>
@@ -409,6 +382,33 @@
       <tags>
         <tag>刷机</tag>
         <tag>路由器</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>电脑如何重装Windows系统</title>
+    <url>/2025/01/23/7/</url>
+    <content><![CDATA[<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><h2 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h2><ul>
+<li><a href="https://github.com/c0re100/qBittorrent-Enhanced-Edition/releases">bt下载器qbittorrent增强版</a></li>
+<li>windwos镜像<a href="https://msdn.itellyou.cn/">msdn</a>，<a href="https://hellowindows.cn/">hellowindwos</a></li>
+<li><a href="https://www.wepe.com.cn/download.html">微PE</a></li>
+<li>你的Windwos驱动，自己去官网找(如果找不到就可以安装驱动安装软件，如:驱动人生，但下载一般较慢，还可能不适配)</li>
+</ul>
+<h2 id="软件准备"><a href="#软件准备" class="headerlink" title="软件准备"></a>软件准备</h2><p>1.安装qbittorrent后复制windwos镜像站的bt下载链接下载</p>
+<p>2.在插入U盘，打开微PE安装，安装成功后Windwos镜像拖入U盘</p>
+<p>3.重启电脑进入bios(如果不知道可以去网上查查，一般为Delete)</p>
+<p>4.设置U盘为第一启动项</p>
+<p>5.重启进入微PE，后打开DiskGenius，进行分区然后创建ESP&#x2F;MSR分区，如果有就不用了</p>
+<p>6.打开Dism++，恢复功能&#x3D;&gt;还原系统，目标镜像路径为你的Windwos镜像，然后选择你的目标镜像版本，安装位置选你分的区域，记得勾选格式化，Compact，添加引导</p>
+<p>7.引导为你的ESP分区</p>
+<p>8.之后拔U盘重启应该就可以了进入系统，然后自己进行配置</p>
+<p>9.进入系统后打开你的驱动文件，进行安装</p>
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>刷机</tag>
+        <tag>Windows</tag>
       </tags>
   </entry>
 </search>
