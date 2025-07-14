@@ -373,9 +373,137 @@
       </tags>
   </entry>
   <entry>
-    <title>rax3000m 刷机</title>
+    <title>rax3000m 刷机以及救砖</title>
     <url>/2025/07/13/8/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>由于这款机子经过多次优化，而且有多个版本需要不通的方法刷入uboot，所以我将分不同的版本来写，可自行跳转至自己的版本刷入uboot</p>
+<h3 id="确认版本"><a href="#确认版本" class="headerlink" title="确认版本"></a>确认版本</h3><p>一.判断自己是EMMC还是NAND</p>
+<p>1.看自己机子的背面，如果有CH  EC那就是EMMC版，而如果只有CH那就是NAND版（当然也不绝对，但大多数是这样）</p>
+<p>2.如果你不放心，可以拆开，其中两螺丝钉在背面标签的左下角与右下角，拧下后看PCB号</p>
+<ul>
+<li>128M SPI-NAND版（PCB号：RAX3000M_D4_PCB_P3，生产批次20230515, 20230606 和 20231027）</li>
+<li>64G EMMC版（PCB号：RAX3000M_D4_SL_P1，生产批次20230626）</li>
+</ul>
+<p>二.看生产日期</p>
+<p>1.如果为 20230606及以前则没有加密</p>
+<p>2.如果为 20230606到20240115则已经加密</p>
+<p>3.如果为 20240115或202401017则需要特别的方法</p>
+<h3 id="20230606及以前-和-20230606到20240115进入终端"><a href="#20230606及以前-和-20230606到20240115进入终端" class="headerlink" title="20230606及以前 和 20230606到20240115进入终端"></a>20230606及以前 和 20230606到20240115进入终端</h3><p>一.进入网页端管理页面中点击更多，然后再点击管理页面</p>
+<p>二.点击配置管理并点击导出文件来来下载 cfg_export_config_file.conf</p>
+<p>三.上传文件到 Linux系统（WSL）也可以</p>
+<p>四.解压配置文件</p>
+<ul>
+<li><p>如果你是20230606及以前生产的，在linux命令行输入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar -xvzf cfg_export_config_file.conf </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果你是20230606到20240115生产的，在linux命令行输入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">openssl aes-256-cbc -d -pbkdf2 -k <span class="variable">$CmDc</span>#RaX30O0M@\!$ -<span class="keyword">in</span> cfg_export_config_file.conf -out - | tar -zxvf -</span><br></pre></td></tr></table></figure>
+<p>然后你将要获得一个etc文件夹</p>
+</li>
+</ul>
+<p>五.修改配置文件<br>1.在命令行输入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vi /etc/shadow</span><br></pre></td></tr></table></figure>
+<p>2.然后在第一行的root后面删除两个冒号（以在ssh进入系统时不用root密码）让后按照按Esc，之后输入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wq!</span><br></pre></td></tr></table></figure>
+<p>回车保存</p>
+<p>2.1.在命令行输入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vi /etc/config/dropbear</span><br></pre></td></tr></table></figure>
+<p>在第二行把option enaber ‘0’ 改为option enaber ‘1’ 开启ssh</p>
+<p>六.重新加密配置文件</p>
+<ul>
+<li><p>如果你是20230606及以前生产的，在linux命令行输入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar -zcvf  cfg_export_config_file_new.conf etc</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果你是20230606到20240115生产的，在linux命令行输入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar -zcvf - etc | openssl aes-256-cbc -pbkdf2 -k <span class="variable">$CmDc</span>#RaX30O0M@\!$ -out cfg_export_config_file_new.conf</span><br></pre></td></tr></table></figure>
+<p>七.导入配置并进入ssh<br>1.回到配置管理并点击导入配置文件，将我们的cfg_export_config_file_new.conf文件上传，之后就可以使用<a href="https://mobaxterm.mobatek.net/download-home-edition.html">mobaxterm</a>点击Session，然后点击SSH，在Remote host *中输入192.168.10.1(rax000m的ip)，Specify username中输入root，在点击ok，即可进入ssh</p>
+</li>
+</ul>
+<h3 id="20240115-进入终端"><a href="#20240115-进入终端" class="headerlink" title="20240115 进入终端"></a>20240115 进入终端</h3><ul>
+<li>由于机子是新固件，新密码是根据SN生成的，所以每台机子不一样，而且新版原厂固件已经删除了dropbear，开不了SSH，所以我们将使用telnet的配置备份文件<br>一.进入网页端管理页面中点击更多，然后再点击管理页面</li>
+</ul>
+<p>二.点击配置管理并点击导出文件来来下载 cfg_export_config_file.conf</p>
+<p>三.使用openwrt、ubuntu、WSL等linux系统或<a href="https://cygwin.com/install.html">Cygwin</a></p>
+<p>四.输入在文件所在的目录打开命令窗口输入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">SN=123456789123456(在机子背面S/N:后的)</span><br><span class="line">mypassword=$(openssl passwd -1 -salt aV6dW8bD <span class="string">&quot;<span class="variable">$SN</span>&quot;</span>)</span><br><span class="line">mypassword=$(<span class="built_in">eval</span> <span class="string">&quot;echo <span class="variable">$mypassword</span>&quot;</span>)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$mypassword</span></span><br><span class="line">openssl aes-256-cbc -pbkdf2 -k <span class="string">&quot;<span class="variable">$mypassword</span>&quot;</span> -<span class="keyword">in</span> RAX3000M_XR30_cfg-telnet-20240117.conf -out cfg_import_config_file_new.conf</span><br></pre></td></tr></table></figure>
+
+<p>五.导入配置并进入ssh<br>1.回到配置管理并点击导入配置文件，将我们的cfg_export_config_file_new.conf文件上传，之后就可以使用<a href="https://mobaxterm.mobatek.net/download-home-edition.html">mobaxterm</a>点击Session&#x3D;&gt;Telnet，在Remote host *中输入192.168.10.1(rax000m的ip)，Specify username中输入root，在点击ok，即可进入ssh</p>
+<h3 id="20241017-ttl进入终端其他版本也通用"><a href="#20241017-ttl进入终端其他版本也通用" class="headerlink" title="20241017 ttl进入终端其他版本也通用"></a>20241017 ttl进入终端其他版本也通用</h3><p>1.准备 </p>
+<ul>
+<li>TTL转USB调试工具</li>
+<li>相对应的驱动（不一定要驱动）</li>
+<li><a href="https://www.putty.org/">PUTTY</a></li>
+</ul>
+<p>2.将在背面标签的左下角与右下角的两螺丝钉拧下，然后打开</p>
+<p>3.然后你会看到 <img src="https://fast-tk.jxqf.dpdns.org/8_post/ttl.jpg" alt="这是图片" title="Magic Gardens"></p>
+<p>4.在PUTTYputty选择serial，serial lan（端口）填写就填你在设备管理端口里看到的（此电脑右键点击管理&#x3D;&gt;设备管理器&#x3D;&gt;端口），speed填115200，之后点击open</p>
+<p>5.在显示root@(none)后输入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mount_root</span><br><span class="line">sed -i <span class="string">&#x27;s/.*local debug=.*/\tlocal debug=1/&#x27;</span> /etc/init.d/telnet</span><br></pre></td></tr></table></figure>
+
+<p>6.之后输入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">passwd root</span><br></pre></td></tr></table></figure>
+<p>改密码</p>
+<p>6.接着写你要的root密码因为是linux所以不显示你输入的密码</p>
+<p>7.之后就可以使用<a href="https://mobaxterm.mobatek.net/download-home-edition.html">mobaxterm</a>点击Session&#x3D;&gt;Telnet，在Remote host *中输入192.168.10.1(rax000m的ip)，Specify username中输入root，在点击ok，密码写你自己设置的，即可进入ssh</p>
+<h3 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h3><ul>
+<li><p>如果为emmc 输入命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mmcblk0p1 of=/mnt/mmcblk0p12/mmcblk0p1.bin</span><br><span class="line"></span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mmcblk0p2 of=/mnt/mmcblk0p12/mmcblk0p2.bin</span><br><span class="line"></span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mmcblk0p3 of=/mnt/mmcblk0p12/mmcblk0p3.bin</span><br><span class="line"></span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mmcblk0p4 of=/mnt/mmcblk0p12/mmcblk0p4.bin</span><br><span class="line"></span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mmcblk0p5 of=/mnt/mmcblk0p12/mmcblk0p5.bin</span><br><span class="line"></span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mmcblk0p6 of=/mnt/mmcblk0p12/mmcblk0p6.bin</span><br><span class="line"></span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mmcblk0p7 of=/mnt/mmcblk0p12/mmcblk0p7.bin</span><br><span class="line"></span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mmcblk0p8 of=/mnt/mmcblk0p12/mmcblk0p8.bin</span><br><span class="line"></span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mmcblk0p9 of=/mnt/mmcblk0p12/mmcblk0p9.bin</span><br><span class="line"></span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mmcblk0p10 of=/mnt/mmcblk0p12/mmcblk0p10.bin</span><br><span class="line"></span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mmcblk0p11 of=/mnt/mmcblk0p12/mmcblk0p11.bin</span><br></pre></td></tr></table></figure>
+<p>然后复制拖到电脑，进行备份文件</p>
+</li>
+<li><p>如果为nand 输入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mtd0 | gzip &gt;/tmp/mtd0_spi0.0.bin.gz</span><br><span class="line"><span class="built_in">cd</span>  /tmp  进入到tmp目录</span><br><span class="line">把 mtd0_spi0.0.bin.gz</span><br><span class="line"><span class="built_in">rm</span>  -rf  mtd0_spi0.0.bin.gz </span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mtd1 of=/tmp/mtd1_BL2.bin</span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mtd2 of=/tmp/mtd2_u-boot-env.bin</span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mtd3 of=/tmp/mtd3_Factory.bin</span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mtd4 of=/tmp/mtd4_mtd4_FIP.bin</span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mtd5 of=/tmp/mtd5_ubi.bin</span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mtd6 of=/tmp/mtd6_plugins.bin</span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mtd7 of=/tmp/mtd7_fwk.bin</span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mtd8 of=/tmp/mtd8_fwk2.bin</span><br></pre></td></tr></table></figure>
+<p>然后复制拖到电脑，进行备份文件</p>
+</li>
+</ul>
+<h3 id="安装Uboot"><a href="#安装Uboot" class="headerlink" title="安装Uboot"></a>安装Uboot</h3><p>1.下载Hanwckf的<a href="https://github.com/hanwckf/bl-mt798x/releases">uboot</a>并解压</p>
+<ul>
+<li><p>nand留下mt7981_cmcc_rax3000m-fip-fixed-parts.bin</p>
+</li>
+<li><p>emmc留下mt7981_cmcc_rax3000m-emmc-fip.bin</p>
+</li>
+</ul>
+<p>2.将文件上传到&#x2F;tmp路径然后nand输入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mtd write /tmp/mt7981_cmcc_rax3000m-fip-fixed-parts.bin</span><br></pre></td></tr></table></figure>
+<p>而emmc输入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/tmp/mt7981_cmcc_rax3000m-emmc-fip.bin of=/dev/mmcblk0p3</span><br><span class="line"><span class="built_in">sync</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>特别提醒，如果报错了千万不要重启，不然砖一个给你看看，马上上网寻求帮助</li>
+</ul>
+<p>###进入Uboot并刷写系统（如果没有报错的话）<br>1.固件下载，以下为我用openwrt.ai网站生成，你也可以试试或去自己找找入恩山论坛中 (emmc)[<a href="https://fast-tk.jxqf.dpdns.org/8_post/emmc.bin">fast</a>] <a href="https://fast-tk.jxqf.dpdns.org/8_post/nand.bin">nand</a></p>
+<p>2.点击控制面板&#x3D;&gt;网络与 Internet&#x3D;&gt;网络与共享中心&#x3D;&gt;更改适配器设置&#x3D;&gt;WLAN&#x3D;&gt;属性&#x3D;&gt;Internet 协议版本 4(TCP&#x2F;IPv4)</p>
+<p>3.点击使用以下 IP 地址(S):然后在IP 地址(I)刷入:192.168.1.100之后确认</p>
+<p>4.之后一个网线连接Rax3000m的LAN口，另一边连接电脑网口,然后先个rax3000m断电，接着长接复位插电重启</p>
+<p>5.在指示灯变成红色时松手不按复位，之后在浏览器输入192.168.1.1，选择你的固件并上传（如果失败了就换个固件，这个没事）,如果成功了rax3000m将自动重启，然后将第3步中的使用以下 IP 地址(S)更改为自动获取 IP 地址(O)以及使用以下的 DNS 服务器（E）改为 自动获取 DNS 服务器(B)</p>
+<p>6.之后在浏览器输入10.0.0.1 密码为root之后就可以进入（如果你用我的固件的话）</p>
+<h3 id="救砖-如果接口被锡封了自己处理"><a href="#救砖-如果接口被锡封了自己处理" class="headerlink" title="救砖(如果接口被锡封了自己处理)"></a>救砖(如果接口被锡封了自己处理)</h3><p>1.准备 </p>
+<ul>
+<li>TTL转USB调试工具</li>
+<li>相对应的驱动（不一定要驱动）</li>
+<li><a href="https://www.putty.org/">PUTTY</a></li>
+<li><a href="https://winscp.net/eng/index.php">WINSCP</a></li>
+</ul>
+<p>2.将在背面标签的左下角与右下角的两螺丝钉拧下，然后打开</p>
+<p>3.然后你会看到 <img src="https://fast-tk.jxqf.dpdns.org/8_post/ttl.jpg" alt="这是图片" title="Magic Gardens"></p>
+<p>4.在PUTTYputty选择serial，serial lan（端口）填写就填你在设备管理端口里看到的（此电脑右键点击管理&#x3D;&gt;设备管理器&#x3D;&gt;端口），speed填115200，之后点击open</p>
+<p>5.在显示root@(none)后输入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mount_root</span><br></pre></td></tr></table></figure>
+
+<p>6.然后输入：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">passwd root </span><br></pre></td></tr></table></figure>
+<p>更改root账户密码,要输入两遍确认且输入新密码的时候屏幕不显示输入信息</p>
+<p>7.输入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bash ifconfig  </span><br></pre></td></tr></table></figure>
+<p>查看ip如果没有就输入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ifconfig eth0 0.0.0.0</span><br><span class="line">brctl addbr br-lan</span><br><span class="line">ifconfig br-lan 192.168.1.1 netmask 255.255.255.0 up</span><br><span class="line">ifconfig</span><br></pre></td></tr></table></figure>
+<p>查看ip应该就出来了</p>
+<p>8.点击控制面板&#x3D;&gt;网络与 Internet&#x3D;&gt;网络与共享中心&#x3D;&gt;更改适配器设置&#x3D;&gt;WLAN&#x3D;&gt;属性&#x3D;&gt;Internet 协议版本 4(TCP&#x2F;IPv4)</p>
+<p>9.点击使用以下 IP 地址(S):然后在IP 地址(I)刷入:192.168.1.100之后确认电脑IP改 192.168.1.100，网线连接路由器LAN口</p>
+<p>10.打开WinSCP，选择SCP协议<br>IP地址输入：192.168.1.1，开始链接，提示帐号密码，账号root，密码就之前设置的密码，登录后把目录换到tmp下面，emmc上传 mt7981_cmcc_rax3000m-fip-fixed-parts.bin ，nand上传mt7981_cmcc_rax3000m-fip-fixed-parts.bin <a href="https://github.com/hanwckf/bl-mt798x/releases">uboot固件</a></p>
+<p>11.在PUTTY输入：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mtd erase FIP</span><br><span class="line">mtd write /tmp/自己刚刚上传unoot文件 FIP </span><br><span class="line">mtd verify /tmp/mt7981_cmcc_rax3000m-fip-fixed-parts.bin FIP </span><br></pre></td></tr></table></figure>
+
+<p>12.校验结果两行相同就可以拔电了，电脑IP不要动</p>
+<p>13.按住重置按钮，上电，查看指示灯，变绿色松开，浏览器输入192.168.1.1  进入第三方UBOOT</p>
+]]></content>
       <categories>
         <category>教程</category>
       </categories>
