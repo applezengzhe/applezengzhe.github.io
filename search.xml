@@ -1,85 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>OPPO/真我手机 MTK强解BL锁</title>
-    <url>/2024/12/22/2/</url>
-    <content><![CDATA[
-我手上的手机是oppo reno5 pro，警告提前备份数据，一但变砖，本人概不负责
-
-资源与文件
-123盘 提取码:1213
-dm模块(用于部分机型关闭dm校验)
-
-准备工作：1.安装python环境（Download Python | Python.org）记得勾选Add Python X.X to PATH
-2.必要驱动
-3.安装强解工具mtkclient
-4.手机一定要降级到c11，因为c12及以后封了强解端口，不过好像可以拆机开端口，不过本人没有测试
-mtkclient配置：1.进入解压后的mtkclient文件夹
-2.在此文件夹打开powershell
-3.换清华或其他源（不一定，但会更快一些）：
-pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
-
-4.安装mtkclient需要的第三方库：
-pip install -r requirements.txt
-
-解锁bl锁：解锁安卓10以下设备的bl锁：1.先将设备关机
-2.在powershell里输入：
-python mtk da seccfg unlock
-
-3.按住电源键+音量上下键，进入深刷模式，第一次会自动安装驱动，等待进度条完毕
-4.如果重启出现：
-
-Your device has been unlocked and can’t be trusted.
-Your device will boot in 5 seconds.就解锁完毕
-
-5.此时可能无法启动手机，一直让它开机进入rec模式（大约半个小时），如果不行手动进入rec模式
-6.直接清除数据分区，然后重启
-解锁安卓11以上设备bl锁：1.备份lk（因为安卓11之后有dm校验，又把它藏在了lk分区里）：
-python mtk r lk,lk2 lk.bin,lk2.bin
-（网上看自己有几个lk分区，不要找着抄）
-2.备份后自己重名后缀，例如我有两个lk分区：lk.base,lk2.base
-3.下载我提供的lk文件
-4.刷入我提供的lk文件
-python mtk w lk,lk2 lk.bin,lk.bin
-
-5.强解bl锁：
-python mtk da seccfg unlock
-
-6.此时你可能像我手机变成一块黑砖，不用慌，输入
-python mtk w lk,lk2 lk.base,lk2.base
-
-刷如原厂lk文件，重新按住电源键+音量上+音量下，等到重新进入深刷模式
-7.按一下电源键 如果看到了
-
-Your device has been unlocked and can’t be trusted.
-Your device will boot in 5 seconds.就成功了，不过之后重启可能像我的手机一样要再按一次电源键
-
-8.此时可能无法启动手机，一直让它开机进入rec模式（大约半个小时，如果不行手动进入rec模式
-9.清除数据分区，然后重启
-Root手机：1.重新进入深刷模式，输入
-python mtk r boot boot.img
-
-提取boot分区，因为boot分区不对可能会掉wifi
-2.安装面具
-3.修补boot镜像，不要开修补vbmeta
-4.重新进入深刷模式，输入
-python mtk w boot 你修补的镜像
-
-5.不出意外应当后成功root了(如果升级c12，可以用官方升级工具，之后找到升级包，获得boot，修补之后fastbootd刷入)
-五.去除dm检验1.用软件提取vbmeta.img2.进入fastbootd 之后输入:
-fastboot --disable-verity --disable-verification flash vbmeta vbmeta.img
-
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>强解</tag>
-        <tag>Root</tag>
-        <tag>安卓</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>骁龙410随身WiFi刷入Debian 系统和救砖教程</title>
     <url>/2024/12/22/1/</url>
     <content><![CDATA[驱动与Debian所需文件
@@ -189,78 +110,82 @@ echo none &gt; /sys/class/leds/blue:wifi/triggerecho none &gt; /sys/class/leds/r
       </tags>
   </entry>
   <entry>
-    <title>安装搭建Hexo博客在Github Pager和Cloudflare并更换主题 完整指南</title>
-    <url>/2024/12/22/3/</url>
-    <content><![CDATA[准备软件准备
-Github账号(必须)
-Cloudflare账号(必须)
-Node(必须)
-Git(必须)
-VSCode（建议,非必须）
+    <title>OPPO/真我手机 MTK强解BL锁</title>
+    <url>/2024/12/22/2/</url>
+    <content><![CDATA[
+我手上的手机是oppo reno5 pro，警告提前备份数据，一但变砖，本人概不负责
 
-检查1.在键盘按下win + R键，输入CMD，然后回车，打开CMD窗口，执行node -v命令，看到版本信息，则说明Node安装成功。
-2.Node换华为源(会快一点)：
-npm config set registry https://mirrors.huaweicloud.com/repository/npm/
-正式配置配置 Git 密钥并连接至 Github1.配置用户名和邮箱
-git config --global user.name &quot;你的用户名&quot;git config --global user.email &quot;你的邮箱&quot;
-之后通过通过以下命令检查是否配置成功
-git config -l 
+资源与文件
+123盘 提取码:1213
+dm模块(用于部分机型关闭dm校验)
 
-2.配置公钥连接Github
-ssh-keygen -t rsa -C &quot;你的邮箱&quot;
+准备工作：1.安装python环境（Download Python | Python.org）记得勾选Add Python X.X to PATH
+2.必要驱动
+3.安装强解工具mtkclient
+4.手机一定要降级到c11，因为c12及以后封了强解端口，不过好像可以拆机开端口，不过本人没有测试
+mtkclient配置：1.进入解压后的mtkclient文件夹
+2.在此文件夹打开powershell
+3.换清华或其他源（不一定，但会更快一些）：
+pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 
-3.用记事本打开上述图片中的公钥id_rsa.pub，复制里面的内容，然后开始在github中配置ssh密钥。
-4.进入github，点击右上角头像 选择settings，进入设置页后选择 SSH and GPG keys，名字随便起，公钥填到Key那一栏。
-5.测试连接，输入以下命令（不要开stam++连接）
-ssh -T git@github.com
+4.安装mtkclient需要的第三方库：
+pip install -r requirements.txt
 
-第一次连接会提示Are you sure you want to continue connecting (yes&#x2F;no&#x2F;[fingerprint])?，输入yes即可出现连接到账户的信息，说明已经大功告成。
-创建GitHub.io仓库1.点击右上角的+按钮，选择New repository，创建一个&lt;用户名&gt;.github.io的仓库。
-2.仓库名字的格式必须为：&lt;用户名&gt;.github.io (注意：前缀必须为用户名，此为预览博客需要，后期可修改仓库名)
-3.可见性必须选择 Public 方便第一次部署检查问题，点击 Creat repository 进行创建即可
-初始化 Hexo 博客1.创建一个文件夹来保存博客源码（我这里选的路径为D:&#x2F;Hexo-Blog），在文件夹内右键鼠标，选择Open Git Bash here
-2.在Git BASH输入如下命令安装 Hexo
-npm install -g hexo-cli &amp;&amp; hexo -v
-安装完后输入hexo -v验证是否安装成功。
-3.初始化 Hexo 项目安装相关依赖。
-hexo init blogcd blognpm i
+解锁bl锁：解锁安卓10以下设备的bl锁：1.先将设备关机
+2.在powershell里输入：
+python mtk da seccfg unlock
 
-4.输入
-hexo cl &amp;&amp; hexo s
-启动项目,打开浏览器，输入地址：http://localhost:4000 当看到网站，就成功了
-将静态博客挂载到 GitHub Pages1.安装 hexo-deployer-git
-npm install hexo-deployer-git --save
+3.按住电源键+音量上下键，进入深刷模式，第一次会自动安装驱动，等待进度条完毕
+4.如果重启出现：
 
-2.修改 _config.yml 文件在blog-demo目录下的_config.yml，就是整个Hexo框架的配置文件了。可以在里面修改大部分的配置。详细可参考官方的配置描述。修改最后一行的配置，将repository修改为你自己的github项目地址即可，还有分支要改为main代表主分支（注意缩进）。
-deploy:  type: git  repository: git@github.com:applezengzhe/applezengzhe.github.io.git  branch: main
+Your device has been unlocked and can’t be trusted.
+Your device will boot in 5 seconds.就解锁完毕
 
-3.修改好配置后，运行如下命令，将代码部署到 GitHub（Hexo三连）
-hexo cl&amp;&amp;hexo g&amp;&amp;hexo d
-如果出现Deploy done，则说明部署成功了。稍等两分钟，打开浏览器访问：https://applezengzhe.github.io ，这时候我们就可以看到博客内容了。
-更换主题1.打开https://hexo.io/themes/找到喜欢的主题打开github根据教程clone主题，或者将主题下载到本地hexo主题文件夹中进行使用。
-2.以particlex为例
-cd themesgit clone https://github.com/theme-particlex/hexo-theme-particlex.git particlex --depth=1
+5.此时可能无法启动手机，一直让它开机进入rec模式（大约半个小时），如果不行手动进入rec模式
+6.直接清除数据分区，然后重启
+解锁安卓11以上设备bl锁：1.备份lk（因为安卓11之后有dm校验，又把它藏在了lk分区里）：
+python mtk r lk,lk2 lk.bin,lk2.bin
+（网上看自己有几个lk分区，不要找着抄）
+2.备份后自己重名后缀，例如我有两个lk分区：lk.base,lk2.base
+3.下载我提供的lk文件
+4.刷入我提供的lk文件
+python mtk w lk,lk2 lk.bin,lk.bin
 
-3.然后在根目录 _config.yml 设置主题为 ParticleX 即可。
+5.强解bl锁：
+python mtk da seccfg unlock
 
-theme: particlex
+6.此时你可能像我手机变成一块黑砖，不用慌，输入
+python mtk w lk,lk2 lk.base,lk2.base
 
-部署到Cloudflare Workers 和 Pages上1.登录Cloudflare后进入控制台页面
-2.点击Workers 和 Pages然后创建应用程序
-3.点击Pages，然后点击连接到 Git
-4.输入你的github账号和密码，然后选择Hexo的仓库
-5.构建配置中的构建命令输入
-hexo cl&amp;&amp;hexo g&amp;&amp;hexo d
+刷如原厂lk文件，重新按住电源键+音量上+音量下，等到重新进入深刷模式
+7.按一下电源键 如果看到了
 
-6.之后进入你创建的worker，点击自定义域名(要绑定在Cloudflare上的)(可选)
-7.最后你就可以国内更稳定访问你的博客了，拜拜!!!(。・∀・)ノ
+Your device has been unlocked and can’t be trusted.
+Your device will boot in 5 seconds.就成功了，不过之后重启可能像我的手机一样要再按一次电源键
+
+8.此时可能无法启动手机，一直让它开机进入rec模式（大约半个小时，如果不行手动进入rec模式
+9.清除数据分区，然后重启
+Root手机：1.重新进入深刷模式，输入
+python mtk r boot boot.img
+
+提取boot分区，因为boot分区不对可能会掉wifi
+2.安装面具
+3.修补boot镜像，不要开修补vbmeta
+4.重新进入深刷模式，输入
+python mtk w boot 你修补的镜像
+
+5.不出意外应当后成功root了(如果升级c12，可以用官方升级工具，之后找到升级包，获得boot，修补之后fastbootd刷入)
+五.去除dm检验1.用软件提取vbmeta.img2.进入fastbootd 之后输入:
+fastboot --disable-verity --disable-verification flash vbmeta vbmeta.img
+
 ]]></content>
       <categories>
         <category>教程</category>
       </categories>
       <tags>
-        <tag>建站</tag>
-        <tag>hexo</tag>
+        <tag>强解</tag>
+        <tag>Root</tag>
+        <tag>安卓</tag>
       </tags>
   </entry>
   <entry>
@@ -365,25 +290,78 @@ verceL -A 你命名的.json --prod
       </tags>
   </entry>
   <entry>
-    <title>广东爱家TV(E900V22C-b)刷入ATV</title>
-    <url>/2025/01/22/6/</url>
-    <content><![CDATA[准备工作
-ATV固件提取码:1213，E900V22C-a或b都可以
-一个U盘
+    <title>安装搭建Hexo博客在Github Pager和Cloudflare并更换主题 完整指南</title>
+    <url>/2024/12/22/3/</url>
+    <content><![CDATA[准备软件准备
+Github账号(必须)
+Cloudflare账号(必须)
+Node(必须)
+Git(必须)
+VSCode（建议,非必须）
 
-刷机1.把ATV固件放入U盘根目录
-2.打开电视盒子并遥控器狂按右键
-3.不出意外的话你的电视就开始升级了
-优点1.自带root2.不杀后台
-问题1.由于是移动端移植，不支持语音和一些按键不支持2.wifi adb 需要拔网线连接wifi，不那么好用
+检查1.在键盘按下win + R键，输入CMD，然后回车，打开CMD窗口，执行node -v命令，看到版本信息，则说明Node安装成功。
+2.Node换华为源(会快一点)：
+npm config set registry https://mirrors.huaweicloud.com/repository/npm/
+正式配置配置 Git 密钥并连接至 Github1.配置用户名和邮箱
+git config --global user.name &quot;你的用户名&quot;git config --global user.email &quot;你的邮箱&quot;
+之后通过通过以下命令检查是否配置成功
+git config -l 
+
+2.配置公钥连接Github
+ssh-keygen -t rsa -C &quot;你的邮箱&quot;
+
+3.用记事本打开上述图片中的公钥id_rsa.pub，复制里面的内容，然后开始在github中配置ssh密钥。
+4.进入github，点击右上角头像 选择settings，进入设置页后选择 SSH and GPG keys，名字随便起，公钥填到Key那一栏。
+5.测试连接，输入以下命令（不要开stam++连接）
+ssh -T git@github.com
+
+第一次连接会提示Are you sure you want to continue connecting (yes&#x2F;no&#x2F;[fingerprint])?，输入yes即可出现连接到账户的信息，说明已经大功告成。
+创建GitHub.io仓库1.点击右上角的+按钮，选择New repository，创建一个&lt;用户名&gt;.github.io的仓库。
+2.仓库名字的格式必须为：&lt;用户名&gt;.github.io (注意：前缀必须为用户名，此为预览博客需要，后期可修改仓库名)
+3.可见性必须选择 Public 方便第一次部署检查问题，点击 Creat repository 进行创建即可
+初始化 Hexo 博客1.创建一个文件夹来保存博客源码（我这里选的路径为D:&#x2F;Hexo-Blog），在文件夹内右键鼠标，选择Open Git Bash here
+2.在Git BASH输入如下命令安装 Hexo
+npm install -g hexo-cli &amp;&amp; hexo -v
+安装完后输入hexo -v验证是否安装成功。
+3.初始化 Hexo 项目安装相关依赖。
+hexo init blogcd blognpm i
+
+4.输入
+hexo cl &amp;&amp; hexo s
+启动项目,打开浏览器，输入地址：http://localhost:4000 当看到网站，就成功了
+将静态博客挂载到 GitHub Pages1.安装 hexo-deployer-git
+npm install hexo-deployer-git --save
+
+2.修改 _config.yml 文件在blog-demo目录下的_config.yml，就是整个Hexo框架的配置文件了。可以在里面修改大部分的配置。详细可参考官方的配置描述。修改最后一行的配置，将repository修改为你自己的github项目地址即可，还有分支要改为main代表主分支（注意缩进）。
+deploy:  type: git  repository: git@github.com:applezengzhe/applezengzhe.github.io.git  branch: main
+
+3.修改好配置后，运行如下命令，将代码部署到 GitHub（Hexo三连）
+hexo cl&amp;&amp;hexo g&amp;&amp;hexo d
+如果出现Deploy done，则说明部署成功了。稍等两分钟，打开浏览器访问：https://applezengzhe.github.io ，这时候我们就可以看到博客内容了。
+更换主题1.打开https://hexo.io/themes/找到喜欢的主题打开github根据教程clone主题，或者将主题下载到本地hexo主题文件夹中进行使用。
+2.以particlex为例
+cd themesgit clone https://github.com/theme-particlex/hexo-theme-particlex.git particlex --depth=1
+
+3.然后在根目录 _config.yml 设置主题为 ParticleX 即可。
+
+theme: particlex
+
+部署到Cloudflare Workers 和 Pages上1.登录Cloudflare后进入控制台页面
+2.点击Workers 和 Pages然后创建应用程序
+3.点击Pages，然后点击连接到 Git
+4.输入你的github账号和密码，然后选择Hexo的仓库
+5.构建配置中的构建命令输入
+hexo cl&amp;&amp;hexo g&amp;&amp;hexo d
+
+6.之后进入你创建的worker，点击自定义域名(要绑定在Cloudflare上的)(可选)
+7.最后你就可以国内更稳定访问你的博客了，拜拜!!!(。・∀・)ノ
 ]]></content>
       <categories>
         <category>教程</category>
       </categories>
       <tags>
-        <tag>安卓</tag>
-        <tag>刷机</tag>
-        <tag>TV</tag>
+        <tag>建站</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -430,8 +408,57 @@ suenable_nativebridge
         <category>教程</category>
       </categories>
       <tags>
-        <tag>安卓</tag>
         <tag>刷机</tag>
+        <tag>安卓</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>广东爱家TV(E900V22C-b)刷入ATV</title>
+    <url>/2025/01/22/6/</url>
+    <content><![CDATA[准备工作
+ATV固件提取码:1213，E900V22C-a或b都可以
+一个U盘
+
+刷机1.把ATV固件放入U盘根目录
+2.打开电视盒子并遥控器狂按右键
+3.不出意外的话你的电视就开始升级了
+优点1.自带root2.不杀后台
+问题1.由于是移动端移植，不支持语音和一些按键不支持2.wifi adb 需要拔网线连接wifi，不那么好用
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>刷机</tag>
+        <tag>安卓</tag>
+        <tag>TV</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>电脑如何重装Windows系统</title>
+    <url>/2025/01/23/7/</url>
+    <content><![CDATA[准备工作文件
+bt下载器qbittorrent增强版
+windwos镜像msdn，hellowindwos
+微PE
+你的Windwos驱动，自己去官网找(如果找不到就可以安装驱动安装软件，如:驱动人生，但下载一般较慢，还可能不适配)
+
+软件准备1.安装qbittorrent后复制windwos镜像站的bt下载链接下载
+2.在插入U盘，打开微PE安装，安装成功后Windwos镜像拖入U盘
+3.重启电脑进入bios(如果不知道可以去网上查查，一般为Delete)
+4.设置U盘为第一启动项
+5.重启进入微PE，后打开DiskGenius，进行分区然后创建ESP&#x2F;MSR分区，如果有就不用了
+6.打开Dism++，恢复功能&#x3D;&gt;还原系统，目标镜像路径为你的Windwos镜像，然后选择你的目标镜像版本，安装位置选你分的区域，记得勾选格式化，Compact，添加引导
+7.引导为你的ESP分区
+8.之后拔U盘重启应该就可以了进入系统，然后自己进行配置
+9.进入系统后打开你的驱动文件，进行安装
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>刷机</tag>
+        <tag>Windows</tag>
       </tags>
   </entry>
   <entry>
@@ -572,33 +599,6 @@ mtd erase FIPmtd write /tmp/自己刚刚上传unoot文件 FIP mtd verify /tmp/mt
       <tags>
         <tag>刷机</tag>
         <tag>路由器</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>电脑如何重装Windows系统</title>
-    <url>/2025/01/23/7/</url>
-    <content><![CDATA[准备工作文件
-bt下载器qbittorrent增强版
-windwos镜像msdn，hellowindwos
-微PE
-你的Windwos驱动，自己去官网找(如果找不到就可以安装驱动安装软件，如:驱动人生，但下载一般较慢，还可能不适配)
-
-软件准备1.安装qbittorrent后复制windwos镜像站的bt下载链接下载
-2.在插入U盘，打开微PE安装，安装成功后Windwos镜像拖入U盘
-3.重启电脑进入bios(如果不知道可以去网上查查，一般为Delete)
-4.设置U盘为第一启动项
-5.重启进入微PE，后打开DiskGenius，进行分区然后创建ESP&#x2F;MSR分区，如果有就不用了
-6.打开Dism++，恢复功能&#x3D;&gt;还原系统，目标镜像路径为你的Windwos镜像，然后选择你的目标镜像版本，安装位置选你分的区域，记得勾选格式化，Compact，添加引导
-7.引导为你的ESP分区
-8.之后拔U盘重启应该就可以了进入系统，然后自己进行配置
-9.进入系统后打开你的驱动文件，进行安装
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>刷机</tag>
-        <tag>Windows</tag>
       </tags>
   </entry>
   <entry>
