@@ -541,4 +541,37 @@ mtd erase FIPmtd write /tmp/自己刚刚上传unoot文件 FIP mtd verify /tmp/mt
         <tag>路由器</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Ubuntu  Samba 安装和配置</title>
+    <url>/2025/08/24/9/</url>
+    <content><![CDATA[安装1.安装smb服务，输入;
+sudo apt update &amp;&amp; apt install samba
+
+2.检查smb服务状态,输入:
+systemctl status smbd --no-pager -l
+
+3.设置smb开机自启动,输入:
+systemctl is-enabled smbd# enable it if inactivesystemctl enable smbd
+
+配置smb用户与密码1.添加用户,输入
+sudo usermod -aG sambashare [username]
+
+2.设置密码,输入:
+sudo smbpasswd -a [username]
+
+3.创建共享
+sudo nano /etc/samba/smb.conf
+如果没有nano使用一下命令安装:
+sudo apt update &amp;&amp; apt install nano
+
+接着添加一下内容:
+[public]  comment = public anonymous access  path = /data/ #共享目录  browsable =yes #是否可以浏览  create mask = 0660  directory mask = 0771  writable = yes #是否可写  guest ok = yes #是否允许匿名访问
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>共享</tag>
+      </tags>
+  </entry>
 </search>
