@@ -1,66 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>通过 cloudflare tunnel 免费内网穿透并免费国内加速访问</title>
-    <url>/2025/08/24/10/</url>
-    <content><![CDATA[准备
-Cloudflare账号(必须)
-一个域名(推荐NameSilo(购买)(必须)
-github账号(非必须)
-edgeone账号可以通过x发推文或测速获得免费套餐，也可以买一个月付费，到期后变免费(非必须)
-vercel账号(非必须)
-Netlify账号与Nodejs(非必须)
-
-cloudflare tunnel配置1.先在绑定自己购买的域名
-2.在域名绑定完成后在cloudflare主页点击Zero Trust
-3.进入后先随便取个名字，之后选择免费计划,之后点继续
-4.在选择付款方式页面直接回到cloudflare主页，之后再点Zero Trust
-5.进入后一次点击Networks&#x3D;&gt;Tunnels&#x3D;&gt;Add a tunnel&#x3D;&gt;cloudflared&#x3D;&gt;next
-6.然后为隧道起个名字,之后点Save tunnel，然后根据自己的系统安装cloudflared,完成后点击next
-7.在当前页面填写自己要穿透后访问的域名,和内网的服务协议与ip+端口
-免费国内加速访问
-在成功配置cloudflare tunnel后你会发现国内访问很慢，这是应为cloudflare tunnel国内CDN很少，这时可以优选ip或cdn解决
-
-方法一 cloudflare优选IP1.进入cloudflare主页后点击Workers&#x3D;&gt;Workers 和 Pages
-2.点击创建&#x3D;&gt;从 Hello World! 开始&#x3D;&gt;部署&#x3D;&gt;编辑代码,写入:
-addEventListener(  &quot;fetch&quot;,event =&gt; &#123;     let url=new URL(event.request.url);     url.hostname=&quot;example.com&quot;;  //你的Cloudflare tunnel填写的域名     let request=new Request(url,event.request);     event. respondWith(       fetch(request)     )  &#125;)
-
-3.之后点击设置，在域和路由点击添加，选择路由，区域选你的域名，路由写你以后要访问的域名，格式:
-example.com/*
-
-4.之后在Cloudflare主页点击你的域名，再点DNS,填写记录，添加一个DNS解析写你路由绑定的域名cname到cf.090227.xyz(社区优选域名)，之后就可以访问这个域名访问你的本地服务了
-方法二 Netlify反代网站1.在Github开一个新仓库，根目录创建一个 netlify.toml。在其中写入
-[[redirects]]  from = &quot;/*&quot;  to = &quot;https://cloudflare tunnel域名/:splat&quot;  status = 200  force = true
-
-注意，端口后面的斜杠一定不要丢！
-
-2.接下来回到 https://app.netlify.com/ 创建一个新项目，导入你刚创建的Github项目，部署即可 最后绑定一下你的域名，就可以通过此域名访问你的内网服务了
-方法三 Vercel反代网站1.电脑安装Nodejs，我们需要用到npm 安装Vercel CLI
-npm i -g vercel
-
-2.登录Vercel CLI
-vercel login
-
-3.找个地方（比如桌面）创建一个你随意命名的文件夹，然后在其中创建一个你随意命名的.json文件，其中写入:
-&#123;    &quot;version&quot;: 2,    &quot;routes&quot;: [      &#123;&quot;src&quot;: &quot;/(.*)&quot;,&quot;dest&quot;: &quot;https://cloudflare tunnel域名&quot;&#125;    ]&#125;
-
-4.然后部署
-verceL -A 你命名的.json --prod
-
-5.最后绑定一下你的域名，就可以通过此域名访问你的内网服务了
-方法四 edgeone反代网站1.在edgeone主页新增站点，添加自己的域名，选择免费服务
-2.进入后点击域名配置&#x3D;&gt;域名管理，添加域名，域名配置填写自己以后访问的域名，源站配置写cloudflare tunnel域名 回源 HOST 头选使用源站域名
-3.之后在Cloudflare添加cname记录，等部署完后点击HTTPS 配置选申请免费证书&#x3D;&gt;确定
-4.等部署完后，就可以通过此域名访问你的内网服务了
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>共享</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>骁龙410随身WiFi刷入Debian 系统和救砖教程</title>
     <url>/2024/12/22/1/</url>
     <content><![CDATA[驱动与Debian所需文件
@@ -170,6 +110,66 @@ echo none &gt; /sys/class/leds/blue:wifi/triggerecho none &gt; /sys/class/leds/r
       </tags>
   </entry>
   <entry>
+    <title>通过 cloudflare tunnel 免费内网穿透并免费国内加速访问</title>
+    <url>/2025/08/24/10/</url>
+    <content><![CDATA[准备
+Cloudflare账号(必须)
+一个域名(推荐NameSilo(购买)(必须)
+github账号(非必须)
+edgeone账号可以通过x发推文或测速获得免费套餐，也可以买一个月付费，到期后变免费(非必须)
+vercel账号(非必须)
+Netlify账号与Nodejs(非必须)
+
+cloudflare tunnel配置1.先在绑定自己购买的域名
+2.在域名绑定完成后在cloudflare主页点击Zero Trust
+3.进入后先随便取个名字，之后选择免费计划,之后点继续
+4.在选择付款方式页面直接回到cloudflare主页，之后再点Zero Trust
+5.进入后一次点击Networks&#x3D;&gt;Tunnels&#x3D;&gt;Add a tunnel&#x3D;&gt;cloudflared&#x3D;&gt;next
+6.然后为隧道起个名字,之后点Save tunnel，然后根据自己的系统安装cloudflared,完成后点击next
+7.在当前页面填写自己要穿透后访问的域名,和内网的服务协议与ip+端口
+免费国内加速访问
+在成功配置cloudflare tunnel后你会发现国内访问很慢，这是应为cloudflare tunnel国内CDN很少，这时可以优选ip或cdn解决
+
+方法一 cloudflare优选IP1.进入cloudflare主页后点击Workers&#x3D;&gt;Workers 和 Pages
+2.点击创建&#x3D;&gt;从 Hello World! 开始&#x3D;&gt;部署&#x3D;&gt;编辑代码,写入:
+addEventListener(  &quot;fetch&quot;,event =&gt; &#123;     let url=new URL(event.request.url);     url.hostname=&quot;example.com&quot;;  //你的Cloudflare tunnel填写的域名     let request=new Request(url,event.request);     event. respondWith(       fetch(request)     )  &#125;)
+
+3.之后点击设置，在域和路由点击添加，选择路由，区域选你的域名，路由写你以后要访问的域名，格式:
+example.com/*
+
+4.之后在Cloudflare主页点击你的域名，再点DNS,填写记录，添加一个DNS解析写你路由绑定的域名cname到cf.090227.xyz(社区优选域名)，之后就可以访问这个域名访问你的本地服务了
+方法二 Netlify反代网站1.在Github开一个新仓库，根目录创建一个 netlify.toml。在其中写入
+[[redirects]]  from = &quot;/*&quot;  to = &quot;https://cloudflare tunnel域名/:splat&quot;  status = 200  force = true
+
+注意，端口后面的斜杠一定不要丢！
+
+2.接下来回到 https://app.netlify.com/ 创建一个新项目，导入你刚创建的Github项目，部署即可 最后绑定一下你的域名，就可以通过此域名访问你的内网服务了
+方法三 Vercel反代网站1.电脑安装Nodejs，我们需要用到npm 安装Vercel CLI
+npm i -g vercel
+
+2.登录Vercel CLI
+vercel login
+
+3.找个地方（比如桌面）创建一个你随意命名的文件夹，然后在其中创建一个你随意命名的.json文件，其中写入:
+&#123;    &quot;version&quot;: 2,    &quot;routes&quot;: [      &#123;&quot;src&quot;: &quot;/(.*)&quot;,&quot;dest&quot;: &quot;https://cloudflare tunnel域名&quot;&#125;    ]&#125;
+
+4.然后部署
+verceL -A 你命名的.json --prod
+
+5.最后绑定一下你的域名，就可以通过此域名访问你的内网服务了
+方法四 edgeone反代网站1.在edgeone主页新增站点，添加自己的域名，选择免费服务
+2.进入后点击域名配置&#x3D;&gt;域名管理，添加域名，域名配置填写自己以后访问的域名，源站配置写cloudflare tunnel域名 回源 HOST 头选使用源站域名
+3.之后在Cloudflare添加cname记录，等部署完后点击HTTPS 配置选申请免费证书&#x3D;&gt;确定
+4.等部署完后，就可以通过此域名访问你的内网服务了
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>共享</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>OPPO/真我手机 MTK强解BL锁</title>
     <url>/2024/12/22/2/</url>
     <content><![CDATA[
@@ -246,6 +246,81 @@ fastboot --disable-verity --disable-verification flash vbmeta vbmeta.img
         <tag>强解</tag>
         <tag>Root</tag>
         <tag>安卓</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>安装搭建Hexo博客在Github Pager和Cloudflare并更换主题 完整指南</title>
+    <url>/2024/12/22/3/</url>
+    <content><![CDATA[准备软件准备
+Github账号(必须)
+Cloudflare账号(必须)
+Node(必须)
+Git(必须)
+VSCode（建议,非必须）
+
+检查1.在键盘按下win + R键，输入CMD，然后回车，打开CMD窗口，执行node -v命令，看到版本信息，则说明Node安装成功。
+2.Node换华为源(会快一点)：
+npm config set registry https://mirrors.huaweicloud.com/repository/npm/
+正式配置配置 Git 密钥并连接至 Github1.配置用户名和邮箱
+git config --global user.name &quot;你的用户名&quot;git config --global user.email &quot;你的邮箱&quot;
+之后通过通过以下命令检查是否配置成功
+git config -l 
+
+2.配置公钥连接Github
+ssh-keygen -t rsa -C &quot;你的邮箱&quot;
+
+3.用记事本打开上述图片中的公钥id_rsa.pub，复制里面的内容，然后开始在github中配置ssh密钥。
+4.进入github，点击右上角头像 选择settings，进入设置页后选择 SSH and GPG keys，名字随便起，公钥填到Key那一栏。
+5.测试连接，输入以下命令（不要开stam++连接）
+ssh -T git@github.com
+
+第一次连接会提示Are you sure you want to continue connecting (yes&#x2F;no&#x2F;[fingerprint])?，输入yes即可出现连接到账户的信息，说明已经大功告成。
+创建GitHub.io仓库1.点击右上角的+按钮，选择New repository，创建一个&lt;用户名&gt;.github.io的仓库。
+2.仓库名字的格式必须为：&lt;用户名&gt;.github.io (注意：前缀必须为用户名，此为预览博客需要，后期可修改仓库名)
+3.可见性必须选择 Public 方便第一次部署检查问题，点击 Creat repository 进行创建即可
+初始化 Hexo 博客1.创建一个文件夹来保存博客源码（我这里选的路径为D:&#x2F;Hexo-Blog），在文件夹内右键鼠标，选择Open Git Bash here
+2.在Git BASH输入如下命令安装 Hexo
+npm install -g hexo-cli &amp;&amp; hexo -v
+安装完后输入hexo -v验证是否安装成功。
+3.初始化 Hexo 项目安装相关依赖。
+hexo init blogcd blognpm i
+
+4.输入
+hexo cl &amp;&amp; hexo s
+启动项目,打开浏览器，输入地址：http://localhost:4000 当看到网站，就成功了
+将静态博客挂载到 GitHub Pages1.安装 hexo-deployer-git
+npm install hexo-deployer-git --save
+
+2.修改 _config.yml 文件在blog-demo目录下的_config.yml，就是整个Hexo框架的配置文件了。可以在里面修改大部分的配置。详细可参考官方的配置描述。修改最后一行的配置，将repository修改为你自己的github项目地址即可，还有分支要改为main代表主分支（注意缩进）。
+deploy:  type: git  repository: git@github.com:applezengzhe/applezengzhe.github.io.git  branch: main
+
+3.修改好配置后，运行如下命令，将代码部署到 GitHub（Hexo三连）
+hexo cl&amp;&amp;hexo g&amp;&amp;hexo d
+如果出现Deploy done，则说明部署成功了。稍等两分钟，打开浏览器访问：https://applezengzhe.github.io ，这时候我们就可以看到博客内容了。
+更换主题1.打开https://hexo.io/themes/找到喜欢的主题打开github根据教程clone主题，或者将主题下载到本地hexo主题文件夹中进行使用。
+2.以particlex为例
+cd themesgit clone https://github.com/theme-particlex/hexo-theme-particlex.git particlex --depth=1
+
+3.然后在根目录 _config.yml 设置主题为 ParticleX 即可。
+
+theme: particlex
+
+部署到Cloudflare Workers 和 Pages上1.登录Cloudflare后进入控制台页面
+2.点击Workers 和 Pages然后创建应用程序
+3.点击Pages，然后点击连接到 Git
+4.输入你的github账号和密码，然后选择Hexo的仓库
+5.构建配置中的构建命令输入
+hexo cl&amp;&amp;hexo g&amp;&amp;hexo d
+
+6.之后进入你创建的worker，点击自定义域名(要绑定在Cloudflare上的)(可选)
+7.最后你就可以国内更稳定访问你的博客了，拜拜!!!(。・∀・)ノ
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>建站</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -335,81 +410,6 @@ suenable_nativebridge
       <tags>
         <tag>刷机</tag>
         <tag>安卓</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>安装搭建Hexo博客在Github Pager和Cloudflare并更换主题 完整指南</title>
-    <url>/2024/12/22/3/</url>
-    <content><![CDATA[准备软件准备
-Github账号(必须)
-Cloudflare账号(必须)
-Node(必须)
-Git(必须)
-VSCode（建议,非必须）
-
-检查1.在键盘按下win + R键，输入CMD，然后回车，打开CMD窗口，执行node -v命令，看到版本信息，则说明Node安装成功。
-2.Node换华为源(会快一点)：
-npm config set registry https://mirrors.huaweicloud.com/repository/npm/
-正式配置配置 Git 密钥并连接至 Github1.配置用户名和邮箱
-git config --global user.name &quot;你的用户名&quot;git config --global user.email &quot;你的邮箱&quot;
-之后通过通过以下命令检查是否配置成功
-git config -l 
-
-2.配置公钥连接Github
-ssh-keygen -t rsa -C &quot;你的邮箱&quot;
-
-3.用记事本打开上述图片中的公钥id_rsa.pub，复制里面的内容，然后开始在github中配置ssh密钥。
-4.进入github，点击右上角头像 选择settings，进入设置页后选择 SSH and GPG keys，名字随便起，公钥填到Key那一栏。
-5.测试连接，输入以下命令（不要开stam++连接）
-ssh -T git@github.com
-
-第一次连接会提示Are you sure you want to continue connecting (yes&#x2F;no&#x2F;[fingerprint])?，输入yes即可出现连接到账户的信息，说明已经大功告成。
-创建GitHub.io仓库1.点击右上角的+按钮，选择New repository，创建一个&lt;用户名&gt;.github.io的仓库。
-2.仓库名字的格式必须为：&lt;用户名&gt;.github.io (注意：前缀必须为用户名，此为预览博客需要，后期可修改仓库名)
-3.可见性必须选择 Public 方便第一次部署检查问题，点击 Creat repository 进行创建即可
-初始化 Hexo 博客1.创建一个文件夹来保存博客源码（我这里选的路径为D:&#x2F;Hexo-Blog），在文件夹内右键鼠标，选择Open Git Bash here
-2.在Git BASH输入如下命令安装 Hexo
-npm install -g hexo-cli &amp;&amp; hexo -v
-安装完后输入hexo -v验证是否安装成功。
-3.初始化 Hexo 项目安装相关依赖。
-hexo init blogcd blognpm i
-
-4.输入
-hexo cl &amp;&amp; hexo s
-启动项目,打开浏览器，输入地址：http://localhost:4000 当看到网站，就成功了
-将静态博客挂载到 GitHub Pages1.安装 hexo-deployer-git
-npm install hexo-deployer-git --save
-
-2.修改 _config.yml 文件在blog-demo目录下的_config.yml，就是整个Hexo框架的配置文件了。可以在里面修改大部分的配置。详细可参考官方的配置描述。修改最后一行的配置，将repository修改为你自己的github项目地址即可，还有分支要改为main代表主分支（注意缩进）。
-deploy:  type: git  repository: git@github.com:applezengzhe/applezengzhe.github.io.git  branch: main
-
-3.修改好配置后，运行如下命令，将代码部署到 GitHub（Hexo三连）
-hexo cl&amp;&amp;hexo g&amp;&amp;hexo d
-如果出现Deploy done，则说明部署成功了。稍等两分钟，打开浏览器访问：https://applezengzhe.github.io ，这时候我们就可以看到博客内容了。
-更换主题1.打开https://hexo.io/themes/找到喜欢的主题打开github根据教程clone主题，或者将主题下载到本地hexo主题文件夹中进行使用。
-2.以particlex为例
-cd themesgit clone https://github.com/theme-particlex/hexo-theme-particlex.git particlex --depth=1
-
-3.然后在根目录 _config.yml 设置主题为 ParticleX 即可。
-
-theme: particlex
-
-部署到Cloudflare Workers 和 Pages上1.登录Cloudflare后进入控制台页面
-2.点击Workers 和 Pages然后创建应用程序
-3.点击Pages，然后点击连接到 Git
-4.输入你的github账号和密码，然后选择Hexo的仓库
-5.构建配置中的构建命令输入
-hexo cl&amp;&amp;hexo g&amp;&amp;hexo d
-
-6.之后进入你创建的worker，点击自定义域名(要绑定在Cloudflare上的)(可选)
-7.最后你就可以国内更稳定访问你的博客了，拜拜!!!(。・∀・)ノ
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>建站</tag>
-        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -613,6 +613,9 @@ systemctl status smbd --no-pager -l
 3.设置smb开机自启动,输入:
 systemctl is-enabled smbd# enable it if inactivesystemctl enable smbd
 
+设置文件夹访问权限1.为确保smb用户能添加与删除文件，要设置权限，输入:
+sudo chown -R yourusername:yourusername /data #你的共享路径sudo chmod -R 0755 /data #你的共享路径
+
 配置smb用户与密码1.添加用户,输入
 sudo usermod -aG sambashare [username]
 
@@ -625,7 +628,18 @@ sudo nano /etc/samba/smb.conf
 sudo apt update &amp;&amp; apt install nano
 
 接着添加一下内容:
-[public]  comment = public anonymous access  path = /data/ #共享目录  browsable =yes #是否可以浏览  create mask = 0660  directory mask = 0771  writable = yes #是否可写  guest ok = yes #是否允许匿名访问
+[public]comment = Shared Folderpath = /dataavailable = yesbrowseable = yespublic = yeswritable = yesvalid users = yourusernamecreate mask = 0644directory mask = 0755force create mode = 0644force directory mode = 0755
+
+comment：共享文件夹的描述。
+path：共享文件夹的路径。
+available：是否允许访问。
+browseable：是否在SMB浏览器中可见。
+public：是否允许匿名访问。
+writable：是否允许写入。
+valid users：允许访问共享的用户。
+create mask：新创建文件的权限。
+directory mask：新创建文件夹的权限。
+
 ]]></content>
       <categories>
         <category>教程</category>
