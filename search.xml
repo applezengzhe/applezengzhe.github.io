@@ -382,6 +382,47 @@ hexo cl&amp;&amp;hexo g&amp;&amp;hexo d
       </tags>
   </entry>
   <entry>
+    <title>gmg光猫开Telnet,获得超级管理员密码,改桥接</title>
+    <url>/2024/12/31/4/</url>
+    <content><![CDATA[记录关键参数1.从WAN设置页，记下拨号帐号
+2.如果不知道拨号密码可以问师傅或去移动官网改密码
+3.WAN设置里INTERNET一项对应的VID
+4.ONT认证密码。在登录页面右键，浏览页面源代码，搜索 LOID，把var pwd &#x3D; “——————“;记录下来
+获取管理员密码
+谨慎操作，很容易无法上网，如不能接受请退出
+
+1.捅光猫复位键，45～60秒。
+2.打开登录页面，用管理员帐号CMCCAdmin和初始密码aDm8H%MdA登录进去。
+3.在登陆光猫后在此页面 开启telnet，保存
+4.退出登录，到主页“注册安装”，填入ONT密码，操作业务下发
+5.下发完成后，现在可以正常上网了
+6.使用windows自带的telnet或其他telnet工具连接到光猫，登录用户CMCCAdmin，密码输入光猫反面写的user密码加上@C1，如xxxxxxxx@C1。（如果不对请尝试省份首字母，比如@BJ）待出现~$符号后，输入sidbg 1 DB p DevAuthInfo，超级密码一目了然。
+设置桥接
+部分地区可能需要删掉TR069才能正常使用，用F12法或者TELNET指令法。请自行删除。
+
+1.打开光猫网络标签页
+2.在连接名称选择Internet_XXX这一项
+3.点击删除
+4.重新添加一个 Inetrnet
+5.IP协议版本选择 IPv4&#x2F;v6
+6.模式选择 桥接
+7.端口绑定选择需要的LAN口
+8.VLAN ID 填写之前抄
+9.点击保存
+设置路由器1.加入路由器后台
+2.点击网络
+3.写入自己的拨号账号和密码
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>光猫</tag>
+        <tag>网络</tag>
+        <tag>桥接</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>电脑安装Android X86和Windows双系统</title>
     <url>/2025/01/22/5/</url>
     <content><![CDATA[准备工作文件准备
@@ -430,47 +471,6 @@ suenable_nativebridge
       </tags>
   </entry>
   <entry>
-    <title>gmg光猫开Telnet,获得超级管理员密码,改桥接</title>
-    <url>/2024/12/31/4/</url>
-    <content><![CDATA[记录关键参数1.从WAN设置页，记下拨号帐号
-2.如果不知道拨号密码可以问师傅或去移动官网改密码
-3.WAN设置里INTERNET一项对应的VID
-4.ONT认证密码。在登录页面右键，浏览页面源代码，搜索 LOID，把var pwd &#x3D; “——————“;记录下来
-获取管理员密码
-谨慎操作，很容易无法上网，如不能接受请退出
-
-1.捅光猫复位键，45～60秒。
-2.打开登录页面，用管理员帐号CMCCAdmin和初始密码aDm8H%MdA登录进去。
-3.在登陆光猫后在此页面 开启telnet，保存
-4.退出登录，到主页“注册安装”，填入ONT密码，操作业务下发
-5.下发完成后，现在可以正常上网了
-6.使用windows自带的telnet或其他telnet工具连接到光猫，登录用户CMCCAdmin，密码输入光猫反面写的user密码加上@C1，如xxxxxxxx@C1。（如果不对请尝试省份首字母，比如@BJ）待出现~$符号后，输入sidbg 1 DB p DevAuthInfo，超级密码一目了然。
-设置桥接
-部分地区可能需要删掉TR069才能正常使用，用F12法或者TELNET指令法。请自行删除。
-
-1.打开光猫网络标签页
-2.在连接名称选择Internet_XXX这一项
-3.点击删除
-4.重新添加一个 Inetrnet
-5.IP协议版本选择 IPv4&#x2F;v6
-6.模式选择 桥接
-7.端口绑定选择需要的LAN口
-8.VLAN ID 填写之前抄
-9.点击保存
-设置路由器1.加入路由器后台
-2.点击网络
-3.写入自己的拨号账号和密码
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>光猫</tag>
-        <tag>网络</tag>
-        <tag>桥接</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>广东爱家TV(E900V22C-b)刷入ATV</title>
     <url>/2025/01/22/6/</url>
     <content><![CDATA[准备工作
@@ -490,33 +490,6 @@ ATV固件提取码:1213，E900V22C-a或b都可以
         <tag>刷机</tag>
         <tag>安卓</tag>
         <tag>TV</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>电脑如何重装Windows系统</title>
-    <url>/2025/01/23/7/</url>
-    <content><![CDATA[准备工作文件
-bt下载器qbittorrent增强版
-windwos镜像msdn，hellowindwos
-微PE
-你的Windwos驱动，自己去官网找(如果找不到就可以安装驱动安装软件，如:驱动人生，但下载一般较慢，还可能不适配)
-
-软件准备1.安装qbittorrent后复制windwos镜像站的bt下载链接下载
-2.在插入U盘，打开微PE安装，安装成功后Windwos镜像拖入U盘
-3.重启电脑进入bios(如果不知道可以去网上查查，一般为Delete)
-4.设置U盘为第一启动项
-5.重启进入微PE，后打开DiskGenius，进行分区然后创建ESP&#x2F;MSR分区，如果有就不用了
-6.打开Dism++，恢复功能&#x3D;&gt;还原系统，目标镜像路径为你的Windwos镜像，然后选择你的目标镜像版本，安装位置选你分的区域，记得勾选格式化，Compact，添加引导
-7.引导为你的ESP分区
-8.之后拔U盘重启应该就可以了进入系统，然后自己进行配置
-9.进入系统后打开你的驱动文件，进行安装
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>刷机</tag>
-        <tag>Windows</tag>
       </tags>
   </entry>
   <entry>
@@ -657,6 +630,33 @@ mtd erase FIPmtd write /tmp/自己刚刚上传unoot文件 FIP mtd verify /tmp/mt
       <tags>
         <tag>刷机</tag>
         <tag>路由器</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>电脑如何重装Windows系统</title>
+    <url>/2025/01/23/7/</url>
+    <content><![CDATA[准备工作文件
+bt下载器qbittorrent增强版
+windwos镜像msdn，hellowindwos
+微PE
+你的Windwos驱动，自己去官网找(如果找不到就可以安装驱动安装软件，如:驱动人生，但下载一般较慢，还可能不适配)
+
+软件准备1.安装qbittorrent后复制windwos镜像站的bt下载链接下载
+2.在插入U盘，打开微PE安装，安装成功后Windwos镜像拖入U盘
+3.重启电脑进入bios(如果不知道可以去网上查查，一般为Delete)
+4.设置U盘为第一启动项
+5.重启进入微PE，后打开DiskGenius，进行分区然后创建ESP&#x2F;MSR分区，如果有就不用了
+6.打开Dism++，恢复功能&#x3D;&gt;还原系统，目标镜像路径为你的Windwos镜像，然后选择你的目标镜像版本，安装位置选你分的区域，记得勾选格式化，Compact，添加引导
+7.引导为你的ESP分区
+8.之后拔U盘重启应该就可以了进入系统，然后自己进行配置
+9.进入系统后打开你的驱动文件，进行安装
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>刷机</tag>
+        <tag>Windows</tag>
       </tags>
   </entry>
   <entry>
