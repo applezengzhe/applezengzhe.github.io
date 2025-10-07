@@ -1,6 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Windows忘记秘密如何解决</title>
+    <url>/2025/10/01/11/</url>
+    <content><![CDATA[准备
+U盘
+一台好的windows电脑
+微PE
+
+正文1.在另一台电脑插入U盘并打开微PE
+2.点击右下角其他安装方式中的安装到U盘，之后选立即安装到U盘
+3.在你忘记密码的电脑开机时，狂按delete键进如bios
+
+注意不一定是delete键，可能是其他按键，可是搜电脑型号+进入bios按键
+
+4.在bios界面中的启动选U盘启动
+5.开机选第一个选项，之后打开dism++
+6.在dism++选你电脑的系统&#x3D;&gt;打开会话&#x3D;&gt;工具箱&#x3D;&gt;用户管理,之后选自己的账号，点清除密码，重启后就没密码了
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>OPPO/真我手机 MTK强解BL锁</title>
+    <url>/2024/12/22/2/</url>
+    <content><![CDATA[
+我手上的手机是oppo reno5 pro，警告提前备份数据，一但变砖，本人概不负责
+
+资源与文件
+123盘 提取码:1213
+dm模块(用于部分机型关闭dm校验)
+
+准备工作：1.安装python环境（Download Python | Python.org）记得勾选Add Python X.X to PATH
+2.必要驱动
+3.安装强解工具mtkclient
+4.手机一定要降级到c11，因为c12及以后封了强解端口，不过好像可以拆机开端口，不过本人没有测试
+mtkclient配置：1.进入解压后的mtkclient文件夹
+2.在此文件夹打开powershell
+3.换清华或其他源（不一定，但会更快一些）：
+pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+
+4.安装mtkclient需要的第三方库：
+pip install -r requirements.txt
+
+解锁bl锁：解锁安卓10以下设备的bl锁：1.先将设备关机
+2.在powershell里输入：
+python mtk da seccfg unlock
+
+3.按住电源键+音量上下键，进入深刷模式，第一次会自动安装驱动，等待进度条完毕
+4.如果重启出现：
+
+Your device has been unlocked and can’t be trusted.
+Your device will boot in 5 seconds.就解锁完毕
+
+5.此时可能无法启动手机，一直让它开机进入rec模式（大约半个小时），如果不行手动进入rec模式
+6.直接清除数据分区，然后重启
+解锁安卓11以上设备bl锁：1.备份lk（因为安卓11之后有dm校验，又把它藏在了lk分区里）：
+python mtk r lk,lk2 lk.bin,lk2.bin
+（网上看自己有几个lk分区，不要找着抄）
+2.备份后自己重名后缀，例如我有两个lk分区：lk.base,lk2.base
+3.下载我提供的lk文件
+4.刷入我提供的lk文件
+python mtk w lk,lk2 lk.bin,lk.bin
+
+5.强解bl锁：
+python mtk da seccfg unlock
+
+6.此时你可能像我手机变成一块黑砖，不用慌，输入
+python mtk w lk,lk2 lk.base,lk2.base
+
+刷如原厂lk文件，重新按住电源键+音量上+音量下，等到重新进入深刷模式
+7.按一下电源键 如果看到了
+
+Your device has been unlocked and can’t be trusted.
+Your device will boot in 5 seconds.就成功了，不过之后重启可能像我的手机一样要再按一次电源键
+
+8.此时可能无法启动手机，一直让它开机进入rec模式（大约半个小时，如果不行手动进入rec模式
+9.清除数据分区，然后重启
+Root手机：1.重新进入深刷模式，输入
+python mtk r boot boot.img
+
+提取boot分区，因为boot分区不对可能会掉wifi
+2.安装面具
+3.修补boot镜像，不要开修补vbmeta
+4.重新进入深刷模式，输入
+python mtk w boot 你修补的镜像
+
+5.不出意外应当后成功root了(如果升级c12，可以用官方升级工具，之后找到升级包，获得boot，修补之后fastbootd刷入)
+五.去除dm检验1.用软件提取vbmeta.img2.进入fastbootd 之后输入:
+fastboot --disable-verity --disable-verification flash vbmeta vbmeta.img
+
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>强解</tag>
+        <tag>Root</tag>
+        <tag>安卓</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>骁龙410随身WiFi刷入Debian 系统和救砖教程</title>
     <url>/2024/12/22/1/</url>
     <content><![CDATA[驱动与Debian所需文件
@@ -170,28 +274,30 @@ verceL -A 你命名的.json --prod
       </tags>
   </entry>
   <entry>
-    <title>Windows忘记秘密如何解决</title>
-    <url>/2025/10/01/11/</url>
-    <content><![CDATA[准备
-U盘
-一台好的windows电脑
+    <title>电脑如何重装Windows系统</title>
+    <url>/2025/01/23/7/</url>
+    <content><![CDATA[准备工作文件
+bt下载器qbittorrent增强版
+windwos镜像msdn，hellowindwos
 微PE
+你的Windwos驱动，自己去官网找(如果找不到就可以安装驱动安装软件，如:驱动人生，但下载一般较慢，还可能不适配)
 
-正文1.在另一台电脑插入U盘并打开微PE
-2.点击右下角其他安装方式中的安装到U盘，之后选立即安装到U盘
-3.在你忘记密码的电脑开机时，狂按delete键进如bios
-
-注意不一定是delete键，可能是其他按键，可是搜电脑型号+进入bios按键
-
-4.在bios界面中的启动选U盘启动
-5.开机选第一个选项，之后打开dism++
-6.在dism++选你电脑的系统&#x3D;&gt;打开会话&#x3D;&gt;工具箱&#x3D;&gt;用户管理,之后选自己的账号，点清除密码，重启后就没密码了
+软件准备1.安装qbittorrent后复制windwos镜像站的bt下载链接下载
+2.在插入U盘，打开微PE安装，安装成功后Windwos镜像拖入U盘
+3.重启电脑进入bios(如果不知道可以去网上查查，一般为Delete)
+4.设置U盘为第一启动项
+5.重启进入微PE，后打开DiskGenius，进行分区然后创建ESP&#x2F;MSR分区，如果有就不用了
+6.打开Dism++，恢复功能&#x3D;&gt;还原系统，目标镜像路径为你的Windwos镜像，然后选择你的目标镜像版本，安装位置选你分的区域，记得勾选格式化，Compact，添加引导
+7.引导为你的ESP分区
+8.之后拔U盘重启应该就可以了进入系统，然后自己进行配置
+9.进入系统后打开你的驱动文件，进行安装
 ]]></content>
       <categories>
         <category>教程</category>
       </categories>
       <tags>
-        <tag>windows</tag>
+        <tag>刷机</tag>
+        <tag>Windows</tag>
       </tags>
   </entry>
   <entry>
@@ -225,85 +331,6 @@ systemctl restart systemd-resolved.service
       </categories>
       <tags>
         <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>OPPO/真我手机 MTK强解BL锁</title>
-    <url>/2024/12/22/2/</url>
-    <content><![CDATA[
-我手上的手机是oppo reno5 pro，警告提前备份数据，一但变砖，本人概不负责
-
-资源与文件
-123盘 提取码:1213
-dm模块(用于部分机型关闭dm校验)
-
-准备工作：1.安装python环境（Download Python | Python.org）记得勾选Add Python X.X to PATH
-2.必要驱动
-3.安装强解工具mtkclient
-4.手机一定要降级到c11，因为c12及以后封了强解端口，不过好像可以拆机开端口，不过本人没有测试
-mtkclient配置：1.进入解压后的mtkclient文件夹
-2.在此文件夹打开powershell
-3.换清华或其他源（不一定，但会更快一些）：
-pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
-
-4.安装mtkclient需要的第三方库：
-pip install -r requirements.txt
-
-解锁bl锁：解锁安卓10以下设备的bl锁：1.先将设备关机
-2.在powershell里输入：
-python mtk da seccfg unlock
-
-3.按住电源键+音量上下键，进入深刷模式，第一次会自动安装驱动，等待进度条完毕
-4.如果重启出现：
-
-Your device has been unlocked and can’t be trusted.
-Your device will boot in 5 seconds.就解锁完毕
-
-5.此时可能无法启动手机，一直让它开机进入rec模式（大约半个小时），如果不行手动进入rec模式
-6.直接清除数据分区，然后重启
-解锁安卓11以上设备bl锁：1.备份lk（因为安卓11之后有dm校验，又把它藏在了lk分区里）：
-python mtk r lk,lk2 lk.bin,lk2.bin
-（网上看自己有几个lk分区，不要找着抄）
-2.备份后自己重名后缀，例如我有两个lk分区：lk.base,lk2.base
-3.下载我提供的lk文件
-4.刷入我提供的lk文件
-python mtk w lk,lk2 lk.bin,lk.bin
-
-5.强解bl锁：
-python mtk da seccfg unlock
-
-6.此时你可能像我手机变成一块黑砖，不用慌，输入
-python mtk w lk,lk2 lk.base,lk2.base
-
-刷如原厂lk文件，重新按住电源键+音量上+音量下，等到重新进入深刷模式
-7.按一下电源键 如果看到了
-
-Your device has been unlocked and can’t be trusted.
-Your device will boot in 5 seconds.就成功了，不过之后重启可能像我的手机一样要再按一次电源键
-
-8.此时可能无法启动手机，一直让它开机进入rec模式（大约半个小时，如果不行手动进入rec模式
-9.清除数据分区，然后重启
-Root手机：1.重新进入深刷模式，输入
-python mtk r boot boot.img
-
-提取boot分区，因为boot分区不对可能会掉wifi
-2.安装面具
-3.修补boot镜像，不要开修补vbmeta
-4.重新进入深刷模式，输入
-python mtk w boot 你修补的镜像
-
-5.不出意外应当后成功root了(如果升级c12，可以用官方升级工具，之后找到升级包，获得boot，修补之后fastbootd刷入)
-五.去除dm检验1.用软件提取vbmeta.img2.进入fastbootd 之后输入:
-fastboot --disable-verity --disable-verification flash vbmeta vbmeta.img
-
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>强解</tag>
-        <tag>Root</tag>
-        <tag>安卓</tag>
       </tags>
   </entry>
   <entry>
@@ -420,76 +447,6 @@ hexo cl&amp;&amp;hexo g&amp;&amp;hexo d
         <tag>光猫</tag>
         <tag>网络</tag>
         <tag>桥接</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>电脑安装Android X86和Windows双系统</title>
-    <url>/2025/01/22/5/</url>
-    <content><![CDATA[准备工作文件准备
-Android X86镜像获取
-刷写工具ventoy
-分区工具DiskGenius
-Android X86引导 Grub2Win
-AutoUpdate
-
-软件准备1.将下载后的ventoy解压，然后点击Ventoy2Disk.exe(记得插入U盘)，然后点击安装
-2.在进度条走完后，将下载后的Android X86进入拖入U盘
-3.打开DiskGenius，分出一块空间给安卓系统使用(建议大于20G)
-4.解压GrubWin后双击安装
-5.如果安装不成功把AutoUpdate后缀名改为7z，解压并点击setup.bat
-6.之后安装GrubWin
-正式教程使用U盘安装Android X86系统1.进入本机的BIOS(如果你这个不知道建议退出本教程),改为U盘启动
-2.重启进入U盘后，选择第一项可以先试用安卓系统，如果行再进行小一步
-3.重新启动后选择第三项，进行安装
-4.选择你专门分给安卓的分区,然后选择ntfs的格式化并确认
-5.选择安装GRUB(双系统启动项),如果出现Warning，再次选择Yes(之后在Windows解决启动问题)
-6.下一步是root(发烧友都懂)，选择Yes，方便安装arm兼容库
-7.之后等一俩分钟,之后选择Yes，创建空间存储用户数据，按照你之前分区空间的储存输入安卓的储存空间
-8.然后选择Reboot
-创建Android X86引导1.打开GrubWin，点击Manage Boot Menu
-2.点击Add A New Entry(添加启动项)
-3.Type选择android，Select A New Kernel File选择安卓分区中的android-XX-XX文件夹中的kernel并选择
-4.把安卓启动项改为第二个
-配置Android X861.重启后选择安卓的启动项
-2.先改ENGLISH语言为简体中文，然后选择中国
-3.点击开始，然后连接网络，台式机不用配置继续
-4.检查更新等它自己过，然后选择使用新设置，再设置你的时区，下一步，同意
-5.点击Launcher3桌面并设置始终
-安装Android X86 arm兼容库1.点击设置，开启兼容选项
-2.打开终端模拟器输入
-suenable_nativebridge
-
-3.等待下载完毕
-4.总结Android X86兼容性不是很好，可以安装一下电视软件玩玩，但还不如安卓模拟器，未来可期
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>刷机</tag>
-        <tag>安卓</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>广东爱家TV(E900V22C-b)刷入ATV</title>
-    <url>/2025/01/22/6/</url>
-    <content><![CDATA[准备工作
-ATV固件提取码:1213，E900V22C-a或b都可以
-一个U盘
-
-刷机1.把ATV固件放入U盘根目录
-2.打开电视盒子并遥控器狂按右键
-3.不出意外的话你的电视就开始升级了
-优点1.自带root2.不杀后台
-问题1.由于是移动端移植，不支持语音和一些按键不支持2.wifi adb 需要拔网线连接wifi，不那么好用
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>刷机</tag>
-        <tag>安卓</tag>
-        <tag>TV</tag>
       </tags>
   </entry>
   <entry>
@@ -633,33 +590,6 @@ mtd erase FIPmtd write /tmp/自己刚刚上传unoot文件 FIP mtd verify /tmp/mt
       </tags>
   </entry>
   <entry>
-    <title>电脑如何重装Windows系统</title>
-    <url>/2025/01/23/7/</url>
-    <content><![CDATA[准备工作文件
-bt下载器qbittorrent增强版
-windwos镜像msdn，hellowindwos
-微PE
-你的Windwos驱动，自己去官网找(如果找不到就可以安装驱动安装软件，如:驱动人生，但下载一般较慢，还可能不适配)
-
-软件准备1.安装qbittorrent后复制windwos镜像站的bt下载链接下载
-2.在插入U盘，打开微PE安装，安装成功后Windwos镜像拖入U盘
-3.重启电脑进入bios(如果不知道可以去网上查查，一般为Delete)
-4.设置U盘为第一启动项
-5.重启进入微PE，后打开DiskGenius，进行分区然后创建ESP&#x2F;MSR分区，如果有就不用了
-6.打开Dism++，恢复功能&#x3D;&gt;还原系统，目标镜像路径为你的Windwos镜像，然后选择你的目标镜像版本，安装位置选你分的区域，记得勾选格式化，Compact，添加引导
-7.引导为你的ESP分区
-8.之后拔U盘重启应该就可以了进入系统，然后自己进行配置
-9.进入系统后打开你的驱动文件，进行安装
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>刷机</tag>
-        <tag>Windows</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Ubuntu  Samba 安装和配置</title>
     <url>/2025/08/24/9/</url>
     <content><![CDATA[安装1.安装smb服务，输入;
@@ -709,6 +639,76 @@ sudo systemctl restart smbdsudo systemctl restart nmbd
       </categories>
       <tags>
         <tag>共享</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>广东爱家TV(E900V22C-b)刷入ATV</title>
+    <url>/2025/01/22/6/</url>
+    <content><![CDATA[准备工作
+ATV固件提取码:1213，E900V22C-a或b都可以
+一个U盘
+
+刷机1.把ATV固件放入U盘根目录
+2.打开电视盒子并遥控器狂按右键
+3.不出意外的话你的电视就开始升级了
+优点1.自带root2.不杀后台
+问题1.由于是移动端移植，不支持语音和一些按键不支持2.wifi adb 需要拔网线连接wifi，不那么好用
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>安卓</tag>
+        <tag>刷机</tag>
+        <tag>TV</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>电脑安装Android X86和Windows双系统</title>
+    <url>/2025/01/22/5/</url>
+    <content><![CDATA[准备工作文件准备
+Android X86镜像获取
+刷写工具ventoy
+分区工具DiskGenius
+Android X86引导 Grub2Win
+AutoUpdate
+
+软件准备1.将下载后的ventoy解压，然后点击Ventoy2Disk.exe(记得插入U盘)，然后点击安装
+2.在进度条走完后，将下载后的Android X86进入拖入U盘
+3.打开DiskGenius，分出一块空间给安卓系统使用(建议大于20G)
+4.解压GrubWin后双击安装
+5.如果安装不成功把AutoUpdate后缀名改为7z，解压并点击setup.bat
+6.之后安装GrubWin
+正式教程使用U盘安装Android X86系统1.进入本机的BIOS(如果你这个不知道建议退出本教程),改为U盘启动
+2.重启进入U盘后，选择第一项可以先试用安卓系统，如果行再进行小一步
+3.重新启动后选择第三项，进行安装
+4.选择你专门分给安卓的分区,然后选择ntfs的格式化并确认
+5.选择安装GRUB(双系统启动项),如果出现Warning，再次选择Yes(之后在Windows解决启动问题)
+6.下一步是root(发烧友都懂)，选择Yes，方便安装arm兼容库
+7.之后等一俩分钟,之后选择Yes，创建空间存储用户数据，按照你之前分区空间的储存输入安卓的储存空间
+8.然后选择Reboot
+创建Android X86引导1.打开GrubWin，点击Manage Boot Menu
+2.点击Add A New Entry(添加启动项)
+3.Type选择android，Select A New Kernel File选择安卓分区中的android-XX-XX文件夹中的kernel并选择
+4.把安卓启动项改为第二个
+配置Android X861.重启后选择安卓的启动项
+2.先改ENGLISH语言为简体中文，然后选择中国
+3.点击开始，然后连接网络，台式机不用配置继续
+4.检查更新等它自己过，然后选择使用新设置，再设置你的时区，下一步，同意
+5.点击Launcher3桌面并设置始终
+安装Android X86 arm兼容库1.点击设置，开启兼容选项
+2.打开终端模拟器输入
+suenable_nativebridge
+
+3.等待下载完毕
+4.总结Android X86兼容性不是很好，可以安装一下电视软件玩玩，但还不如安卓模拟器，未来可期
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>安卓</tag>
+        <tag>刷机</tag>
       </tags>
   </entry>
 </search>
