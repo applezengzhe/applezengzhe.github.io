@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>骁龙410随身WiFi刷入Debian 系统和救砖教程</title>
-    <url>/undefined/undefined.html</url>
+    <url>/2024/12/22/1/</url>
     <content><![CDATA[驱动与Debian所需文件
 
 高通 9008 驱动
@@ -110,33 +110,8 @@ echo none &gt; /sys/class/leds/blue:wifi/triggerecho none &gt; /sys/class/leds/r
       </tags>
   </entry>
   <entry>
-    <title>Windows忘记秘密如何解决</title>
-    <url>/undefined/undefined.html</url>
-    <content><![CDATA[准备
-U盘
-一台好的windows电脑
-微PE
-
-正文1.在另一台电脑插入U盘并打开微PE
-2.点击右下角其他安装方式中的安装到U盘，之后选立即安装到U盘
-3.在你忘记密码的电脑开机时，狂按delete键进如bios
-
-注意不一定是delete键，可能是其他按键，可是搜电脑型号+进入bios按键
-
-4.在bios界面中的启动选U盘启动
-5.开机选第一个选项，之后打开dism++
-6.在dism++选你电脑的系统&#x3D;&gt;打开会话&#x3D;&gt;工具箱&#x3D;&gt;用户管理,之后选自己的账号，点清除密码，重启后就没密码了
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>windows</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Ubuntu 如何释放53端口</title>
-    <url>/undefined/undefined.html</url>
+    <url>/2025/10/06/12/</url>
     <content><![CDATA[前情
 一天我部署adguardhome服务发现53端口占用了，一番搜索发现是因为ubuntu的一个systemd-resolved服务，它负责DNS解析
 
@@ -168,8 +143,33 @@ systemctl restart systemd-resolved.service
       </tags>
   </entry>
   <entry>
+    <title>Windows忘记秘密如何解决</title>
+    <url>/2025/10/01/11/</url>
+    <content><![CDATA[准备
+U盘
+一台好的windows电脑
+微PE
+
+正文1.在另一台电脑插入U盘并打开微PE
+2.点击右下角其他安装方式中的安装到U盘，之后选立即安装到U盘
+3.在你忘记密码的电脑开机时，狂按delete键进如bios
+
+注意不一定是delete键，可能是其他按键，可是搜电脑型号+进入bios按键
+
+4.在bios界面中的启动选U盘启动
+5.开机选第一个选项，之后打开dism++
+6.在dism++选你电脑的系统&#x3D;&gt;打开会话&#x3D;&gt;工具箱&#x3D;&gt;用户管理,之后选自己的账号，点清除密码，重启后就没密码了
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>windows</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>通过 cloudflare tunnel 免费内网穿透并免费国内加速访问</title>
-    <url>/undefined/undefined.html</url>
+    <url>/2025/08/24/10/</url>
     <content><![CDATA[准备
 Cloudflare账号(必须)
 一个域名(推荐NameSilo(购买)(必须)
@@ -229,7 +229,7 @@ verceL -A 你命名的.json --prod
   </entry>
   <entry>
     <title>openwrt如何开放ipv6端口</title>
-    <url>/undefined/undefined.html</url>
+    <url>/2026/01/02/14/</url>
     <content><![CDATA[前言现在基本上ipv6已经普及了，但ipv6直接暴露在公网上很危险，市面上也很少路由有好的ipv6防火墙，于是openwrt反而变成最佳选择，我便教大家如何设置开放指定端口
 正文1.首先为了家庭安全，openwrt防火墙常规设置中转发一定要关闭
 
@@ -248,7 +248,7 @@ verceL -A 你命名的.json --prod
   </entry>
   <entry>
     <title>小米手环如何安装第三方应用(支持win,mac,android)</title>
-    <url>/undefined/undefined.html</url>
+    <url>/2026/01/02/13/</url>
     <content><![CDATA[准备
 一个小米手环(一切的开始)
 AstroBox或表盘自定义工具(用于安装应用)
@@ -278,8 +278,83 @@ AstroBox或表盘自定义工具(用于安装应用)
       </tags>
   </entry>
   <entry>
+    <title>安装搭建Hexo博客在Github Pager和Cloudflare并更换主题 完整指南</title>
+    <url>/2024/12/22/3/</url>
+    <content><![CDATA[准备软件准备
+Github账号(必须)
+Cloudflare账号(必须)
+Node(必须)
+Git(必须)
+VSCode（建议,非必须）
+
+检查1.在键盘按下win + R键，输入CMD，然后回车，打开CMD窗口，执行node -v命令，看到版本信息，则说明Node安装成功。
+2.Node换华为源(会快一点)：
+npm config set registry https://mirrors.huaweicloud.com/repository/npm/
+正式配置配置 Git 密钥并连接至 Github1.配置用户名和邮箱
+git config --global user.name &quot;你的用户名&quot;git config --global user.email &quot;你的邮箱&quot;
+之后通过通过以下命令检查是否配置成功
+git config -l 
+
+2.配置公钥连接Github
+ssh-keygen -t rsa -C &quot;你的邮箱&quot;
+
+3.用记事本打开上述图片中的公钥id_rsa.pub，复制里面的内容，然后开始在github中配置ssh密钥。
+4.进入github，点击右上角头像 选择settings，进入设置页后选择 SSH and GPG keys，名字随便起，公钥填到Key那一栏。
+5.测试连接，输入以下命令（不要开stam++连接）
+ssh -T git@github.com
+
+第一次连接会提示Are you sure you want to continue connecting (yes&#x2F;no&#x2F;[fingerprint])?，输入yes即可出现连接到账户的信息，说明已经大功告成。
+创建GitHub.io仓库1.点击右上角的+按钮，选择New repository，创建一个&lt;用户名&gt;.github.io的仓库。
+2.仓库名字的格式必须为：&lt;用户名&gt;.github.io (注意：前缀必须为用户名，此为预览博客需要，后期可修改仓库名)
+3.可见性必须选择 Public 方便第一次部署检查问题，点击 Creat repository 进行创建即可
+初始化 Hexo 博客1.创建一个文件夹来保存博客源码（我这里选的路径为D:&#x2F;Hexo-Blog），在文件夹内右键鼠标，选择Open Git Bash here
+2.在Git BASH输入如下命令安装 Hexo
+npm install -g hexo-cli &amp;&amp; hexo -v
+安装完后输入hexo -v验证是否安装成功。
+3.初始化 Hexo 项目安装相关依赖。
+hexo init blogcd blognpm i
+
+4.输入
+hexo cl &amp;&amp; hexo s
+启动项目,打开浏览器，输入地址：http://localhost:4000 当看到网站，就成功了
+将静态博客挂载到 GitHub Pages1.安装 hexo-deployer-git
+npm install hexo-deployer-git --save
+
+2.修改 _config.yml 文件在blog-demo目录下的_config.yml，就是整个Hexo框架的配置文件了。可以在里面修改大部分的配置。详细可参考官方的配置描述。修改最后一行的配置，将repository修改为你自己的github项目地址即可，还有分支要改为main代表主分支（注意缩进）。
+deploy:  type: git  repository: git@github.com:applezengzhe/applezengzhe.github.io.git  branch: main
+
+3.修改好配置后，运行如下命令，将代码部署到 GitHub（Hexo三连）
+hexo cl&amp;&amp;hexo g&amp;&amp;hexo d
+如果出现Deploy done，则说明部署成功了。稍等两分钟，打开浏览器访问：https://applezengzhe.github.io ，这时候我们就可以看到博客内容了。
+更换主题1.打开https://hexo.io/themes/找到喜欢的主题打开github根据教程clone主题，或者将主题下载到本地hexo主题文件夹中进行使用。
+2.以particlex为例
+cd themesgit clone https://github.com/theme-particlex/hexo-theme-particlex.git particlex --depth=1
+
+3.然后在根目录 _config.yml 设置主题为 ParticleX 即可。
+
+theme: particlex
+
+部署到Cloudflare Workers 和 Pages上1.登录Cloudflare后进入控制台页面
+2.点击Workers 和 Pages然后创建应用程序
+3.点击Pages，然后点击连接到 Git
+4.输入你的github账号和密码，然后选择Hexo的仓库
+5.构建配置中的构建命令输入
+hexo cl&amp;&amp;hexo g&amp;&amp;hexo d
+
+6.之后进入你创建的worker，点击自定义域名(要绑定在Cloudflare上的)(可选)
+7.最后你就可以国内更稳定访问你的博客了，拜拜!!!(。・∀・)ノ
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>建站</tag>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>OPPO/真我手机 MTK强解BL锁</title>
-    <url>/undefined/undefined.html</url>
+    <url>/2024/12/22/2/</url>
     <content><![CDATA[
 我手上的手机是oppo reno5 pro，警告提前备份数据，一但变砖，本人概不负责
 
@@ -358,7 +433,7 @@ fastboot --disable-verity --disable-verification flash vbmeta vbmeta.img
   </entry>
   <entry>
     <title>gmg光猫开Telnet,获得超级管理员密码,改桥接</title>
-    <url>/undefined/undefined.html</url>
+    <url>/2024/12/31/4/</url>
     <content><![CDATA[记录关键参数1.从WAN设置页，记下拨号帐号
 2.如果不知道拨号密码可以问师傅或去移动官网改密码
 3.WAN设置里INTERNET一项对应的VID
@@ -398,83 +473,30 @@ fastboot --disable-verity --disable-verification flash vbmeta vbmeta.img
       </tags>
   </entry>
   <entry>
-    <title>安装搭建Hexo博客在Github Pager和Cloudflare并更换主题 完整指南</title>
-    <url>/undefined/undefined.html</url>
-    <content><![CDATA[准备软件准备
-Github账号(必须)
-Cloudflare账号(必须)
-Node(必须)
-Git(必须)
-VSCode（建议,非必须）
+    <title>广东爱家TV(E900V22C-b)刷入ATV</title>
+    <url>/2025/01/22/6/</url>
+    <content><![CDATA[准备工作
+ATV固件提取码:1213，E900V22C-a或b都可以
+一个U盘
 
-检查1.在键盘按下win + R键，输入CMD，然后回车，打开CMD窗口，执行node -v命令，看到版本信息，则说明Node安装成功。
-2.Node换华为源(会快一点)：
-npm config set registry https://mirrors.huaweicloud.com/repository/npm/
-正式配置配置 Git 密钥并连接至 Github1.配置用户名和邮箱
-git config --global user.name &quot;你的用户名&quot;git config --global user.email &quot;你的邮箱&quot;
-之后通过通过以下命令检查是否配置成功
-git config -l 
-
-2.配置公钥连接Github
-ssh-keygen -t rsa -C &quot;你的邮箱&quot;
-
-3.用记事本打开上述图片中的公钥id_rsa.pub，复制里面的内容，然后开始在github中配置ssh密钥。
-4.进入github，点击右上角头像 选择settings，进入设置页后选择 SSH and GPG keys，名字随便起，公钥填到Key那一栏。
-5.测试连接，输入以下命令（不要开stam++连接）
-ssh -T git@github.com
-
-第一次连接会提示Are you sure you want to continue connecting (yes&#x2F;no&#x2F;[fingerprint])?，输入yes即可出现连接到账户的信息，说明已经大功告成。
-创建GitHub.io仓库1.点击右上角的+按钮，选择New repository，创建一个&lt;用户名&gt;.github.io的仓库。
-2.仓库名字的格式必须为：&lt;用户名&gt;.github.io (注意：前缀必须为用户名，此为预览博客需要，后期可修改仓库名)
-3.可见性必须选择 Public 方便第一次部署检查问题，点击 Creat repository 进行创建即可
-初始化 Hexo 博客1.创建一个文件夹来保存博客源码（我这里选的路径为D:&#x2F;Hexo-Blog），在文件夹内右键鼠标，选择Open Git Bash here
-2.在Git BASH输入如下命令安装 Hexo
-npm install -g hexo-cli &amp;&amp; hexo -v
-安装完后输入hexo -v验证是否安装成功。
-3.初始化 Hexo 项目安装相关依赖。
-hexo init blogcd blognpm i
-
-4.输入
-hexo cl &amp;&amp; hexo s
-启动项目,打开浏览器，输入地址：http://localhost:4000 当看到网站，就成功了
-将静态博客挂载到 GitHub Pages1.安装 hexo-deployer-git
-npm install hexo-deployer-git --save
-
-2.修改 _config.yml 文件在blog-demo目录下的_config.yml，就是整个Hexo框架的配置文件了。可以在里面修改大部分的配置。详细可参考官方的配置描述。修改最后一行的配置，将repository修改为你自己的github项目地址即可，还有分支要改为main代表主分支（注意缩进）。
-deploy:  type: git  repository: git@github.com:applezengzhe/applezengzhe.github.io.git  branch: main
-
-3.修改好配置后，运行如下命令，将代码部署到 GitHub（Hexo三连）
-hexo cl&amp;&amp;hexo g&amp;&amp;hexo d
-如果出现Deploy done，则说明部署成功了。稍等两分钟，打开浏览器访问：https://applezengzhe.github.io ，这时候我们就可以看到博客内容了。
-更换主题1.打开https://hexo.io/themes/找到喜欢的主题打开github根据教程clone主题，或者将主题下载到本地hexo主题文件夹中进行使用。
-2.以particlex为例
-cd themesgit clone https://github.com/theme-particlex/hexo-theme-particlex.git particlex --depth=1
-
-3.然后在根目录 _config.yml 设置主题为 ParticleX 即可。
-
-theme: particlex
-
-部署到Cloudflare Workers 和 Pages上1.登录Cloudflare后进入控制台页面
-2.点击Workers 和 Pages然后创建应用程序
-3.点击Pages，然后点击连接到 Git
-4.输入你的github账号和密码，然后选择Hexo的仓库
-5.构建配置中的构建命令输入
-hexo cl&amp;&amp;hexo g&amp;&amp;hexo d
-
-6.之后进入你创建的worker，点击自定义域名(要绑定在Cloudflare上的)(可选)
-7.最后你就可以国内更稳定访问你的博客了，拜拜!!!(。・∀・)ノ
+刷机1.把ATV固件放入U盘根目录
+2.打开电视盒子并遥控器狂按右键
+3.不出意外的话你的电视就开始升级了
+优点1.自带root2.不杀后台
+问题1.由于是移动端移植，不支持语音和一些按键不支持2.wifi adb 需要拔网线连接wifi，不那么好用
 ]]></content>
       <categories>
         <category>教程</category>
       </categories>
       <tags>
-        <tag>建站</tag>
-        <tag>hexo</tag>
+        <tag>刷机</tag>
+        <tag>安卓</tag>
+        <tag>TV</tag>
       </tags>
   </entry>
   <entry>
     <title>电脑安装Android X86和Windows双系统</title>
-    <url>/undefined/undefined.html</url>
+    <url>/2025/01/22/5/</url>
     <content><![CDATA[准备工作文件准备
 Android X86镜像获取
 刷写工具ventoy
@@ -521,30 +543,8 @@ suenable_nativebridge
       </tags>
   </entry>
   <entry>
-    <title>广东爱家TV(E900V22C-b)刷入ATV</title>
-    <url>/undefined/undefined.html</url>
-    <content><![CDATA[准备工作
-ATV固件提取码:1213，E900V22C-a或b都可以
-一个U盘
-
-刷机1.把ATV固件放入U盘根目录
-2.打开电视盒子并遥控器狂按右键
-3.不出意外的话你的电视就开始升级了
-优点1.自带root2.不杀后台
-问题1.由于是移动端移植，不支持语音和一些按键不支持2.wifi adb 需要拔网线连接wifi，不那么好用
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>刷机</tag>
-        <tag>安卓</tag>
-        <tag>TV</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>电脑如何重装Windows系统</title>
-    <url>/undefined/undefined.html</url>
+    <url>/2025/01/23/7/</url>
     <content><![CDATA[准备工作文件
 bt下载器qbittorrent增强版
 windwos镜像msdn，hellowindwos
@@ -571,7 +571,7 @@ windwos镜像msdn，hellowindwos
   </entry>
   <entry>
     <title>rax3000m 刷机以及救砖</title>
-    <url>/undefined/undefined.html</url>
+    <url>/2025/07/14/8/</url>
     <content><![CDATA[前言由于这款机子经过多次优化，而且有多个版本需要不通的方法刷入uboot，所以我将分不同的版本来写，可自行跳转至自己的版本刷入uboot
 确认版本一.判断自己是EMMC还是NAND
 1.看自己机子的背面，如果有CH  EC那就是EMMC版，而如果只有CH那就是NAND版（当然也不绝对，但大多数是这样）
@@ -711,7 +711,7 @@ mtd erase FIPmtd write /tmp/自己刚刚上传unoot文件 FIP mtd verify /tmp/mt
   </entry>
   <entry>
     <title>Ubuntu  Samba 安装和配置</title>
-    <url>/undefined/undefined.html</url>
+    <url>/2025/08/24/9/</url>
     <content><![CDATA[安装1.安装smb服务，输入;
 sudo apt update &amp;&amp; apt install samba
 
