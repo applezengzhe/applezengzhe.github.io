@@ -1,68 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>通过 cloudflare tunnel 免费内网穿透并免费国内加速访问</title>
-    <url>/2025/08/24/10/</url>
-    <content><![CDATA[准备
-Cloudflare账号(必须)
-一个域名(推荐NameSilo(购买)(必须)
-github账号(非必须)
-edgeone账号可以通过x发推文或测速获得免费套餐，也可以买一个月付费，到期后变免费(非必须)
-vercel账号(非必须)
-Netlify账号与Nodejs(非必须)
-
-cloudflare tunnel配置1.先在绑定自己购买的域名
-2.在域名绑定完成后在cloudflare主页点击Zero Trust
-3.进入后先随便取个名字，之后选择免费计划,之后点继续
-4.在选择付款方式页面直接回到cloudflare主页，之后再点Zero Trust
-5.进入后一次点击Networks&#x3D;&gt;Tunnels&#x3D;&gt;Add a tunnel&#x3D;&gt;cloudflared&#x3D;&gt;next
-6.然后为隧道起个名字,之后点Save tunnel，然后根据自己的系统安装cloudflared,完成后点击next
-7.在当前页面填写自己要穿透后访问的域名,和内网的服务协议与ip+端口
-免费国内加速访问
-在成功配置cloudflare tunnel后你会发现国内访问很慢，这是应为cloudflare tunnel国内CDN很少，这时可以优选ip或cdn解决
-
-方法一 cloudflare优选IP1.进入cloudflare主页后点击Workers&#x3D;&gt;Workers 和 Pages
-2.点击创建&#x3D;&gt;从 Hello World! 开始&#x3D;&gt;部署&#x3D;&gt;编辑代码,写入:
-addEventListener(  &quot;fetch&quot;,event =&gt; &#123;     let url=new URL(event.request.url);     url.hostname=&quot;example.com&quot;;  //你的Cloudflare tunnel填写的域名     let request=new Request(url,event.request);     event. respondWith(       fetch(request)     )  &#125;)
-
-3.之后点击设置，在域和路由点击添加，选择路由，区域选你的域名，路由写你以后要访问的域名，格式:
-example.com/*
-
-4.之后在Cloudflare主页点击你的域名，再点DNS,填写记录，添加一个DNS解析写你路由绑定的域名cname到cf.090227.xyz(社区优选域名)，之后就可以访问这个域名访问你的本地服务了
-方法二 Netlify反代网站1.在Github开一个新仓库，根目录创建一个 netlify.toml。在其中写入
-[[redirects]]  from = &quot;/*&quot;  to = &quot;https://cloudflare tunnel域名/:splat&quot;  status = 200  force = true
-
-注意，端口后面的斜杠一定不要丢！
-
-2.接下来回到 https://app.netlify.com/ 创建一个新项目，导入你刚创建的Github项目，部署即可 最后绑定一下你的域名，就可以通过此域名访问你的内网服务了
-方法三 Vercel反代网站1.电脑安装Nodejs，我们需要用到npm 安装Vercel CLI
-npm i -g vercel
-
-2.登录Vercel CLI
-vercel login
-
-3.找个地方（比如桌面）创建一个你随意命名的文件夹，然后在其中创建一个你随意命名的.json文件，其中写入:
-&#123;    &quot;version&quot;: 2,    &quot;routes&quot;: [      &#123;&quot;src&quot;: &quot;/(.*)&quot;,&quot;dest&quot;: &quot;https://cloudflare tunnel域名&quot;&#125;    ]&#125;
-
-4.然后部署
-verceL -A 你命名的.json --prod
-
-5.最后绑定一下你的域名，就可以通过此域名访问你的内网服务了
-方法四 edgeone反代网站1.在edgeone主页新增站点，添加自己的域名，选择免费服务
-2.进入后点击域名配置&#x3D;&gt;域名管理，添加域名，域名配置填写自己以后访问的域名，源站配置写cloudflare tunnel域名 回源 HOST 头选使用源站域名
-3.之后在Cloudflare添加cname记录，等部署完后点击HTTPS 配置选申请免费证书&#x3D;&gt;确定
-4.等部署完后，就可以通过此域名访问你的内网服务了
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>共享</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>骁龙410随身WiFi刷入Debian 系统和救砖教程</title>
-    <url>/2024/12/22/1/</url>
+    <url>/undefined/undefined.html</url>
     <content><![CDATA[驱动与Debian所需文件
 
 高通 9008 驱动
@@ -171,7 +111,7 @@ echo none &gt; /sys/class/leds/blue:wifi/triggerecho none &gt; /sys/class/leds/r
   </entry>
   <entry>
     <title>Windows忘记秘密如何解决</title>
-    <url>/2025/10/01/11/</url>
+    <url>/undefined/undefined.html</url>
     <content><![CDATA[准备
 U盘
 一台好的windows电脑
@@ -196,7 +136,7 @@ U盘
   </entry>
   <entry>
     <title>Ubuntu 如何释放53端口</title>
-    <url>/2025/10/06/12/</url>
+    <url>/undefined/undefined.html</url>
     <content><![CDATA[前情
 一天我部署adguardhome服务发现53端口占用了，一番搜索发现是因为ubuntu的一个systemd-resolved服务，它负责DNS解析
 
@@ -228,8 +168,87 @@ systemctl restart systemd-resolved.service
       </tags>
   </entry>
   <entry>
+    <title>通过 cloudflare tunnel 免费内网穿透并免费国内加速访问</title>
+    <url>/undefined/undefined.html</url>
+    <content><![CDATA[准备
+Cloudflare账号(必须)
+一个域名(推荐NameSilo(购买)(必须)
+github账号(非必须)
+edgeone账号可以通过x发推文或测速获得免费套餐，也可以买一个月付费，到期后变免费(非必须)
+vercel账号(非必须)
+Netlify账号与Nodejs(非必须)
+
+cloudflare tunnel配置1.先在绑定自己购买的域名
+2.在域名绑定完成后在cloudflare主页点击Zero Trust
+3.进入后先随便取个名字，之后选择免费计划,之后点继续
+4.在选择付款方式页面直接回到cloudflare主页，之后再点Zero Trust
+5.进入后一次点击Networks&#x3D;&gt;Tunnels&#x3D;&gt;Add a tunnel&#x3D;&gt;cloudflared&#x3D;&gt;next
+6.然后为隧道起个名字,之后点Save tunnel，然后根据自己的系统安装cloudflared,完成后点击next
+7.在当前页面填写自己要穿透后访问的域名,和内网的服务协议与ip+端口
+免费国内加速访问
+在成功配置cloudflare tunnel后你会发现国内访问很慢，这是应为cloudflare tunnel国内CDN很少，这时可以优选ip或cdn解决
+
+方法一 cloudflare优选IP1.进入cloudflare主页后点击Workers&#x3D;&gt;Workers 和 Pages
+2.点击创建&#x3D;&gt;从 Hello World! 开始&#x3D;&gt;部署&#x3D;&gt;编辑代码,写入:
+addEventListener(  &quot;fetch&quot;,event =&gt; &#123;     let url=new URL(event.request.url);     url.hostname=&quot;example.com&quot;;  //你的Cloudflare tunnel填写的域名     let request=new Request(url,event.request);     event. respondWith(       fetch(request)     )  &#125;)
+
+3.之后点击设置，在域和路由点击添加，选择路由，区域选你的域名，路由写你以后要访问的域名，格式:
+example.com/*
+
+4.之后在Cloudflare主页点击你的域名，再点DNS,填写记录，添加一个DNS解析写你路由绑定的域名cname到cf.090227.xyz(社区优选域名)，之后就可以访问这个域名访问你的本地服务了
+方法二 Netlify反代网站1.在Github开一个新仓库，根目录创建一个 netlify.toml。在其中写入
+[[redirects]]  from = &quot;/*&quot;  to = &quot;https://cloudflare tunnel域名/:splat&quot;  status = 200  force = true
+
+注意，端口后面的斜杠一定不要丢！
+
+2.接下来回到 https://app.netlify.com/ 创建一个新项目，导入你刚创建的Github项目，部署即可 最后绑定一下你的域名，就可以通过此域名访问你的内网服务了
+方法三 Vercel反代网站1.电脑安装Nodejs，我们需要用到npm 安装Vercel CLI
+npm i -g vercel
+
+2.登录Vercel CLI
+vercel login
+
+3.找个地方（比如桌面）创建一个你随意命名的文件夹，然后在其中创建一个你随意命名的.json文件，其中写入:
+&#123;    &quot;version&quot;: 2,    &quot;routes&quot;: [      &#123;&quot;src&quot;: &quot;/(.*)&quot;,&quot;dest&quot;: &quot;https://cloudflare tunnel域名&quot;&#125;    ]&#125;
+
+4.然后部署
+verceL -A 你命名的.json --prod
+
+5.最后绑定一下你的域名，就可以通过此域名访问你的内网服务了
+方法四 edgeone反代网站1.在edgeone主页新增站点，添加自己的域名，选择免费服务
+2.进入后点击域名配置&#x3D;&gt;域名管理，添加域名，域名配置填写自己以后访问的域名，源站配置写cloudflare tunnel域名 回源 HOST 头选使用源站域名
+3.之后在Cloudflare添加cname记录，等部署完后点击HTTPS 配置选申请免费证书&#x3D;&gt;确定
+4.等部署完后，就可以通过此域名访问你的内网服务了
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>共享</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>openwrt如何开放ipv6端口</title>
+    <url>/undefined/undefined.html</url>
+    <content><![CDATA[前言现在基本上ipv6已经普及了，但ipv6直接暴露在公网上很危险，市面上也很少路由有好的ipv6防火墙，于是openwrt反而变成最佳选择，我便教大家如何设置开放指定端口
+正文1.首先为了家庭安全，openwrt防火墙常规设置中转发一定要关闭
+
+2.然后来到通信规则中，添加一条新的规则，源区域选择 wan，目标区域选择 lan，目标地址填写 ::a:b:c:b&#x2F;::ffff:ffff:ffff:ffff，然后填写需要放行的协议以及端口，最后点击保存并应用即可
+
+由于 IPv6 是动态的，因此我们放行时，本地 IP 地址要按 ::a:b:c:b&#x2F;::ffff:ffff:ffff:ffff 的格式进行填写，其中 a:b:c:b 部分替换为实际设备 IP 地址的后四段，而要通过这种形式指定设备时，需要提前将设备的 IPv6 后缀固定下来。
+
+
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>软路由</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>小米手环如何安装第三方应用(支持win,mac,android)</title>
-    <url>/2026/01/02/13/</url>
+    <url>/undefined/undefined.html</url>
     <content><![CDATA[准备
 一个小米手环(一切的开始)
 AstroBox或表盘自定义工具(用于安装应用)
@@ -260,7 +279,7 @@ AstroBox或表盘自定义工具(用于安装应用)
   </entry>
   <entry>
     <title>OPPO/真我手机 MTK强解BL锁</title>
-    <url>/2024/12/22/2/</url>
+    <url>/undefined/undefined.html</url>
     <content><![CDATA[
 我手上的手机是oppo reno5 pro，警告提前备份数据，一但变砖，本人概不负责
 
@@ -338,27 +357,49 @@ fastboot --disable-verity --disable-verification flash vbmeta vbmeta.img
       </tags>
   </entry>
   <entry>
-    <title>openwrt如何开放ipv6端口</title>
-    <url>/2026/01/02/14/</url>
-    <content><![CDATA[前言现在基本上ipv6已经普及了，但ipv6直接暴露在公网上很危险，市面上也很少路由有好的ipv6防火墙，于是openwrt反而变成最佳选择，我便教大家如何设置开放指定端口
-正文1.首先为了家庭安全，openwrt防火墙常规设置中转发一定要关闭
+    <title>gmg光猫开Telnet,获得超级管理员密码,改桥接</title>
+    <url>/undefined/undefined.html</url>
+    <content><![CDATA[记录关键参数1.从WAN设置页，记下拨号帐号
+2.如果不知道拨号密码可以问师傅或去移动官网改密码
+3.WAN设置里INTERNET一项对应的VID
+4.ONT认证密码。在登录页面右键，浏览页面源代码，搜索 LOID，把var pwd &#x3D; “——————“;记录下来
+获取管理员密码
+谨慎操作，很容易无法上网，如不能接受请退出
 
-2.然后来到通信规则中，添加一条新的规则，源区域选择 wan，目标区域选择 lan，目标地址填写 ::a:b:c:b&#x2F;::ffff:ffff:ffff:ffff，然后填写需要放行的协议以及端口，最后点击保存并应用即可
+1.捅光猫复位键，45～60秒。
+2.打开登录页面，用管理员帐号CMCCAdmin和初始密码aDm8H%MdA登录进去。
+3.在登陆光猫后在此页面 开启telnet，保存
+4.退出登录，到主页“注册安装”，填入ONT密码，操作业务下发
+5.下发完成后，现在可以正常上网了
+6.使用windows自带的telnet或其他telnet工具连接到光猫，登录用户CMCCAdmin，密码输入光猫反面写的user密码加上@C1，如xxxxxxxx@C1。（如果不对请尝试省份首字母，比如@BJ）待出现~$符号后，输入sidbg 1 DB p DevAuthInfo，超级密码一目了然。
+设置桥接
+部分地区可能需要删掉TR069才能正常使用，用F12法或者TELNET指令法。请自行删除。
 
-由于 IPv6 是动态的，因此我们放行时，本地 IP 地址要按 ::a:b:c:b&#x2F;::ffff:ffff:ffff:ffff 的格式进行填写，其中 a:b:c:b 部分替换为实际设备 IP 地址的后四段，而要通过这种形式指定设备时，需要提前将设备的 IPv6 后缀固定下来。
-
-
+1.打开光猫网络标签页
+2.在连接名称选择Internet_XXX这一项
+3.点击删除
+4.重新添加一个 Inetrnet
+5.IP协议版本选择 IPv4&#x2F;v6
+6.模式选择 桥接
+7.端口绑定选择需要的LAN口
+8.VLAN ID 填写之前抄
+9.点击保存
+设置路由器1.加入路由器后台
+2.点击网络
+3.写入自己的拨号账号和密码
 ]]></content>
       <categories>
         <category>教程</category>
       </categories>
       <tags>
-        <tag>软路由</tag>
+        <tag>光猫</tag>
+        <tag>网络</tag>
+        <tag>桥接</tag>
       </tags>
   </entry>
   <entry>
     <title>安装搭建Hexo博客在Github Pager和Cloudflare并更换主题 完整指南</title>
-    <url>/2024/12/22/3/</url>
+    <url>/undefined/undefined.html</url>
     <content><![CDATA[准备软件准备
 Github账号(必须)
 Cloudflare账号(必须)
@@ -432,49 +473,8 @@ hexo cl&amp;&amp;hexo g&amp;&amp;hexo d
       </tags>
   </entry>
   <entry>
-    <title>gmg光猫开Telnet,获得超级管理员密码,改桥接</title>
-    <url>/2024/12/31/4/</url>
-    <content><![CDATA[记录关键参数1.从WAN设置页，记下拨号帐号
-2.如果不知道拨号密码可以问师傅或去移动官网改密码
-3.WAN设置里INTERNET一项对应的VID
-4.ONT认证密码。在登录页面右键，浏览页面源代码，搜索 LOID，把var pwd &#x3D; “——————“;记录下来
-获取管理员密码
-谨慎操作，很容易无法上网，如不能接受请退出
-
-1.捅光猫复位键，45～60秒。
-2.打开登录页面，用管理员帐号CMCCAdmin和初始密码aDm8H%MdA登录进去。
-3.在登陆光猫后在此页面 开启telnet，保存
-4.退出登录，到主页“注册安装”，填入ONT密码，操作业务下发
-5.下发完成后，现在可以正常上网了
-6.使用windows自带的telnet或其他telnet工具连接到光猫，登录用户CMCCAdmin，密码输入光猫反面写的user密码加上@C1，如xxxxxxxx@C1。（如果不对请尝试省份首字母，比如@BJ）待出现~$符号后，输入sidbg 1 DB p DevAuthInfo，超级密码一目了然。
-设置桥接
-部分地区可能需要删掉TR069才能正常使用，用F12法或者TELNET指令法。请自行删除。
-
-1.打开光猫网络标签页
-2.在连接名称选择Internet_XXX这一项
-3.点击删除
-4.重新添加一个 Inetrnet
-5.IP协议版本选择 IPv4&#x2F;v6
-6.模式选择 桥接
-7.端口绑定选择需要的LAN口
-8.VLAN ID 填写之前抄
-9.点击保存
-设置路由器1.加入路由器后台
-2.点击网络
-3.写入自己的拨号账号和密码
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>光猫</tag>
-        <tag>网络</tag>
-        <tag>桥接</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>电脑安装Android X86和Windows双系统</title>
-    <url>/2025/01/22/5/</url>
+    <url>/undefined/undefined.html</url>
     <content><![CDATA[准备工作文件准备
 Android X86镜像获取
 刷写工具ventoy
@@ -522,7 +522,7 @@ suenable_nativebridge
   </entry>
   <entry>
     <title>广东爱家TV(E900V22C-b)刷入ATV</title>
-    <url>/2025/01/22/6/</url>
+    <url>/undefined/undefined.html</url>
     <content><![CDATA[准备工作
 ATV固件提取码:1213，E900V22C-a或b都可以
 一个U盘
@@ -544,7 +544,7 @@ ATV固件提取码:1213，E900V22C-a或b都可以
   </entry>
   <entry>
     <title>电脑如何重装Windows系统</title>
-    <url>/2025/01/23/7/</url>
+    <url>/undefined/undefined.html</url>
     <content><![CDATA[准备工作文件
 bt下载器qbittorrent增强版
 windwos镜像msdn，hellowindwos
@@ -571,7 +571,7 @@ windwos镜像msdn，hellowindwos
   </entry>
   <entry>
     <title>rax3000m 刷机以及救砖</title>
-    <url>/2025/07/14/8/</url>
+    <url>/undefined/undefined.html</url>
     <content><![CDATA[前言由于这款机子经过多次优化，而且有多个版本需要不通的方法刷入uboot，所以我将分不同的版本来写，可自行跳转至自己的版本刷入uboot
 确认版本一.判断自己是EMMC还是NAND
 1.看自己机子的背面，如果有CH  EC那就是EMMC版，而如果只有CH那就是NAND版（当然也不绝对，但大多数是这样）
@@ -711,7 +711,7 @@ mtd erase FIPmtd write /tmp/自己刚刚上传unoot文件 FIP mtd verify /tmp/mt
   </entry>
   <entry>
     <title>Ubuntu  Samba 安装和配置</title>
-    <url>/2025/08/24/9/</url>
+    <url>/undefined/undefined.html</url>
     <content><![CDATA[安装1.安装smb服务，输入;
 sudo apt update &amp;&amp; apt install samba
 
