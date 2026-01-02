@@ -1,6 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>通过 cloudflare tunnel 免费内网穿透并免费国内加速访问</title>
+    <url>/2025/08/24/10/</url>
+    <content><![CDATA[准备
+Cloudflare账号(必须)
+一个域名(推荐NameSilo(购买)(必须)
+github账号(非必须)
+edgeone账号可以通过x发推文或测速获得免费套餐，也可以买一个月付费，到期后变免费(非必须)
+vercel账号(非必须)
+Netlify账号与Nodejs(非必须)
+
+cloudflare tunnel配置1.先在绑定自己购买的域名
+2.在域名绑定完成后在cloudflare主页点击Zero Trust
+3.进入后先随便取个名字，之后选择免费计划,之后点继续
+4.在选择付款方式页面直接回到cloudflare主页，之后再点Zero Trust
+5.进入后一次点击Networks&#x3D;&gt;Tunnels&#x3D;&gt;Add a tunnel&#x3D;&gt;cloudflared&#x3D;&gt;next
+6.然后为隧道起个名字,之后点Save tunnel，然后根据自己的系统安装cloudflared,完成后点击next
+7.在当前页面填写自己要穿透后访问的域名,和内网的服务协议与ip+端口
+免费国内加速访问
+在成功配置cloudflare tunnel后你会发现国内访问很慢，这是应为cloudflare tunnel国内CDN很少，这时可以优选ip或cdn解决
+
+方法一 cloudflare优选IP1.进入cloudflare主页后点击Workers&#x3D;&gt;Workers 和 Pages
+2.点击创建&#x3D;&gt;从 Hello World! 开始&#x3D;&gt;部署&#x3D;&gt;编辑代码,写入:
+addEventListener(  &quot;fetch&quot;,event =&gt; &#123;     let url=new URL(event.request.url);     url.hostname=&quot;example.com&quot;;  //你的Cloudflare tunnel填写的域名     let request=new Request(url,event.request);     event. respondWith(       fetch(request)     )  &#125;)
+
+3.之后点击设置，在域和路由点击添加，选择路由，区域选你的域名，路由写你以后要访问的域名，格式:
+example.com/*
+
+4.之后在Cloudflare主页点击你的域名，再点DNS,填写记录，添加一个DNS解析写你路由绑定的域名cname到cf.090227.xyz(社区优选域名)，之后就可以访问这个域名访问你的本地服务了
+方法二 Netlify反代网站1.在Github开一个新仓库，根目录创建一个 netlify.toml。在其中写入
+[[redirects]]  from = &quot;/*&quot;  to = &quot;https://cloudflare tunnel域名/:splat&quot;  status = 200  force = true
+
+注意，端口后面的斜杠一定不要丢！
+
+2.接下来回到 https://app.netlify.com/ 创建一个新项目，导入你刚创建的Github项目，部署即可 最后绑定一下你的域名，就可以通过此域名访问你的内网服务了
+方法三 Vercel反代网站1.电脑安装Nodejs，我们需要用到npm 安装Vercel CLI
+npm i -g vercel
+
+2.登录Vercel CLI
+vercel login
+
+3.找个地方（比如桌面）创建一个你随意命名的文件夹，然后在其中创建一个你随意命名的.json文件，其中写入:
+&#123;    &quot;version&quot;: 2,    &quot;routes&quot;: [      &#123;&quot;src&quot;: &quot;/(.*)&quot;,&quot;dest&quot;: &quot;https://cloudflare tunnel域名&quot;&#125;    ]&#125;
+
+4.然后部署
+verceL -A 你命名的.json --prod
+
+5.最后绑定一下你的域名，就可以通过此域名访问你的内网服务了
+方法四 edgeone反代网站1.在edgeone主页新增站点，添加自己的域名，选择免费服务
+2.进入后点击域名配置&#x3D;&gt;域名管理，添加域名，域名配置填写自己以后访问的域名，源站配置写cloudflare tunnel域名 回源 HOST 头选使用源站域名
+3.之后在Cloudflare添加cname记录，等部署完后点击HTTPS 配置选申请免费证书&#x3D;&gt;确定
+4.等部署完后，就可以通过此域名访问你的内网服务了
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>共享</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>骁龙410随身WiFi刷入Debian 系统和救砖教程</title>
     <url>/2024/12/22/1/</url>
     <content><![CDATA[驱动与Debian所需文件
@@ -168,85 +228,6 @@ systemctl restart systemd-resolved.service
       </tags>
   </entry>
   <entry>
-    <title>通过 cloudflare tunnel 免费内网穿透并免费国内加速访问</title>
-    <url>/2025/08/24/10/</url>
-    <content><![CDATA[准备
-Cloudflare账号(必须)
-一个域名(推荐NameSilo(购买)(必须)
-github账号(非必须)
-edgeone账号可以通过x发推文或测速获得免费套餐，也可以买一个月付费，到期后变免费(非必须)
-vercel账号(非必须)
-Netlify账号与Nodejs(非必须)
-
-cloudflare tunnel配置1.先在绑定自己购买的域名
-2.在域名绑定完成后在cloudflare主页点击Zero Trust
-3.进入后先随便取个名字，之后选择免费计划,之后点继续
-4.在选择付款方式页面直接回到cloudflare主页，之后再点Zero Trust
-5.进入后一次点击Networks&#x3D;&gt;Tunnels&#x3D;&gt;Add a tunnel&#x3D;&gt;cloudflared&#x3D;&gt;next
-6.然后为隧道起个名字,之后点Save tunnel，然后根据自己的系统安装cloudflared,完成后点击next
-7.在当前页面填写自己要穿透后访问的域名,和内网的服务协议与ip+端口
-免费国内加速访问
-在成功配置cloudflare tunnel后你会发现国内访问很慢，这是应为cloudflare tunnel国内CDN很少，这时可以优选ip或cdn解决
-
-方法一 cloudflare优选IP1.进入cloudflare主页后点击Workers&#x3D;&gt;Workers 和 Pages
-2.点击创建&#x3D;&gt;从 Hello World! 开始&#x3D;&gt;部署&#x3D;&gt;编辑代码,写入:
-addEventListener(  &quot;fetch&quot;,event =&gt; &#123;     let url=new URL(event.request.url);     url.hostname=&quot;example.com&quot;;  //你的Cloudflare tunnel填写的域名     let request=new Request(url,event.request);     event. respondWith(       fetch(request)     )  &#125;)
-
-3.之后点击设置，在域和路由点击添加，选择路由，区域选你的域名，路由写你以后要访问的域名，格式:
-example.com/*
-
-4.之后在Cloudflare主页点击你的域名，再点DNS,填写记录，添加一个DNS解析写你路由绑定的域名cname到cf.090227.xyz(社区优选域名)，之后就可以访问这个域名访问你的本地服务了
-方法二 Netlify反代网站1.在Github开一个新仓库，根目录创建一个 netlify.toml。在其中写入
-[[redirects]]  from = &quot;/*&quot;  to = &quot;https://cloudflare tunnel域名/:splat&quot;  status = 200  force = true
-
-注意，端口后面的斜杠一定不要丢！
-
-2.接下来回到 https://app.netlify.com/ 创建一个新项目，导入你刚创建的Github项目，部署即可 最后绑定一下你的域名，就可以通过此域名访问你的内网服务了
-方法三 Vercel反代网站1.电脑安装Nodejs，我们需要用到npm 安装Vercel CLI
-npm i -g vercel
-
-2.登录Vercel CLI
-vercel login
-
-3.找个地方（比如桌面）创建一个你随意命名的文件夹，然后在其中创建一个你随意命名的.json文件，其中写入:
-&#123;    &quot;version&quot;: 2,    &quot;routes&quot;: [      &#123;&quot;src&quot;: &quot;/(.*)&quot;,&quot;dest&quot;: &quot;https://cloudflare tunnel域名&quot;&#125;    ]&#125;
-
-4.然后部署
-verceL -A 你命名的.json --prod
-
-5.最后绑定一下你的域名，就可以通过此域名访问你的内网服务了
-方法四 edgeone反代网站1.在edgeone主页新增站点，添加自己的域名，选择免费服务
-2.进入后点击域名配置&#x3D;&gt;域名管理，添加域名，域名配置填写自己以后访问的域名，源站配置写cloudflare tunnel域名 回源 HOST 头选使用源站域名
-3.之后在Cloudflare添加cname记录，等部署完后点击HTTPS 配置选申请免费证书&#x3D;&gt;确定
-4.等部署完后，就可以通过此域名访问你的内网服务了
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>共享</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>openwrt如何开放ipv6端口</title>
-    <url>/2026/01/02/14/</url>
-    <content><![CDATA[前言现在基本上ipv6已经普及了，但ipv6直接暴露在公网上很危险，市面上也很少路由有好的ipv6防火墙，于是openwrt反而变成最佳选择，我便教大家如何设置开放指定端口
-正文1.首先为了家庭安全，openwrt防火墙常规设置中转发一定要关闭
-
-2.然后来到通信规则中，添加一条新的规则，源区域选择 wan，目标区域选择 lan，目标地址填写 ::a:b:c:b&#x2F;::ffff:ffff:ffff:ffff，然后填写需要放行的协议以及端口，最后点击保存并应用即可
-
-由于 IPv6 是动态的，因此我们放行时，本地 IP 地址要按 ::a:b:c:b&#x2F;::ffff:ffff:ffff:ffff 的格式进行填写，其中 a:b:c:b 部分替换为实际设备 IP 地址的后四段，而要通过这种形式指定设备时，需要提前将设备的 IPv6 后缀固定下来。
-
-
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>软路由</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>小米手环如何安装第三方应用(支持win,mac,android)</title>
     <url>/2026/01/02/13/</url>
     <content><![CDATA[准备
@@ -354,6 +335,25 @@ fastboot --disable-verity --disable-verification flash vbmeta vbmeta.img
         <tag>强解</tag>
         <tag>Root</tag>
         <tag>安卓</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>openwrt如何开放ipv6端口</title>
+    <url>/2026/01/02/14/</url>
+    <content><![CDATA[前言现在基本上ipv6已经普及了，但ipv6直接暴露在公网上很危险，市面上也很少路由有好的ipv6防火墙，于是openwrt反而变成最佳选择，我便教大家如何设置开放指定端口
+正文1.首先为了家庭安全，openwrt防火墙常规设置中转发一定要关闭
+
+2.然后来到通信规则中，添加一条新的规则，源区域选择 wan，目标区域选择 lan，目标地址填写 ::a:b:c:b&#x2F;::ffff:ffff:ffff:ffff，然后填写需要放行的协议以及端口，最后点击保存并应用即可
+
+由于 IPv6 是动态的，因此我们放行时，本地 IP 地址要按 ::a:b:c:b&#x2F;::ffff:ffff:ffff:ffff 的格式进行填写，其中 a:b:c:b 部分替换为实际设备 IP 地址的后四段，而要通过这种形式指定设备时，需要提前将设备的 IPv6 后缀固定下来。
+
+
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>软路由</tag>
       </tags>
   </entry>
   <entry>
