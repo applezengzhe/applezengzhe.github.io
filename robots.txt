@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Allow: /archives/
+Allow: /categories/
+Allow: /tags/
+
+# 禁止爬取管理页面
+Disallow:
+
+
+# 站点地图
+Sitemap: https://www.jxqf.us.kg/sitemap.xml
+Sitemap: https://www.jxqf.us.kg/baidusitemap.xml
