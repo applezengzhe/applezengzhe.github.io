@@ -110,64 +110,6 @@ echo none &gt; /sys/class/leds/blue:wifi/triggerecho none &gt; /sys/class/leds/r
       </tags>
   </entry>
   <entry>
-    <title>Ubuntu 如何释放53端口</title>
-    <url>/posts/93fc4444/</url>
-    <content><![CDATA[前情
-一天我部署adguardhome服务发现53端口占用了，一番搜索发现是因为ubuntu的一个systemd-resolved服务，它负责DNS解析
-
-解决办法一：直接关闭systemd-resolved
-注意：禁用 systemd-resolved 可能会影响 VPN 连接的 DNS 解析。如果 VPN 客户端或 NetworkManager 的 VPN 插件依赖 systemd-resolved 来推送 DNS 设置，禁用后可能需要手动配置 VPN 连接的 DNS。
-
-1.输入:
-systemctl stop systemd-resolved.servicesystemctl disable systemd-resolved.service
-解决办法二(推荐)：禁用 systemd-resolved 的 DNS 存根监听器1.先创建一个no-stub-listener.conf文件，输入:
-mkdir -p /etc/systemd/resolved.conf.d/vim /etc/systemd/resolved.conf.d/no-stub-listener.conf
-
-2.写入如下内容：
-[Resolve]DNS=180.76.76.76 8.8.8.8FallbackDNS=1.1.1.1 1.0.0.1DNSStubListener=no
-
-3、建立 &#x2F;etc&#x2F;resolv.conf 的链接
-ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
-
-4、之后重启 systemd-resolved 服务
-systemctl restart systemd-resolved.service
-就解决了
-如果打算安装并使用其他的 DNS 解析器（如 dnsmasq、Unbound 或 AdGuard Home），或者希望完全手动控制 DNS 配置，那么完全禁用 systemd-resolved 可能是更干净的选择。
-如果只是想释放 53 端口给其他应用程序使用，但同时还想利用 systemd-resolved 来管理上游 DNS 服务器（比如处理从网络连接中获取的 DNS 信息），那么仅禁用其存根监听器是更合适且对系统原有功能影响较小的方案。
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Windows忘记秘密如何解决</title>
-    <url>/posts/989f7433/</url>
-    <content><![CDATA[准备
-U盘
-一台好的windows电脑
-微PE
-
-正文1.在另一台电脑插入U盘并打开微PE
-2.点击右下角其他安装方式中的安装到U盘，之后选立即安装到U盘
-3.在你忘记密码的电脑开机时，狂按delete键进如bios
-
-注意不一定是delete键，可能是其他按键，可是搜电脑型号+进入bios按键
-
-4.在bios界面中的启动选U盘启动
-5.开机选第一个选项，之后打开dism++
-6.在dism++选你电脑的系统&#x3D;&gt;打开会话&#x3D;&gt;工具箱&#x3D;&gt;用户管理,之后选自己的账号，点清除密码，重启后就没密码了
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>windows</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>通过 cloudflare tunnel 免费内网穿透并免费国内加速访问</title>
     <url>/posts/6e33bf44/</url>
     <content><![CDATA[准备
@@ -228,22 +170,91 @@ verceL -A 你命名的.json --prod
       </tags>
   </entry>
   <entry>
-    <title>openwrt如何开放ipv6端口</title>
-    <url>/posts/b7bae503/</url>
-    <content><![CDATA[前言现在基本上ipv6已经普及了，但ipv6直接暴露在公网上很危险，市面上也很少路由有好的ipv6防火墙，于是openwrt反而变成最佳选择，我便教大家如何设置开放指定端口
-正文1.首先为了家庭安全，openwrt防火墙常规设置中转发一定要关闭
+    <title>Windows忘记秘密如何解决</title>
+    <url>/posts/989f7433/</url>
+    <content><![CDATA[准备
+U盘
+一台好的windows电脑
+微PE
 
-2.然后来到通信规则中，添加一条新的规则，源区域选择 wan，目标区域选择 lan，目标地址填写 ::a:b:c:b&#x2F;::ffff:ffff:ffff:ffff，然后填写需要放行的协议以及端口，最后点击保存并应用即可
+正文1.在另一台电脑插入U盘并打开微PE
+2.点击右下角其他安装方式中的安装到U盘，之后选立即安装到U盘
+3.在你忘记密码的电脑开机时，狂按delete键进如bios
 
-由于 IPv6 是动态的，因此我们放行时，本地 IP 地址要按 ::a:b:c:b&#x2F;::ffff:ffff:ffff:ffff 的格式进行填写，其中 a:b:c:b 部分替换为实际设备 IP 地址的后四段，而要通过这种形式指定设备时，需要提前将设备的 IPv6 后缀固定下来。
+注意不一定是delete键，可能是其他按键，可是搜电脑型号+进入bios按键
 
-
+4.在bios界面中的启动选U盘启动
+5.开机选第一个选项，之后打开dism++
+6.在dism++选你电脑的系统&#x3D;&gt;打开会话&#x3D;&gt;工具箱&#x3D;&gt;用户管理,之后选自己的账号，点清除密码，重启后就没密码了
 ]]></content>
       <categories>
         <category>教程</category>
       </categories>
       <tags>
-        <tag>软路由</tag>
+        <tag>windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu 如何释放53端口</title>
+    <url>/posts/93fc4444/</url>
+    <content><![CDATA[前情
+一天我部署adguardhome服务发现53端口占用了，一番搜索发现是因为ubuntu的一个systemd-resolved服务，它负责DNS解析
+
+解决办法一：直接关闭systemd-resolved
+注意：禁用 systemd-resolved 可能会影响 VPN 连接的 DNS 解析。如果 VPN 客户端或 NetworkManager 的 VPN 插件依赖 systemd-resolved 来推送 DNS 设置，禁用后可能需要手动配置 VPN 连接的 DNS。
+
+1.输入:
+systemctl stop systemd-resolved.servicesystemctl disable systemd-resolved.service
+解决办法二(推荐)：禁用 systemd-resolved 的 DNS 存根监听器1.先创建一个no-stub-listener.conf文件，输入:
+mkdir -p /etc/systemd/resolved.conf.d/vim /etc/systemd/resolved.conf.d/no-stub-listener.conf
+
+2.写入如下内容：
+[Resolve]DNS=180.76.76.76 8.8.8.8FallbackDNS=1.1.1.1 1.0.0.1DNSStubListener=no
+
+3、建立 &#x2F;etc&#x2F;resolv.conf 的链接
+ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+
+4、之后重启 systemd-resolved 服务
+systemctl restart systemd-resolved.service
+就解决了
+如果打算安装并使用其他的 DNS 解析器（如 dnsmasq、Unbound 或 AdGuard Home），或者希望完全手动控制 DNS 配置，那么完全禁用 systemd-resolved 可能是更干净的选择。
+如果只是想释放 53 端口给其他应用程序使用，但同时还想利用 systemd-resolved 来管理上游 DNS 服务器（比如处理从网络连接中获取的 DNS 信息），那么仅禁用其存根监听器是更合适且对系统原有功能影响较小的方案。
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何优化hexo网站 SEO</title>
+    <url>/posts/cfd44e32/</url>
+    <content><![CDATA[站点地图和索引1.自动生成站点地图，输入安装插件：
+npm install hexo-generator-sitemap --savenpm install hexo-generator-baidu-sitemap --save
+
+2.配置_config.yml：
+# 站点地图配置sitemap:  path: sitemap.xml  template: ./sitemap_template.xml  rel: falsebaidusitemap:  path: baidusitemap.xml
+
+3.robots.txt配置创建source&#x2F;robots.txt：
+User-agent: *Allow: /Allow: /archives/Allow: /categories/Allow: /tags/# 禁止爬取管理页面Disallow: /admin/Disallow: /login/# 站点地图Sitemap: https://yourdomain.com/sitemap.xmlSitemap: https://yourdomain.com/baidusitemap.xml
+
+永久链接1.hexo-abbrlink
+在Hexo中，我们可以使用hexo-abbrlink插件，安装：
+npm install hexo-abbrlink --save
+不同算法和进制生成的值：
+crc16 &amp; hexhttp://www.example.com/posts/66c8.html
+crc16 &amp; dechttp://post.example.com/posts/65535.html
+crc32 &amp; hexhttp://post.example.com/posts/8ddf18fb.html
+crc32 &amp; dechttp://post.example.com/posts/1690090958.html
+2.修改站点配置文件：
+url: https://www.oneyangcrown.top/permalink: posts/:abbrlink/permalink_defaults:pretty_urls:  trailing_index: true  trailing_html: true# abbrlink configabbrlink:  alg: crc32  #support crc16(default) and crc32  rep: hex    #support dec(default) and hex]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>SEO</tag>
       </tags>
   </entry>
   <entry>
@@ -404,6 +415,25 @@ echo &quot;net.ipv4.tcp_congestion_control = cubic&quot; | sudo tee -a /etc/sysc
       </tags>
   </entry>
   <entry>
+    <title>openwrt如何开放ipv6端口</title>
+    <url>/posts/b7bae503/</url>
+    <content><![CDATA[前言现在基本上ipv6已经普及了，但ipv6直接暴露在公网上很危险，市面上也很少路由有好的ipv6防火墙，于是openwrt反而变成最佳选择，我便教大家如何设置开放指定端口
+正文1.首先为了家庭安全，openwrt防火墙常规设置中转发一定要关闭
+
+2.然后来到通信规则中，添加一条新的规则，源区域选择 wan，目标区域选择 lan，目标地址填写 ::a:b:c:b&#x2F;::ffff:ffff:ffff:ffff，然后填写需要放行的协议以及端口，最后点击保存并应用即可
+
+由于 IPv6 是动态的，因此我们放行时，本地 IP 地址要按 ::a:b:c:b&#x2F;::ffff:ffff:ffff:ffff 的格式进行填写，其中 a:b:c:b 部分替换为实际设备 IP 地址的后四段，而要通过这种形式指定设备时，需要提前将设备的 IPv6 后缀固定下来。
+
+
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>软路由</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>安装搭建Hexo博客在Github Pager和Cloudflare并更换主题 完整指南</title>
     <url>/posts/af147540/</url>
     <content><![CDATA[准备软件准备
@@ -479,47 +509,6 @@ hexo cl&amp;&amp;hexo g&amp;&amp;hexo d
       </tags>
   </entry>
   <entry>
-    <title>gmg光猫开Telnet,获得超级管理员密码,改桥接</title>
-    <url>/posts/d4ee457/</url>
-    <content><![CDATA[记录关键参数1.从WAN设置页，记下拨号帐号
-2.如果不知道拨号密码可以问师傅或去移动官网改密码
-3.WAN设置里INTERNET一项对应的VID
-4.ONT认证密码。在登录页面右键，浏览页面源代码，搜索 LOID，把var pwd &#x3D; “——————“;记录下来
-获取管理员密码
-谨慎操作，很容易无法上网，如不能接受请退出
-
-1.捅光猫复位键，45～60秒。
-2.打开登录页面，用管理员帐号CMCCAdmin和初始密码aDm8H%MdA登录进去。
-3.在登陆光猫后在此页面 开启telnet，保存
-4.退出登录，到主页“注册安装”，填入ONT密码，操作业务下发
-5.下发完成后，现在可以正常上网了
-6.使用windows自带的telnet或其他telnet工具连接到光猫，登录用户CMCCAdmin，密码输入光猫反面写的user密码加上@C1，如xxxxxxxx@C1。（如果不对请尝试省份首字母，比如@BJ）待出现~$符号后，输入sidbg 1 DB p DevAuthInfo，超级密码一目了然。
-设置桥接
-部分地区可能需要删掉TR069才能正常使用，用F12法或者TELNET指令法。请自行删除。
-
-1.打开光猫网络标签页
-2.在连接名称选择Internet_XXX这一项
-3.点击删除
-4.重新添加一个 Inetrnet
-5.IP协议版本选择 IPv4&#x2F;v6
-6.模式选择 桥接
-7.端口绑定选择需要的LAN口
-8.VLAN ID 填写之前抄
-9.点击保存
-设置路由器1.加入路由器后台
-2.点击网络
-3.写入自己的拨号账号和密码
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>光猫</tag>
-        <tag>网络</tag>
-        <tag>桥接</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>电脑安装Android X86和Windows双系统</title>
     <url>/posts/9b9382b8/</url>
     <content><![CDATA[准备工作文件准备
@@ -568,36 +557,6 @@ suenable_nativebridge
       </tags>
   </entry>
   <entry>
-    <title>如何优化hexo网站 SEO</title>
-    <url>/posts/cfd44e32/</url>
-    <content><![CDATA[站点地图和索引1.自动生成站点地图，输入安装插件：
-npm install hexo-generator-sitemap --savenpm install hexo-generator-baidu-sitemap --save
-
-2.配置_config.yml：
-# 站点地图配置sitemap:  path: sitemap.xml  template: ./sitemap_template.xml  rel: falsebaidusitemap:  path: baidusitemap.xml
-
-3.robots.txt配置创建source&#x2F;robots.txt：
-User-agent: *Allow: /Allow: /archives/Allow: /categories/Allow: /tags/# 禁止爬取管理页面Disallow: /admin/Disallow: /login/# 站点地图Sitemap: https://yourdomain.com/sitemap.xmlSitemap: https://yourdomain.com/baidusitemap.xml
-
-永久链接1.hexo-abbrlink
-在Hexo中，我们可以使用hexo-abbrlink插件，安装：
-npm install hexo-abbrlink --save
-不同算法和进制生成的值：
-crc16 &amp; hexhttp://www.example.com/posts/66c8.html
-crc16 &amp; dechttp://post.example.com/posts/65535.html
-crc32 &amp; hexhttp://post.example.com/posts/8ddf18fb.html
-crc32 &amp; dechttp://post.example.com/posts/1690090958.html
-2.修改站点配置文件：
-url: https://www.oneyangcrown.top/permalink: posts/:abbrlink/permalink_defaults:pretty_urls:  trailing_index: true  trailing_html: true# abbrlink configabbrlink:  alg: crc32  #support crc16(default) and crc32  rep: hex    #support dec(default) and hex]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-        <tag>SEO</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>广东爱家TV(E900V22C-b)刷入ATV</title>
     <url>/posts/f8b02b3d/</url>
     <content><![CDATA[准备工作
@@ -617,33 +576,6 @@ ATV固件提取码:1213，E900V22C-a或b都可以
         <tag>刷机</tag>
         <tag>安卓</tag>
         <tag>TV</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>电脑如何重装Windows系统</title>
-    <url>/posts/186b5291/</url>
-    <content><![CDATA[准备工作文件
-bt下载器qbittorrent增强版
-windwos镜像msdn，hellowindwos
-微PE
-你的Windwos驱动，自己去官网找(如果找不到就可以安装驱动安装软件，如:驱动人生，但下载一般较慢，还可能不适配)
-
-软件准备1.安装qbittorrent后复制windwos镜像站的bt下载链接下载
-2.在插入U盘，打开微PE安装，安装成功后Windwos镜像拖入U盘
-3.重启电脑进入bios(如果不知道可以去网上查查，一般为Delete)
-4.设置U盘为第一启动项
-5.重启进入微PE，后打开DiskGenius，进行分区然后创建ESP&#x2F;MSR分区，如果有就不用了
-6.打开Dism++，恢复功能&#x3D;&gt;还原系统，目标镜像路径为你的Windwos镜像，然后选择你的目标镜像版本，安装位置选你分的区域，记得勾选格式化，Compact，添加引导
-7.引导为你的ESP分区
-8.之后拔U盘重启应该就可以了进入系统，然后自己进行配置
-9.进入系统后打开你的驱动文件，进行安装
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>刷机</tag>
-        <tag>Windows</tag>
       </tags>
   </entry>
   <entry>
@@ -836,6 +768,74 @@ mtd erase FIPmtd write /tmp/自己刚刚上传unoot文件 FIP mtd verify /tmp/mt
       <tags>
         <tag>刷机</tag>
         <tag>路由器</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>gmg光猫开Telnet,获得超级管理员密码,改桥接</title>
+    <url>/posts/d4ee457/</url>
+    <content><![CDATA[记录关键参数1.从WAN设置页，记下拨号帐号
+2.如果不知道拨号密码可以问师傅或去移动官网改密码
+3.WAN设置里INTERNET一项对应的VID
+4.ONT认证密码。在登录页面右键，浏览页面源代码，搜索 LOID，把var pwd &#x3D; “——————“;记录下来
+获取管理员密码
+谨慎操作，很容易无法上网，如不能接受请退出
+
+1.捅光猫复位键，45～60秒。
+2.打开登录页面，用管理员帐号CMCCAdmin和初始密码aDm8H%MdA登录进去。
+3.在登陆光猫后在此页面 开启telnet，保存
+4.退出登录，到主页“注册安装”，填入ONT密码，操作业务下发
+5.下发完成后，现在可以正常上网了
+6.使用windows自带的telnet或其他telnet工具连接到光猫，登录用户CMCCAdmin，密码输入光猫反面写的user密码加上@C1，如xxxxxxxx@C1。（如果不对请尝试省份首字母，比如@BJ）待出现~$符号后，输入sidbg 1 DB p DevAuthInfo，超级密码一目了然。
+设置桥接
+部分地区可能需要删掉TR069才能正常使用，用F12法或者TELNET指令法。请自行删除。
+
+1.打开光猫网络标签页
+2.在连接名称选择Internet_XXX这一项
+3.点击删除
+4.重新添加一个 Inetrnet
+5.IP协议版本选择 IPv4&#x2F;v6
+6.模式选择 桥接
+7.端口绑定选择需要的LAN口
+8.VLAN ID 填写之前抄
+9.点击保存
+设置路由器1.加入路由器后台
+2.点击网络
+3.写入自己的拨号账号和密码
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>光猫</tag>
+        <tag>网络</tag>
+        <tag>桥接</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>电脑如何重装Windows系统</title>
+    <url>/posts/186b5291/</url>
+    <content><![CDATA[准备工作文件
+bt下载器qbittorrent增强版
+windwos镜像msdn，hellowindwos
+微PE
+你的Windwos驱动，自己去官网找(如果找不到就可以安装驱动安装软件，如:驱动人生，但下载一般较慢，还可能不适配)
+
+软件准备1.安装qbittorrent后复制windwos镜像站的bt下载链接下载
+2.在插入U盘，打开微PE安装，安装成功后Windwos镜像拖入U盘
+3.重启电脑进入bios(如果不知道可以去网上查查，一般为Delete)
+4.设置U盘为第一启动项
+5.重启进入微PE，后打开DiskGenius，进行分区然后创建ESP&#x2F;MSR分区，如果有就不用了
+6.打开Dism++，恢复功能&#x3D;&gt;还原系统，目标镜像路径为你的Windwos镜像，然后选择你的目标镜像版本，安装位置选你分的区域，记得勾选格式化，Compact，添加引导
+7.引导为你的ESP分区
+8.之后拔U盘重启应该就可以了进入系统，然后自己进行配置
+9.进入系统后打开你的驱动文件，进行安装
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>刷机</tag>
+        <tag>Windows</tag>
       </tags>
   </entry>
 </search>
