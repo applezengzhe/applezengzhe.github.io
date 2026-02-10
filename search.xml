@@ -110,95 +110,6 @@ echo none &gt; /sys/class/leds/blue:wifi/triggerecho none &gt; /sys/class/leds/r
       </tags>
   </entry>
   <entry>
-    <title>Windows忘记秘密如何解决</title>
-    <url>/posts/989f7433/</url>
-    <content><![CDATA[准备
-U盘
-一台好的windows电脑
-微PE
-
-正文1.在另一台电脑插入U盘并打开微PE
-2.点击右下角其他安装方式中的安装到U盘，之后选立即安装到U盘
-3.在你忘记密码的电脑开机时，狂按delete键进如bios
-
-注意不一定是delete键，可能是其他按键，可是搜电脑型号+进入bios按键
-
-4.在bios界面中的启动选U盘启动
-5.开机选第一个选项，之后打开dism++
-6.在dism++选你电脑的系统&#x3D;&gt;打开会话&#x3D;&gt;工具箱&#x3D;&gt;用户管理,之后选自己的账号，点清除密码，重启后就没密码了
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>windows</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>小米手环如何安装第三方应用(支持win,mac,android)</title>
-    <url>/posts/44c5079a/</url>
-    <content><![CDATA[准备
-一个小米手环(一切的开始)
-AstroBox或表盘自定义工具(用于安装应用)
-米论账号(用于扩展AstroBox应用与使用表盘自定义工具)
-
-方法一:通过AstroBox(推荐,支持android,mac,win)
-优点:平台支持广，无广告，无会员，安装应用方便
-缺点:资源少
-
-1.安装完AstroBox后点击软件，打开设置
-2.登陆你自己的米论坛账号与小米账号
-3.点击设备连接你的设备，之后你就可以去主页随便安装应用了
-方法二:通过表盘自定义工具(不推荐,支持android)
-优点:资源丰富，开会员后功能丰富
-缺点:有广告，功能很多要会员(免费试用两天，，没会员要看垃圾广告安装应用，会员最多三年)
-
-1.安装完表盘自定义工具后打开，点击我的，登录账号
-2.如果不想捐赠点击使用捐赠者功能，就可以获得几天会员
-3.点击工具，点击AuthKey读取工具按照提示读取
-4.最后点击探索，安装应用就点击蓝牙一键安装就可以了
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>手环</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Ubuntu 如何释放53端口</title>
-    <url>/posts/93fc4444/</url>
-    <content><![CDATA[前情
-一天我部署adguardhome服务发现53端口占用了，一番搜索发现是因为ubuntu的一个systemd-resolved服务，它负责DNS解析
-
-解决办法一：直接关闭systemd-resolved
-注意：禁用 systemd-resolved 可能会影响 VPN 连接的 DNS 解析。如果 VPN 客户端或 NetworkManager 的 VPN 插件依赖 systemd-resolved 来推送 DNS 设置，禁用后可能需要手动配置 VPN 连接的 DNS。
-
-1.输入:
-systemctl stop systemd-resolved.servicesystemctl disable systemd-resolved.service
-解决办法二(推荐)：禁用 systemd-resolved 的 DNS 存根监听器1.先创建一个no-stub-listener.conf文件，输入:
-mkdir -p /etc/systemd/resolved.conf.d/vim /etc/systemd/resolved.conf.d/no-stub-listener.conf
-
-2.写入如下内容：
-[Resolve]DNS=180.76.76.76 8.8.8.8FallbackDNS=1.1.1.1 1.0.0.1DNSStubListener=no
-
-3、建立 &#x2F;etc&#x2F;resolv.conf 的链接
-ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
-
-4、之后重启 systemd-resolved 服务
-systemctl restart systemd-resolved.service
-就解决了
-如果打算安装并使用其他的 DNS 解析器（如 dnsmasq、Unbound 或 AdGuard Home），或者希望完全手动控制 DNS 配置，那么完全禁用 systemd-resolved 可能是更干净的选择。
-如果只是想释放 53 端口给其他应用程序使用，但同时还想利用 systemd-resolved 来管理上游 DNS 服务器（比如处理从网络连接中获取的 DNS 信息），那么仅禁用其存根监听器是更合适且对系统原有功能影响较小的方案。
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>通过 cloudflare tunnel 免费内网穿透并免费国内加速访问</title>
     <url>/posts/6e33bf44/</url>
     <content><![CDATA[准备
@@ -259,50 +170,92 @@ verceL -A 你命名的.json --prod
       </tags>
   </entry>
   <entry>
-    <title>Ubuntu 如何开启 BBR</title>
-    <url>/posts/13fdedbc/</url>
-    <content><![CDATA[为什么我要开启bbr这几天我研究了一下公网ipv6，给配上ssl证书和域名，但我发现ipv6下载极其的慢（差不多50kb&#x2F;s）还有丢包现象。网上查了一下应该是应为运营商限速导致的，可以通过开启bbr来缓解。尝试了一下，确实不丢包了，也快了一点（虽然还是只有100kb&#x2F;s左右）
-正文1.BBR 需要 Linux 内核 4.9 或更高版本。Ubuntu 24.04 默认的内核版本应该已经满足要求，不过你可以通过以下命令检查内核版本：
-uname -r
-如果没有4.9及以上先升级再来执行以下操作
-2.查看是否已启用BBR
-sysctl net.ipv4.tcp_congestion_control
+    <title>Windows忘记秘密如何解决</title>
+    <url>/posts/989f7433/</url>
+    <content><![CDATA[准备
+U盘
+一台好的windows电脑
+微PE
 
-如果输出结果为 tcp_congestion_control &#x3D; bbr，则表示 BBR 已启用；如果输出结果为 tcp_congestion_control &#x3D; cubic，则表示 BBR 未启用。
+正文1.在另一台电脑插入U盘并打开微PE
+2.点击右下角其他安装方式中的安装到U盘，之后选立即安装到U盘
+3.在你忘记密码的电脑开机时，狂按delete键进如bios
 
-3.如果未启动先编辑 sysctl 配置文件,输入
-sudo vi /etc/sysctl.conf
+注意不一定是delete键，可能是其他按键，可是搜电脑型号+进入bios按键
 
-4.在文件末尾添加以下两行内容：
-# Enable BBRnet.core.default_qdisc = fqnet.ipv4.tcp_congestion_control = bbr
-5.接下来应用更改
-sudo sysctl -p
-
-6.重新验证是否生效
-sysctl net.ipv4.tcp_congestion_control
-
-如果输出结果为 ·tcp_congestion_control &#x3D; bbr·，则表示 BBR 已启用。
-
-7.如果生效的话我们可以来看看,检查 BBR 的状态,输入
-ss -i | grep -i bbr# 或者lsmod | grep bbr
-
-若看到 bbr 字样，表示 BBR 已经生效，现在就大功告成了。
-
-其他注意事项
-如果你只想在特定的网络接口上启用 BBR，可以使用 tc 命令进行更精细的配置。
-
-禁用 BBR1.若你需要禁用 BBR，可以将 net.ipv4.tcp_congestion_control 设置为其他拥塞控制算法，例如 cubic：
-sudo sysctl -w net.ipv4.tcp_congestion_control=cubic
-
-2.然后同样将其写入 &#x2F;etc&#x2F;sysctl.conf 以持久化配置：
-echo &quot;net.ipv4.tcp_congestion_control = cubic&quot; | sudo tee -a /etc/sysctl.conf
+4.在bios界面中的启动选U盘启动
+5.开机选第一个选项，之后打开dism++
+6.在dism++选你电脑的系统&#x3D;&gt;打开会话&#x3D;&gt;工具箱&#x3D;&gt;用户管理,之后选自己的账号，点清除密码，重启后就没密码了
 ]]></content>
       <categories>
         <category>教程</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
-        <tag>SEO</tag>
+        <tag>windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu 如何释放53端口</title>
+    <url>/posts/93fc4444/</url>
+    <content><![CDATA[前情
+一天我部署adguardhome服务发现53端口占用了，一番搜索发现是因为ubuntu的一个systemd-resolved服务，它负责DNS解析
+
+解决办法一：直接关闭systemd-resolved
+注意：禁用 systemd-resolved 可能会影响 VPN 连接的 DNS 解析。如果 VPN 客户端或 NetworkManager 的 VPN 插件依赖 systemd-resolved 来推送 DNS 设置，禁用后可能需要手动配置 VPN 连接的 DNS。
+
+1.输入:
+systemctl stop systemd-resolved.servicesystemctl disable systemd-resolved.service
+解决办法二(推荐)：禁用 systemd-resolved 的 DNS 存根监听器1.先创建一个no-stub-listener.conf文件，输入:
+mkdir -p /etc/systemd/resolved.conf.d/vim /etc/systemd/resolved.conf.d/no-stub-listener.conf
+
+2.写入如下内容：
+[Resolve]DNS=180.76.76.76 8.8.8.8FallbackDNS=1.1.1.1 1.0.0.1DNSStubListener=no
+
+3、建立 &#x2F;etc&#x2F;resolv.conf 的链接
+ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+
+4、之后重启 systemd-resolved 服务
+systemctl restart systemd-resolved.service
+就解决了
+如果打算安装并使用其他的 DNS 解析器（如 dnsmasq、Unbound 或 AdGuard Home），或者希望完全手动控制 DNS 配置，那么完全禁用 systemd-resolved 可能是更干净的选择。
+如果只是想释放 53 端口给其他应用程序使用，但同时还想利用 systemd-resolved 来管理上游 DNS 服务器（比如处理从网络连接中获取的 DNS 信息），那么仅禁用其存根监听器是更合适且对系统原有功能影响较小的方案。
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>小米手环如何安装第三方应用(支持win,mac,android)</title>
+    <url>/posts/44c5079a/</url>
+    <content><![CDATA[准备
+一个小米手环(一切的开始)
+AstroBox或表盘自定义工具(用于安装应用)
+米论账号(用于扩展AstroBox应用与使用表盘自定义工具)
+
+方法一:通过AstroBox(推荐,支持android,mac,win)
+优点:平台支持广，无广告，无会员，安装应用方便
+缺点:资源少
+
+1.安装完AstroBox后点击软件，打开设置
+2.登陆你自己的米论坛账号与小米账号
+3.点击设备连接你的设备，之后你就可以去主页随便安装应用了
+方法二:通过表盘自定义工具(不推荐,支持android)
+优点:资源丰富，开会员后功能丰富
+缺点:有广告，功能很多要会员(免费试用两天，，没会员要看垃圾广告安装应用，会员最多三年)
+
+1.安装完表盘自定义工具后打开，点击我的，登录账号
+2.如果不想捐赠点击使用捐赠者功能，就可以获得几天会员
+3.点击工具，点击AuthKey读取工具按照提示读取
+4.最后点击探索，安装应用就点击蓝牙一键安装就可以了
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>手环</tag>
       </tags>
   </entry>
   <entry>
@@ -355,82 +308,50 @@ url: https://www.oneyangcrown.top/permalink: posts/:abbrlink/permalink_defaults:
       </tags>
   </entry>
   <entry>
-    <title>OPPO/真我手机 MTK强解BL锁</title>
-    <url>/posts/eac7cc92/</url>
-    <content><![CDATA[
-我手上的手机是oppo reno5 pro，警告提前备份数据，一但变砖，本人概不负责
+    <title>Ubuntu 如何开启 BBR</title>
+    <url>/posts/13fdedbc/</url>
+    <content><![CDATA[为什么我要开启bbr这几天我研究了一下公网ipv6，给配上ssl证书和域名，但我发现ipv6下载极其的慢（差不多50kb&#x2F;s）还有丢包现象。网上查了一下应该是应为运营商限速导致的，可以通过开启bbr来缓解。尝试了一下，确实不丢包了，也快了一点（虽然还是只有100kb&#x2F;s左右）
+正文1.BBR 需要 Linux 内核 4.9 或更高版本。Ubuntu 24.04 默认的内核版本应该已经满足要求，不过你可以通过以下命令检查内核版本：
+uname -r
+如果没有4.9及以上先升级再来执行以下操作
+2.查看是否已启用BBR
+sysctl net.ipv4.tcp_congestion_control
 
-资源与文件
-123盘 提取码:1213
-dm模块(用于部分机型关闭dm校验)
+如果输出结果为 tcp_congestion_control &#x3D; bbr，则表示 BBR 已启用；如果输出结果为 tcp_congestion_control &#x3D; cubic，则表示 BBR 未启用。
 
-准备工作：1.安装python环境（Download Python | Python.org）记得勾选Add Python X.X to PATH
-2.必要驱动
-3.安装强解工具mtkclient
-4.手机一定要降级到c11，因为c12及以后封了强解端口，不过好像可以拆机开端口，不过本人没有测试
-mtkclient配置：1.进入解压后的mtkclient文件夹
-2.在此文件夹打开powershell
-3.换清华或其他源（不一定，但会更快一些）：
-pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+3.如果未启动先编辑 sysctl 配置文件,输入
+sudo vi /etc/sysctl.conf
 
-4.安装mtkclient需要的第三方库：
-pip install -r requirements.txt
+4.在文件末尾添加以下两行内容：
+# Enable BBRnet.core.default_qdisc = fqnet.ipv4.tcp_congestion_control = bbr
+5.接下来应用更改
+sudo sysctl -p
 
-解锁bl锁：解锁安卓10以下设备的bl锁：1.先将设备关机
-2.在powershell里输入：
-python mtk da seccfg unlock
+6.重新验证是否生效
+sysctl net.ipv4.tcp_congestion_control
 
-3.按住电源键+音量上下键，进入深刷模式，第一次会自动安装驱动，等待进度条完毕
-4.如果重启出现：
+如果输出结果为 ·tcp_congestion_control &#x3D; bbr·，则表示 BBR 已启用。
 
-Your device has been unlocked and can’t be trusted.
-Your device will boot in 5 seconds.就解锁完毕
+7.如果生效的话我们可以来看看,检查 BBR 的状态,输入
+ss -i | grep -i bbr# 或者lsmod | grep bbr
 
-5.此时可能无法启动手机，一直让它开机进入rec模式（大约半个小时），如果不行手动进入rec模式
-6.直接清除数据分区，然后重启
-解锁安卓11以上设备bl锁：1.备份lk（因为安卓11之后有dm校验，又把它藏在了lk分区里）：
-python mtk r lk,lk2 lk.bin,lk2.bin
-（网上看自己有几个lk分区，不要找着抄）
-2.备份后自己重名后缀，例如我有两个lk分区：lk.base,lk2.base
-3.下载我提供的lk文件
-4.刷入我提供的lk文件
-python mtk w lk,lk2 lk.bin,lk.bin
+若看到 bbr 字样，表示 BBR 已经生效，现在就大功告成了。
 
-5.强解bl锁：
-python mtk da seccfg unlock
+其他注意事项
+如果你只想在特定的网络接口上启用 BBR，可以使用 tc 命令进行更精细的配置。
 
-6.此时你可能像我手机变成一块黑砖，不用慌，输入
-python mtk w lk,lk2 lk.base,lk2.base
+禁用 BBR1.若你需要禁用 BBR，可以将 net.ipv4.tcp_congestion_control 设置为其他拥塞控制算法，例如 cubic：
+sudo sysctl -w net.ipv4.tcp_congestion_control=cubic
 
-刷如原厂lk文件，重新按住电源键+音量上+音量下，等到重新进入深刷模式
-7.按一下电源键 如果看到了
-
-Your device has been unlocked and can’t be trusted.
-Your device will boot in 5 seconds.就成功了，不过之后重启可能像我的手机一样要再按一次电源键
-
-8.此时可能无法启动手机，一直让它开机进入rec模式（大约半个小时，如果不行手动进入rec模式
-9.清除数据分区，然后重启
-Root手机：1.重新进入深刷模式，输入
-python mtk r boot boot.img
-
-提取boot分区，因为boot分区不对可能会掉wifi
-2.安装面具
-3.修补boot镜像，不要开修补vbmeta
-4.重新进入深刷模式，输入
-python mtk w boot 你修补的镜像
-
-5.不出意外应当后成功root了(如果升级c12，可以用官方升级工具，之后找到升级包，获得boot，修补之后fastbootd刷入)
-五.去除dm检验1.用软件提取vbmeta.img2.进入fastbootd 之后输入:
-fastboot --disable-verity --disable-verification flash vbmeta vbmeta.img
-
+2.然后同样将其写入 &#x2F;etc&#x2F;sysctl.conf 以持久化配置：
+echo &quot;net.ipv4.tcp_congestion_control = cubic&quot; | sudo tee -a /etc/sysctl.conf
 ]]></content>
       <categories>
         <category>教程</category>
       </categories>
       <tags>
-        <tag>强解</tag>
-        <tag>Root</tag>
-        <tag>安卓</tag>
+        <tag>hexo</tag>
+        <tag>SEO</tag>
       </tags>
   </entry>
   <entry>
@@ -653,47 +574,6 @@ Ghostty美化
       </tags>
   </entry>
   <entry>
-    <title>gmg光猫开Telnet,获得超级管理员密码,改桥接</title>
-    <url>/posts/d4ee457/</url>
-    <content><![CDATA[记录关键参数1.从WAN设置页，记下拨号帐号
-2.如果不知道拨号密码可以问师傅或去移动官网改密码
-3.WAN设置里INTERNET一项对应的VID
-4.ONT认证密码。在登录页面右键，浏览页面源代码，搜索 LOID，把var pwd &#x3D; “——————“;记录下来
-获取管理员密码
-谨慎操作，很容易无法上网，如不能接受请退出
-
-1.捅光猫复位键，45～60秒。
-2.打开登录页面，用管理员帐号CMCCAdmin和初始密码aDm8H%MdA登录进去。
-3.在登陆光猫后在此页面 开启telnet，保存
-4.退出登录，到主页“注册安装”，填入ONT密码，操作业务下发
-5.下发完成后，现在可以正常上网了
-6.使用windows自带的telnet或其他telnet工具连接到光猫，登录用户CMCCAdmin，密码输入光猫反面写的user密码加上@C1，如xxxxxxxx@C1。（如果不对请尝试省份首字母，比如@BJ）待出现~$符号后，输入sidbg 1 DB p DevAuthInfo，超级密码一目了然。
-设置桥接
-部分地区可能需要删掉TR069才能正常使用，用F12法或者TELNET指令法。请自行删除。
-
-1.打开光猫网络标签页
-2.在连接名称选择Internet_XXX这一项
-3.点击删除
-4.重新添加一个 Inetrnet
-5.IP协议版本选择 IPv4&#x2F;v6
-6.模式选择 桥接
-7.端口绑定选择需要的LAN口
-8.VLAN ID 填写之前抄
-9.点击保存
-设置路由器1.加入路由器后台
-2.点击网络
-3.写入自己的拨号账号和密码
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>光猫</tag>
-        <tag>网络</tag>
-        <tag>桥接</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>安装搭建Hexo博客在Github Pager和Cloudflare并更换主题 完整指南</title>
     <url>/posts/af147540/</url>
     <content><![CDATA[准备软件准备
@@ -769,6 +649,148 @@ hexo cl&amp;&amp;hexo g&amp;&amp;hexo d
       </tags>
   </entry>
   <entry>
+    <title>OPPO/真我手机 MTK强解BL锁</title>
+    <url>/posts/eac7cc92/</url>
+    <content><![CDATA[
+我手上的手机是oppo reno5 pro，警告提前备份数据，一但变砖，本人概不负责
+
+资源与文件
+123盘 提取码:1213
+dm模块(用于部分机型关闭dm校验)
+
+准备工作：1.安装python环境（Download Python | Python.org）记得勾选Add Python X.X to PATH
+2.必要驱动
+3.安装强解工具mtkclient
+4.手机一定要降级到c11，因为c12及以后封了强解端口，不过好像可以拆机开端口，不过本人没有测试
+mtkclient配置：1.进入解压后的mtkclient文件夹
+2.在此文件夹打开powershell
+3.换清华或其他源（不一定，但会更快一些）：
+pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+
+4.安装mtkclient需要的第三方库：
+pip install -r requirements.txt
+
+解锁bl锁：解锁安卓10以下设备的bl锁：1.先将设备关机
+2.在powershell里输入：
+python mtk da seccfg unlock
+
+3.按住电源键+音量上下键，进入深刷模式，第一次会自动安装驱动，等待进度条完毕
+4.如果重启出现：
+
+Your device has been unlocked and can’t be trusted.
+Your device will boot in 5 seconds.就解锁完毕
+
+5.此时可能无法启动手机，一直让它开机进入rec模式（大约半个小时），如果不行手动进入rec模式
+6.直接清除数据分区，然后重启
+解锁安卓11以上设备bl锁：1.备份lk（因为安卓11之后有dm校验，又把它藏在了lk分区里）：
+python mtk r lk,lk2 lk.bin,lk2.bin
+（网上看自己有几个lk分区，不要找着抄）
+2.备份后自己重名后缀，例如我有两个lk分区：lk.base,lk2.base
+3.下载我提供的lk文件
+4.刷入我提供的lk文件
+python mtk w lk,lk2 lk.bin,lk.bin
+
+5.强解bl锁：
+python mtk da seccfg unlock
+
+6.此时你可能像我手机变成一块黑砖，不用慌，输入
+python mtk w lk,lk2 lk.base,lk2.base
+
+刷如原厂lk文件，重新按住电源键+音量上+音量下，等到重新进入深刷模式
+7.按一下电源键 如果看到了
+
+Your device has been unlocked and can’t be trusted.
+Your device will boot in 5 seconds.就成功了，不过之后重启可能像我的手机一样要再按一次电源键
+
+8.此时可能无法启动手机，一直让它开机进入rec模式（大约半个小时，如果不行手动进入rec模式
+9.清除数据分区，然后重启
+Root手机：1.重新进入深刷模式，输入
+python mtk r boot boot.img
+
+提取boot分区，因为boot分区不对可能会掉wifi
+2.安装面具
+3.修补boot镜像，不要开修补vbmeta
+4.重新进入深刷模式，输入
+python mtk w boot 你修补的镜像
+
+5.不出意外应当后成功root了(如果升级c12，可以用官方升级工具，之后找到升级包，获得boot，修补之后fastbootd刷入)
+五.去除dm检验1.用软件提取vbmeta.img2.进入fastbootd 之后输入:
+fastboot --disable-verity --disable-verification flash vbmeta vbmeta.img
+
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>强解</tag>
+        <tag>Root</tag>
+        <tag>安卓</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>gmg光猫开Telnet,获得超级管理员密码,改桥接</title>
+    <url>/posts/d4ee457/</url>
+    <content><![CDATA[记录关键参数1.从WAN设置页，记下拨号帐号
+2.如果不知道拨号密码可以问师傅或去移动官网改密码
+3.WAN设置里INTERNET一项对应的VID
+4.ONT认证密码。在登录页面右键，浏览页面源代码，搜索 LOID，把var pwd &#x3D; “——————“;记录下来
+获取管理员密码
+谨慎操作，很容易无法上网，如不能接受请退出
+
+1.捅光猫复位键，45～60秒。
+2.打开登录页面，用管理员帐号CMCCAdmin和初始密码aDm8H%MdA登录进去。
+3.在登陆光猫后在此页面 开启telnet，保存
+4.退出登录，到主页“注册安装”，填入ONT密码，操作业务下发
+5.下发完成后，现在可以正常上网了
+6.使用windows自带的telnet或其他telnet工具连接到光猫，登录用户CMCCAdmin，密码输入光猫反面写的user密码加上@C1，如xxxxxxxx@C1。（如果不对请尝试省份首字母，比如@BJ）待出现~$符号后，输入sidbg 1 DB p DevAuthInfo，超级密码一目了然。
+设置桥接
+部分地区可能需要删掉TR069才能正常使用，用F12法或者TELNET指令法。请自行删除。
+
+1.打开光猫网络标签页
+2.在连接名称选择Internet_XXX这一项
+3.点击删除
+4.重新添加一个 Inetrnet
+5.IP协议版本选择 IPv4&#x2F;v6
+6.模式选择 桥接
+7.端口绑定选择需要的LAN口
+8.VLAN ID 填写之前抄
+9.点击保存
+设置路由器1.加入路由器后台
+2.点击网络
+3.写入自己的拨号账号和密码
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>光猫</tag>
+        <tag>网络</tag>
+        <tag>桥接</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>广东爱家TV(E900V22C-b)刷入ATV</title>
+    <url>/posts/f8b02b3d/</url>
+    <content><![CDATA[准备工作
+ATV固件提取码:1213，E900V22C-a或b都可以
+一个U盘
+
+刷机1.把ATV固件放入U盘根目录
+2.打开电视盒子并遥控器狂按右键
+3.不出意外的话你的电视就开始升级了
+优点1.自带root2.不杀后台
+问题1.由于是移动端移植，不支持语音和一些按键不支持2.wifi adb 需要拔网线连接wifi，不那么好用
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>刷机</tag>
+        <tag>安卓</tag>
+        <tag>TV</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>电脑安装Android X86和Windows双系统</title>
     <url>/posts/9b9382b8/</url>
     <content><![CDATA[准备工作文件准备
@@ -841,28 +863,6 @@ windwos镜像msdn，hellowindwos
       <tags>
         <tag>刷机</tag>
         <tag>Windows</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>广东爱家TV(E900V22C-b)刷入ATV</title>
-    <url>/posts/f8b02b3d/</url>
-    <content><![CDATA[准备工作
-ATV固件提取码:1213，E900V22C-a或b都可以
-一个U盘
-
-刷机1.把ATV固件放入U盘根目录
-2.打开电视盒子并遥控器狂按右键
-3.不出意外的话你的电视就开始升级了
-优点1.自带root2.不杀后台
-问题1.由于是移动端移植，不支持语音和一些按键不支持2.wifi adb 需要拔网线连接wifi，不那么好用
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>刷机</tag>
-        <tag>安卓</tag>
-        <tag>TV</tag>
       </tags>
   </entry>
   <entry>
