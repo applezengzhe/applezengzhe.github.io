@@ -1,66 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>通过 cloudflare tunnel 免费内网穿透并免费国内加速访问</title>
-    <url>/posts/6e33bf44/</url>
-    <content><![CDATA[准备
-Cloudflare账号(必须)
-一个域名(推荐NameSilo(购买)(必须)
-github账号(非必须)
-edgeone账号可以通过x发推文或测速获得免费套餐，也可以买一个月付费，到期后变免费(非必须)
-vercel账号(非必须)
-Netlify账号与Nodejs(非必须)
-
-cloudflare tunnel配置1.先在绑定自己购买的域名
-2.在域名绑定完成后在cloudflare主页点击Zero Trust
-3.进入后先随便取个名字，之后选择免费计划,之后点继续
-4.在选择付款方式页面直接回到cloudflare主页，之后再点Zero Trust
-5.进入后一次点击Networks&#x3D;&gt;Tunnels&#x3D;&gt;Add a tunnel&#x3D;&gt;cloudflared&#x3D;&gt;next
-6.然后为隧道起个名字,之后点Save tunnel，然后根据自己的系统安装cloudflared,完成后点击next
-7.在当前页面填写自己要穿透后访问的域名,和内网的服务协议与ip+端口
-免费国内加速访问
-在成功配置cloudflare tunnel后你会发现国内访问很慢，这是应为cloudflare tunnel国内CDN很少，这时可以优选ip或cdn解决
-
-方法一 cloudflare优选IP1.进入cloudflare主页后点击Workers&#x3D;&gt;Workers 和 Pages
-2.点击创建&#x3D;&gt;从 Hello World! 开始&#x3D;&gt;部署&#x3D;&gt;编辑代码,写入:
-addEventListener(  &quot;fetch&quot;,event =&gt; &#123;     let url=new URL(event.request.url);     url.hostname=&quot;example.com&quot;;  //你的Cloudflare tunnel填写的域名     let request=new Request(url,event.request);     event. respondWith(       fetch(request)     )  &#125;)
-
-3.之后点击设置，在域和路由点击添加，选择路由，区域选你的域名，路由写你以后要访问的域名，格式:
-example.com/*
-
-4.之后在Cloudflare主页点击你的域名，再点DNS,填写记录，添加一个DNS解析写你路由绑定的域名cname到cf.090227.xyz(社区优选域名)，之后就可以访问这个域名访问你的本地服务了
-方法二 Netlify反代网站1.在Github开一个新仓库，根目录创建一个 netlify.toml。在其中写入
-[[redirects]]  from = &quot;/*&quot;  to = &quot;https://cloudflare tunnel域名/:splat&quot;  status = 200  force = true
-
-注意，端口后面的斜杠一定不要丢！
-
-2.接下来回到 https://app.netlify.com/ 创建一个新项目，导入你刚创建的Github项目，部署即可 最后绑定一下你的域名，就可以通过此域名访问你的内网服务了
-方法三 Vercel反代网站1.电脑安装Nodejs，我们需要用到npm 安装Vercel CLI
-npm i -g vercel
-
-2.登录Vercel CLI
-vercel login
-
-3.找个地方（比如桌面）创建一个你随意命名的文件夹，然后在其中创建一个你随意命名的.json文件，其中写入:
-&#123;    &quot;version&quot;: 2,    &quot;routes&quot;: [      &#123;&quot;src&quot;: &quot;/(.*)&quot;,&quot;dest&quot;: &quot;https://cloudflare tunnel域名&quot;&#125;    ]&#125;
-
-4.然后部署
-verceL -A 你命名的.json --prod
-
-5.最后绑定一下你的域名，就可以通过此域名访问你的内网服务了
-方法四 edgeone反代网站1.在edgeone主页新增站点，添加自己的域名，选择免费服务
-2.进入后点击域名配置&#x3D;&gt;域名管理，添加域名，域名配置填写自己以后访问的域名，源站配置写cloudflare tunnel域名 回源 HOST 头选使用源站域名
-3.之后在Cloudflare添加cname记录，等部署完后点击HTTPS 配置选申请免费证书&#x3D;&gt;确定
-4.等部署完后，就可以通过此域名访问你的内网服务了
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>共享</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>骁龙410随身WiFi刷入Debian 系统和救砖教程</title>
     <url>/posts/b9672d3a/</url>
     <content><![CDATA[驱动与Debian所需文件
@@ -195,33 +135,34 @@ U盘
       </tags>
   </entry>
   <entry>
-    <title>如何优化hexo网站 SEO</title>
-    <url>/posts/cfd44e32/</url>
-    <content><![CDATA[站点地图和索引1.自动生成站点地图，输入安装插件：
-npm install hexo-generator-sitemap --savenpm install hexo-generator-baidu-sitemap --save
+    <title>小米手环如何安装第三方应用(支持win,mac,android)</title>
+    <url>/posts/44c5079a/</url>
+    <content><![CDATA[准备
+一个小米手环(一切的开始)
+AstroBox或表盘自定义工具(用于安装应用)
+米论账号(用于扩展AstroBox应用与使用表盘自定义工具)
 
-2.配置_config.yml：
-# 站点地图配置sitemap:  path: sitemap.xml  template: ./sitemap_template.xml  rel: falsebaidusitemap:  path: baidusitemap.xml
+方法一:通过AstroBox(推荐,支持android,mac,win)
+优点:平台支持广，无广告，无会员，安装应用方便
+缺点:资源少
 
-3.robots.txt配置创建source&#x2F;robots.txt：
-User-agent: *Allow: /Allow: /archives/Allow: /categories/Allow: /tags/# 禁止爬取管理页面Disallow: /admin/Disallow: /login/# 站点地图Sitemap: https://yourdomain.com/sitemap.xmlSitemap: https://yourdomain.com/baidusitemap.xml
+1.安装完AstroBox后点击软件，打开设置
+2.登陆你自己的米论坛账号与小米账号
+3.点击设备连接你的设备，之后你就可以去主页随便安装应用了
+方法二:通过表盘自定义工具(不推荐,支持android)
+优点:资源丰富，开会员后功能丰富
+缺点:有广告，功能很多要会员(免费试用两天，，没会员要看垃圾广告安装应用，会员最多三年)
 
-永久链接1.hexo-abbrlink
-在Hexo中，我们可以使用hexo-abbrlink插件，安装：
-npm install hexo-abbrlink --save
-不同算法和进制生成的值：
-crc16 &amp; hexhttp://www.example.com/posts/66c8.html
-crc16 &amp; dechttp://post.example.com/posts/65535.html
-crc32 &amp; hexhttp://post.example.com/posts/8ddf18fb.html
-crc32 &amp; dechttp://post.example.com/posts/1690090958.html
-2.修改站点配置文件：
-url: https://www.oneyangcrown.top/permalink: posts/:abbrlink/permalink_defaults:pretty_urls:  trailing_index: true  trailing_html: true# abbrlink configabbrlink:  alg: crc32  #support crc16(default) and crc32  rep: hex    #support dec(default) and hex]]></content>
+1.安装完表盘自定义工具后打开，点击我的，登录账号
+2.如果不想捐赠点击使用捐赠者功能，就可以获得几天会员
+3.点击工具，点击AuthKey读取工具按照提示读取
+4.最后点击探索，安装应用就点击蓝牙一键安装就可以了
+]]></content>
       <categories>
         <category>教程</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
-        <tag>SEO</tag>
+        <tag>手环</tag>
       </tags>
   </entry>
   <entry>
@@ -258,53 +199,63 @@ systemctl restart systemd-resolved.service
       </tags>
   </entry>
   <entry>
-    <title>小米手环如何安装第三方应用(支持win,mac,android)</title>
-    <url>/posts/44c5079a/</url>
+    <title>通过 cloudflare tunnel 免费内网穿透并免费国内加速访问</title>
+    <url>/posts/6e33bf44/</url>
     <content><![CDATA[准备
-一个小米手环(一切的开始)
-AstroBox或表盘自定义工具(用于安装应用)
-米论账号(用于扩展AstroBox应用与使用表盘自定义工具)
+Cloudflare账号(必须)
+一个域名(推荐NameSilo(购买)(必须)
+github账号(非必须)
+edgeone账号可以通过x发推文或测速获得免费套餐，也可以买一个月付费，到期后变免费(非必须)
+vercel账号(非必须)
+Netlify账号与Nodejs(非必须)
 
-方法一:通过AstroBox(推荐,支持android,mac,win)
-优点:平台支持广，无广告，无会员，安装应用方便
-缺点:资源少
+cloudflare tunnel配置1.先在绑定自己购买的域名
+2.在域名绑定完成后在cloudflare主页点击Zero Trust
+3.进入后先随便取个名字，之后选择免费计划,之后点继续
+4.在选择付款方式页面直接回到cloudflare主页，之后再点Zero Trust
+5.进入后一次点击Networks&#x3D;&gt;Tunnels&#x3D;&gt;Add a tunnel&#x3D;&gt;cloudflared&#x3D;&gt;next
+6.然后为隧道起个名字,之后点Save tunnel，然后根据自己的系统安装cloudflared,完成后点击next
+7.在当前页面填写自己要穿透后访问的域名,和内网的服务协议与ip+端口
+免费国内加速访问
+在成功配置cloudflare tunnel后你会发现国内访问很慢，这是应为cloudflare tunnel国内CDN很少，这时可以优选ip或cdn解决
 
-1.安装完AstroBox后点击软件，打开设置
-2.登陆你自己的米论坛账号与小米账号
-3.点击设备连接你的设备，之后你就可以去主页随便安装应用了
-方法二:通过表盘自定义工具(不推荐,支持android)
-优点:资源丰富，开会员后功能丰富
-缺点:有广告，功能很多要会员(免费试用两天，，没会员要看垃圾广告安装应用，会员最多三年)
+方法一 cloudflare优选IP1.进入cloudflare主页后点击Workers&#x3D;&gt;Workers 和 Pages
+2.点击创建&#x3D;&gt;从 Hello World! 开始&#x3D;&gt;部署&#x3D;&gt;编辑代码,写入:
+addEventListener(  &quot;fetch&quot;,event =&gt; &#123;     let url=new URL(event.request.url);     url.hostname=&quot;example.com&quot;;  //你的Cloudflare tunnel填写的域名     let request=new Request(url,event.request);     event. respondWith(       fetch(request)     )  &#125;)
 
-1.安装完表盘自定义工具后打开，点击我的，登录账号
-2.如果不想捐赠点击使用捐赠者功能，就可以获得几天会员
-3.点击工具，点击AuthKey读取工具按照提示读取
-4.最后点击探索，安装应用就点击蓝牙一键安装就可以了
+3.之后点击设置，在域和路由点击添加，选择路由，区域选你的域名，路由写你以后要访问的域名，格式:
+example.com/*
+
+4.之后在Cloudflare主页点击你的域名，再点DNS,填写记录，添加一个DNS解析写你路由绑定的域名cname到cf.090227.xyz(社区优选域名)，之后就可以访问这个域名访问你的本地服务了
+方法二 Netlify反代网站1.在Github开一个新仓库，根目录创建一个 netlify.toml。在其中写入
+[[redirects]]  from = &quot;/*&quot;  to = &quot;https://cloudflare tunnel域名/:splat&quot;  status = 200  force = true
+
+注意，端口后面的斜杠一定不要丢！
+
+2.接下来回到 https://app.netlify.com/ 创建一个新项目，导入你刚创建的Github项目，部署即可 最后绑定一下你的域名，就可以通过此域名访问你的内网服务了
+方法三 Vercel反代网站1.电脑安装Nodejs，我们需要用到npm 安装Vercel CLI
+npm i -g vercel
+
+2.登录Vercel CLI
+vercel login
+
+3.找个地方（比如桌面）创建一个你随意命名的文件夹，然后在其中创建一个你随意命名的.json文件，其中写入:
+&#123;    &quot;version&quot;: 2,    &quot;routes&quot;: [      &#123;&quot;src&quot;: &quot;/(.*)&quot;,&quot;dest&quot;: &quot;https://cloudflare tunnel域名&quot;&#125;    ]&#125;
+
+4.然后部署
+verceL -A 你命名的.json --prod
+
+5.最后绑定一下你的域名，就可以通过此域名访问你的内网服务了
+方法四 edgeone反代网站1.在edgeone主页新增站点，添加自己的域名，选择免费服务
+2.进入后点击域名配置&#x3D;&gt;域名管理，添加域名，域名配置填写自己以后访问的域名，源站配置写cloudflare tunnel域名 回源 HOST 头选使用源站域名
+3.之后在Cloudflare添加cname记录，等部署完后点击HTTPS 配置选申请免费证书&#x3D;&gt;确定
+4.等部署完后，就可以通过此域名访问你的内网服务了
 ]]></content>
       <categories>
         <category>教程</category>
       </categories>
       <tags>
-        <tag>手环</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>openwrt如何开放ipv6端口</title>
-    <url>/posts/b7bae503/</url>
-    <content><![CDATA[前言现在基本上ipv6已经普及了，但ipv6直接暴露在公网上很危险，市面上也很少路由有好的ipv6防火墙，于是openwrt反而变成最佳选择，我便教大家如何设置开放指定端口
-正文1.首先为了家庭安全，openwrt防火墙常规设置中转发一定要关闭
-
-2.然后来到通信规则中，添加一条新的规则，源区域选择 wan，目标区域选择 lan，目标地址填写 ::a:b:c:b&#x2F;::ffff:ffff:ffff:ffff，然后填写需要放行的协议以及端口，最后点击保存并应用即可
-
-由于 IPv6 是动态的，因此我们放行时，本地 IP 地址要按 ::a:b:c:b&#x2F;::ffff:ffff:ffff:ffff 的格式进行填写，其中 a:b:c:b 部分替换为实际设备 IP 地址的后四段，而要通过这种形式指定设备时，需要提前将设备的 IPv6 后缀固定下来。
-
-
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>软路由</tag>
+        <tag>共享</tag>
       </tags>
   </entry>
   <entry>
@@ -355,78 +306,52 @@ echo &quot;net.ipv4.tcp_congestion_control = cubic&quot; | sudo tee -a /etc/sysc
       </tags>
   </entry>
   <entry>
-    <title>安装搭建Hexo博客在Github Pager和Cloudflare并更换主题 完整指南</title>
-    <url>/posts/af147540/</url>
-    <content><![CDATA[准备软件准备
-Github账号(必须)
-Cloudflare账号(必须)
-Node(必须)
-Git(必须)
-VSCode（建议,非必须）
+    <title>openwrt如何开放ipv6端口</title>
+    <url>/posts/b7bae503/</url>
+    <content><![CDATA[前言现在基本上ipv6已经普及了，但ipv6直接暴露在公网上很危险，市面上也很少路由有好的ipv6防火墙，于是openwrt反而变成最佳选择，我便教大家如何设置开放指定端口
+正文1.首先为了家庭安全，openwrt防火墙常规设置中转发一定要关闭
 
-检查1.在键盘按下win + R键，输入CMD，然后回车，打开CMD窗口，执行node -v命令，看到版本信息，则说明Node安装成功。
-2.Node换华为源(会快一点)：
-npm config set registry https://mirrors.huaweicloud.com/repository/npm/
-正式配置配置 Git 密钥并连接至 Github1.配置用户名和邮箱
-git config --global user.name &quot;你的用户名&quot;git config --global user.email &quot;你的邮箱&quot;
-之后通过通过以下命令检查是否配置成功
-git config -l 
+2.然后来到通信规则中，添加一条新的规则，源区域选择 wan，目标区域选择 lan，目标地址填写 ::a:b:c:b&#x2F;::ffff:ffff:ffff:ffff，然后填写需要放行的协议以及端口，最后点击保存并应用即可
 
-2.配置公钥连接Github
-ssh-keygen -t rsa -C &quot;你的邮箱&quot;
+由于 IPv6 是动态的，因此我们放行时，本地 IP 地址要按 ::a:b:c:b&#x2F;::ffff:ffff:ffff:ffff 的格式进行填写，其中 a:b:c:b 部分替换为实际设备 IP 地址的后四段，而要通过这种形式指定设备时，需要提前将设备的 IPv6 后缀固定下来。
 
-3.用记事本打开上述图片中的公钥id_rsa.pub，复制里面的内容，然后开始在github中配置ssh密钥。
-4.进入github，点击右上角头像 选择settings，进入设置页后选择 SSH and GPG keys，名字随便起，公钥填到Key那一栏。
-5.测试连接，输入以下命令（不要开stam++连接）
-ssh -T git@github.com
 
-第一次连接会提示Are you sure you want to continue connecting (yes&#x2F;no&#x2F;[fingerprint])?，输入yes即可出现连接到账户的信息，说明已经大功告成。
-创建GitHub.io仓库1.点击右上角的+按钮，选择New repository，创建一个&lt;用户名&gt;.github.io的仓库。
-2.仓库名字的格式必须为：&lt;用户名&gt;.github.io (注意：前缀必须为用户名，此为预览博客需要，后期可修改仓库名)
-3.可见性必须选择 Public 方便第一次部署检查问题，点击 Creat repository 进行创建即可
-初始化 Hexo 博客1.创建一个文件夹来保存博客源码（我这里选的路径为D:&#x2F;Hexo-Blog），在文件夹内右键鼠标，选择Open Git Bash here
-2.在Git BASH输入如下命令安装 Hexo
-npm install -g hexo-cli &amp;&amp; hexo -v
-安装完后输入hexo -v验证是否安装成功。
-3.初始化 Hexo 项目安装相关依赖。
-hexo init blogcd blognpm i
-
-4.输入
-hexo cl &amp;&amp; hexo s
-启动项目,打开浏览器，输入地址：http://localhost:4000 当看到网站，就成功了
-将静态博客挂载到 GitHub Pages1.安装 hexo-deployer-git
-npm install hexo-deployer-git --save
-
-2.修改 _config.yml 文件在blog-demo目录下的_config.yml，就是整个Hexo框架的配置文件了。可以在里面修改大部分的配置。详细可参考官方的配置描述。修改最后一行的配置，将repository修改为你自己的github项目地址即可，还有分支要改为main代表主分支（注意缩进）。
-deploy:  type: git  repository: git@github.com:applezengzhe/applezengzhe.github.io.git  branch: main
-
-3.修改好配置后，运行如下命令，将代码部署到 GitHub（Hexo三连）
-hexo cl&amp;&amp;hexo g&amp;&amp;hexo d
-如果出现Deploy done，则说明部署成功了。稍等两分钟，打开浏览器访问：https://applezengzhe.github.io ，这时候我们就可以看到博客内容了。
-更换主题1.打开https://hexo.io/themes/找到喜欢的主题打开github根据教程clone主题，或者将主题下载到本地hexo主题文件夹中进行使用。
-2.以particlex为例
-cd themesgit clone https://github.com/theme-particlex/hexo-theme-particlex.git particlex --depth=1
-
-3.然后在根目录 _config.yml 设置主题为 ParticleX 即可。
-
-theme: particlex
-
-部署到Cloudflare Workers 和 Pages上1.登录Cloudflare后进入控制台页面
-2.点击Workers 和 Pages然后创建应用程序
-3.点击Pages，然后点击连接到 Git
-4.输入你的github账号和密码，然后选择Hexo的仓库
-5.构建配置中的构建命令输入
-hexo cl&amp;&amp;hexo g&amp;&amp;hexo d
-
-6.之后进入你创建的worker，点击自定义域名(要绑定在Cloudflare上的)(可选)
-7.最后你就可以国内更稳定访问你的博客了，拜拜!!!(。・∀・)ノ
 ]]></content>
       <categories>
         <category>教程</category>
       </categories>
       <tags>
+        <tag>软路由</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何优化hexo网站 SEO</title>
+    <url>/posts/cfd44e32/</url>
+    <content><![CDATA[站点地图和索引1.自动生成站点地图，输入安装插件：
+npm install hexo-generator-sitemap --savenpm install hexo-generator-baidu-sitemap --save
+
+2.配置_config.yml：
+# 站点地图配置sitemap:  path: sitemap.xml  template: ./sitemap_template.xml  rel: falsebaidusitemap:  path: baidusitemap.xml
+
+3.robots.txt配置创建source&#x2F;robots.txt：
+User-agent: *Allow: /Allow: /archives/Allow: /categories/Allow: /tags/# 禁止爬取管理页面Disallow: /admin/Disallow: /login/# 站点地图Sitemap: https://yourdomain.com/sitemap.xmlSitemap: https://yourdomain.com/baidusitemap.xml
+
+永久链接1.hexo-abbrlink
+在Hexo中，我们可以使用hexo-abbrlink插件，安装：
+npm install hexo-abbrlink --save
+不同算法和进制生成的值：
+crc16 &amp; hexhttp://www.example.com/posts/66c8.html
+crc16 &amp; dechttp://post.example.com/posts/65535.html
+crc32 &amp; hexhttp://post.example.com/posts/8ddf18fb.html
+crc32 &amp; dechttp://post.example.com/posts/1690090958.html
+2.修改站点配置文件：
+url: https://www.oneyangcrown.top/permalink: posts/:abbrlink/permalink_defaults:pretty_urls:  trailing_index: true  trailing_html: true# abbrlink configabbrlink:  alg: crc32  #support crc16(default) and crc32  rep: hex    #support dec(default) and hex]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
         <tag>hexo</tag>
-        <tag>建站</tag>
+        <tag>SEO</tag>
       </tags>
   </entry>
   <entry>
@@ -769,6 +694,81 @@ Ghostty美化
       </tags>
   </entry>
   <entry>
+    <title>安装搭建Hexo博客在Github Pager和Cloudflare并更换主题 完整指南</title>
+    <url>/posts/af147540/</url>
+    <content><![CDATA[准备软件准备
+Github账号(必须)
+Cloudflare账号(必须)
+Node(必须)
+Git(必须)
+VSCode（建议,非必须）
+
+检查1.在键盘按下win + R键，输入CMD，然后回车，打开CMD窗口，执行node -v命令，看到版本信息，则说明Node安装成功。
+2.Node换华为源(会快一点)：
+npm config set registry https://mirrors.huaweicloud.com/repository/npm/
+正式配置配置 Git 密钥并连接至 Github1.配置用户名和邮箱
+git config --global user.name &quot;你的用户名&quot;git config --global user.email &quot;你的邮箱&quot;
+之后通过通过以下命令检查是否配置成功
+git config -l 
+
+2.配置公钥连接Github
+ssh-keygen -t rsa -C &quot;你的邮箱&quot;
+
+3.用记事本打开上述图片中的公钥id_rsa.pub，复制里面的内容，然后开始在github中配置ssh密钥。
+4.进入github，点击右上角头像 选择settings，进入设置页后选择 SSH and GPG keys，名字随便起，公钥填到Key那一栏。
+5.测试连接，输入以下命令（不要开stam++连接）
+ssh -T git@github.com
+
+第一次连接会提示Are you sure you want to continue connecting (yes&#x2F;no&#x2F;[fingerprint])?，输入yes即可出现连接到账户的信息，说明已经大功告成。
+创建GitHub.io仓库1.点击右上角的+按钮，选择New repository，创建一个&lt;用户名&gt;.github.io的仓库。
+2.仓库名字的格式必须为：&lt;用户名&gt;.github.io (注意：前缀必须为用户名，此为预览博客需要，后期可修改仓库名)
+3.可见性必须选择 Public 方便第一次部署检查问题，点击 Creat repository 进行创建即可
+初始化 Hexo 博客1.创建一个文件夹来保存博客源码（我这里选的路径为D:&#x2F;Hexo-Blog），在文件夹内右键鼠标，选择Open Git Bash here
+2.在Git BASH输入如下命令安装 Hexo
+npm install -g hexo-cli &amp;&amp; hexo -v
+安装完后输入hexo -v验证是否安装成功。
+3.初始化 Hexo 项目安装相关依赖。
+hexo init blogcd blognpm i
+
+4.输入
+hexo cl &amp;&amp; hexo s
+启动项目,打开浏览器，输入地址：http://localhost:4000 当看到网站，就成功了
+将静态博客挂载到 GitHub Pages1.安装 hexo-deployer-git
+npm install hexo-deployer-git --save
+
+2.修改 _config.yml 文件在blog-demo目录下的_config.yml，就是整个Hexo框架的配置文件了。可以在里面修改大部分的配置。详细可参考官方的配置描述。修改最后一行的配置，将repository修改为你自己的github项目地址即可，还有分支要改为main代表主分支（注意缩进）。
+deploy:  type: git  repository: git@github.com:applezengzhe/applezengzhe.github.io.git  branch: main
+
+3.修改好配置后，运行如下命令，将代码部署到 GitHub（Hexo三连）
+hexo cl&amp;&amp;hexo g&amp;&amp;hexo d
+如果出现Deploy done，则说明部署成功了。稍等两分钟，打开浏览器访问：https://applezengzhe.github.io ，这时候我们就可以看到博客内容了。
+更换主题1.打开https://hexo.io/themes/找到喜欢的主题打开github根据教程clone主题，或者将主题下载到本地hexo主题文件夹中进行使用。
+2.以particlex为例
+cd themesgit clone https://github.com/theme-particlex/hexo-theme-particlex.git particlex --depth=1
+
+3.然后在根目录 _config.yml 设置主题为 ParticleX 即可。
+
+theme: particlex
+
+部署到Cloudflare Workers 和 Pages上1.登录Cloudflare后进入控制台页面
+2.点击Workers 和 Pages然后创建应用程序
+3.点击Pages，然后点击连接到 Git
+4.输入你的github账号和密码，然后选择Hexo的仓库
+5.构建配置中的构建命令输入
+hexo cl&amp;&amp;hexo g&amp;&amp;hexo d
+
+6.之后进入你创建的worker，点击自定义域名(要绑定在Cloudflare上的)(可选)
+7.最后你就可以国内更稳定访问你的博客了，拜拜!!!(。・∀・)ノ
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>建站</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>电脑安装Android X86和Windows双系统</title>
     <url>/posts/9b9382b8/</url>
     <content><![CDATA[准备工作文件准备
@@ -817,28 +817,6 @@ suenable_nativebridge
       </tags>
   </entry>
   <entry>
-    <title>广东爱家TV(E900V22C-b)刷入ATV</title>
-    <url>/posts/f8b02b3d/</url>
-    <content><![CDATA[准备工作
-ATV固件提取码:1213，E900V22C-a或b都可以
-一个U盘
-
-刷机1.把ATV固件放入U盘根目录
-2.打开电视盒子并遥控器狂按右键
-3.不出意外的话你的电视就开始升级了
-优点1.自带root2.不杀后台
-问题1.由于是移动端移植，不支持语音和一些按键不支持2.wifi adb 需要拔网线连接wifi，不那么好用
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>刷机</tag>
-        <tag>安卓</tag>
-        <tag>TV</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>电脑如何重装Windows系统</title>
     <url>/posts/186b5291/</url>
     <content><![CDATA[准备工作文件
@@ -863,6 +841,28 @@ windwos镜像msdn，hellowindwos
       <tags>
         <tag>刷机</tag>
         <tag>Windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>广东爱家TV(E900V22C-b)刷入ATV</title>
+    <url>/posts/f8b02b3d/</url>
+    <content><![CDATA[准备工作
+ATV固件提取码:1213，E900V22C-a或b都可以
+一个U盘
+
+刷机1.把ATV固件放入U盘根目录
+2.打开电视盒子并遥控器狂按右键
+3.不出意外的话你的电视就开始升级了
+优点1.自带root2.不杀后台
+问题1.由于是移动端移植，不支持语音和一些按键不支持2.wifi adb 需要拔网线连接wifi，不那么好用
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>刷机</tag>
+        <tag>安卓</tag>
+        <tag>TV</tag>
       </tags>
   </entry>
   <entry>
