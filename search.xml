@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>如何利用Lucky实现公网ipv6的外部访问</title>
+      <link href="/posts/31865a3d/"/>
+      <url>/posts/31865a3d/</url>
+      
+        <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本教程利用了lucky这个项目来实现，请先确保你拥有</p><ul><li>一个公网ipv6</li><li>一个域名</li><li>可以开放防火墙的路由器(本教程以Openwrt为例子)</li><li>一个安装docker的服务器</li></ul><h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><h2 id="安装Lucky"><a href="#安装Lucky" class="headerlink" title="安装Lucky"></a>安装Lucky</h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> Docker </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Archlinux安装教程</title>
+      <link href="/posts/8b475ac1/"/>
+      <url>/posts/8b475ac1/</url>
+      
+        <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本教程将使用archinstall进行安装,新手建议跟随<a href="https://wiki.archlinuxcn.org/wiki/Main_page">ArchWiki</a>来安装,以更好处理未来的问题</p><h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><ul><li>U盘</li><li><a href="https://www.ventoy.net/cn/https://www.ventoy.net/cn/">Ventoy</a>(用U盘启动镜像的工具)</li><li><a href="https://archlinux.org.cn/download/">Archlinux镜像</a></li></ul><h1 id="启动镜像"><a href="#启动镜像" class="headerlink" title="启动镜像"></a>启动镜像</h1><ol><li><p>先插入U盘到电脑上</p></li><li><p>解压Ventoy压缩包后打开 Ventoy2Disk.exe</p></li><li><p>确保设备没错点击安装</p></li><li><p>等进度条走完,把镜像文件拖入U盘中</p></li><li><p>进入bios选择U盘启动，在Ventoy界面中选你的镜像文件</p></li></ol><h1 id="联网-有线与无线"><a href="#联网-有线与无线" class="headerlink" title="联网(有线与无线)"></a>联网(有线与无线)</h1><h2 id="有线"><a href="#有线" class="headerlink" title="有线"></a>有线</h2><ol><li>电脑有网口可以直接插网线,如果没有可以用数据线连手机,手机开网络共享</li></ol><h2 id="无线"><a href="#无线" class="headerlink" title="无线"></a>无线</h2><ol><li>进入连接wifi界面，输入：</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iwctl</span><br></pre></td></tr></table></figure><ol start="2"><li>获取wifi列表，输入：</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">station wlan0 get-networks</span><br></pre></td></tr></table></figure><ol start="3"><li>选择wifi，输入：</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">station wlan0 connect “wifi名”</span><br></pre></td></tr></table></figure><ol start="4"><li>输入完密码就连上了，之后退出：</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure><h1 id="脚本安装"><a href="#脚本安装" class="headerlink" title="脚本安装"></a>脚本安装</h1><ol><li>archlinux安装，输入：</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">archinstall</span><br></pre></td></tr></table></figure><ol start="2"><li>先选Mirrors换源</li></ol><ul><li>选择第一项Select regions按空格设置自己的所在地，之后回车</li></ul><ol start="3"><li>磁盘分区选Disk configuration</li></ol><ul><li>选Partitoning&#x3D;&gt;Manual Partitioning&#x3D;&gt;选你的硬盘</li><li>先创建一个fat32的启动分区，在Mountpoint(挂载点)输入 &#x2F;boot </li><li>再创建一个swap分区，空间和你自己设备的内存差不多，文件系统选linux-swap</li><li>如果有剩下的空间分入btrfs，选择Mark&#x2F;Unmark as compressed设置透明压缩，再选择Set subvolumes&#x3D;&gt;Add subvolume，Subvolume name设置成 @，对应Subvolume mountpoint是 &#x2F; ； @home 对应 &#x2F;home</li><li>confirm and exit&#x3D;&gt;confirm and exit&#x3D;&gt;back 退出</li></ul><ol start="4"><li><p>内存压缩，选Swap，在里面开启</p></li><li><p>在Bootloader选项中选择Grub</p></li><li><p>在Root password中自己设置root密码</p></li><li><p>选User account创建用户和密码，记得选YES赋予管理员权限</p></li><li><p>在Profile中可以安装桌面环境</p></li></ol><ul><li>选Type&#x3D;&gt;Desktop，空格选择</li></ul><ol start="9"><li>选Applications</li></ol><ul><li>Bluetooth(蓝牙)选YES</li><li>Audio(声音服务)中选piewire</li></ul><ol start="10"><li>Kernels(内核选项)</li></ol><ul><li>linux(稳定与续航) linux-hardened(安全) linux-lts(省电) linux-zen(极客与性能)</li></ul><ol start="11"><li><p>在Network configuation(网络)中选 Use NetworkManager</p></li><li><p>在Additional packagers可以添加一些包</p></li></ol><ul><li>&#x2F;为搜索</li><li>推荐安装 vim</li></ul><ol start="13"><li><p>设置时区在Timezone中选Shanghai就行</p></li><li><p>最后就可以选Install安装系统，安装完后选Reboot system就可以正式进入系统了</p></li></ol><h1 id="进系统后的优化-以Gnome桌面为例子"><a href="#进系统后的优化-以Gnome桌面为例子" class="headerlink" title="进系统后的优化(以Gnome桌面为例子)"></a>进系统后的优化(以Gnome桌面为例子)</h1><ol><li>进入后打开终端设置全局默认文本编辑器：</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> vim /etc/environment</span><br></pre></td></tr></table></figure><p>里面填写:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EDITOR=vim</span><br></pre></td></tr></table></figure><ul><li>避免一些软件调用vi报错</li></ul><ol start="2"><li>编辑pacman配置文件输入</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/pacman.conf</span><br></pre></td></tr></table></figure><ul><li>开启32位源(有些软件如steam你如果想安装必须要打开),去掉[multilib]两行的注释</li><li>提高下载速度(增加下载线程)，把ParallelDownloads的数值调大</li><li>添加archlinuxcn源，文件底部写入：</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[archlinuxcn]</span><br><span class="line">Server = https://mirrors.ustc.edu.cn/archlinuxcn/<span class="variable">$arch</span> </span><br><span class="line">Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/<span class="variable">$arch</span> </span><br><span class="line">Server = https://mirrors.hit.edu.cn/archlinuxcn/<span class="variable">$arch</span> </span><br><span class="line">Server = https://repo.huaweicloud.com/archlinuxcn/<span class="variable">$arch</span> </span><br></pre></td></tr></table></figure><p>退出之后同步数据库并安装archlinuxcn密钥，输入：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -Sy archlinuxcn-keyring </span><br></pre></td></tr></table></figure><ol start="3"><li>安装AUR下载助手(aur上有许多第三方软件但也要识别是否安全哦)，输入：</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -S --needed base-devel yay </span><br></pre></td></tr></table></figure><ol start="4"><li>中文字体，如果不安装中文会变成口口口，输入：</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S wqy-zenhei noto-fonts noto-fonts-emoji</span><br></pre></td></tr></table></figure><ol start="5"><li>安装音视频固件,输入：</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -S --needed sof-firmware alsa-ucm-conf alsa-firmware alsa-until</span><br></pre></td></tr></table></figure><p>安装音视频服务,输入：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -S --needed pipewire wireplumber pipewire-pulse pipewire-alsa pipewire-jack </span><br><span class="line">``````</span><br><span class="line">启用服务:</span><br><span class="line">```bash</span><br><span class="line">systemctl --user <span class="built_in">enable</span> --now pipewire pipewire-pulse wireplumber</span><br></pre></td></tr></table></figure><ul><li>注意：这里是在用户空间启用，如果你是root身份的话要exit命令退出登录后用普通用户登录</li></ul><ol start="6"><li>开启性能模式切换</li></ol><ul><li>安装</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -S power-profiles-daemon</span><br></pre></td></tr></table></figure><ul><li>启动服务</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> --now power-profiles-daemon </span><br></pre></td></tr></table></figure><ol start="7"><li>安装flatpak,输入</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -S flatpak</span><br></pre></td></tr></table></figure><p>设置国内软件源<br>flathub源(上交大)，输入：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> flatpak remote-modify flathub --url=https://mirror.sjtu.edu.cn/flathub</span><br></pre></td></tr></table></figure><ol start="8"><li>开启中文支持，输入：</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> vim /etc/locale.conf</span><br></pre></td></tr></table></figure><p>在里面取消</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LANG=en_US.UTF-8</span><br><span class="line">LC_MESSAGES=zh_CN.UTF-8</span><br></pre></td></tr></table></figure><p>的注释</p><h2 id="中文输入法ibus安装"><a href="#中文输入法ibus安装" class="headerlink" title="中文输入法ibus安装"></a>中文输入法ibus安装</h2><p>1.安装ibus-rime，输入：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -S ibus ibus-rime rime-ice-pinyin-git </span><br></pre></td></tr></table></figure><ol start="2"><li><p>在gnome的设置中心&#x3D;&gt;键盘&#x3D;&gt;添加输入源&#x3D;&gt;汉语，里面找到rime添加，如果没有的话登出一次</p></li><li><p>编辑配置文件设置rime的输入法方案为ice雾凇拼音:</p></li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.config/ibus/rime/default.custom.yaml</span><br></pre></td></tr></table></figure><p>在里面输入：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">patch:</span><br><span class="line">  <span class="comment"># 这里的 rime_ice_suggestion 为雾凇方案的默认预设</span></span><br><span class="line">  __include: rime_ice_suggestion:/</span><br></pre></td></tr></table></figure><h1 id="常用软件安装"><a href="#常用软件安装" class="headerlink" title="常用软件安装"></a>常用软件安装</h1><ol><li>文件管理器,好用的终端：</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -S --needed mission-center</span><br><span class="line"><span class="built_in">sudo</span> pacman -S ghostty</span><br></pre></td></tr></table></figure><ol start="2"><li>QQ,微信,WPS,vscode：</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S linuxqq-appimage wechat-appimage wps-office-cn wps-office-mui-zh-cn visual-studio-code-bin</span><br></pre></td></tr></table></figure><h1 id="美化"><a href="#美化" class="headerlink" title="美化"></a>美化</h1><h2 id="Gnome美化"><a href="#Gnome美化" class="headerlink" title="Gnome美化"></a>Gnome美化</h2><ol><li>Gnome扩展插件，先安装管理器，输入：</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flatpak install flathub com.mattjakeman.ExtensionManager</span><br></pre></td></tr></table></figure><ul><li>推荐几个 AppIndicator and KStatusNotifierItem Support(面板上显示后台应用) caffeine(防止熄屏) Fuzzy Application Search(模糊搜索) dask to dock(开启dock)</li></ul><h2 id="Shell美化-非必要会影响shell的启动速度"><a href="#Shell美化-非必要会影响shell的启动速度" class="headerlink" title="Shell美化(非必要会影响shell的启动速度)"></a>Shell美化(非必要会影响shell的启动速度)</h2><h3 id="zsh"><a href="#zsh" class="headerlink" title="zsh"></a>zsh</h3><ol><li>安装zsh输入：</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -S zsh</span><br><span class="line">chsh -s /usr/bin/zsh</span><br></pre></td></tr></table></figure><ol start="2"><li>开启语法检查、自动补全、tab选择、历史记录:</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -S zsh-syntax-highlighting zsh-autosuggestions zsh-completions</span><br><span class="line">vim ~/.zshrc</span><br></pre></td></tr></table></figure><p>写入：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#语法检查和高亮</span></span><br><span class="line"><span class="built_in">source</span> /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh</span><br><span class="line"><span class="built_in">source</span> /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh</span><br><span class="line"></span><br><span class="line"><span class="comment">#开启tab上下左右选择补全</span></span><br><span class="line"><span class="built_in">zstyle</span> <span class="string">&#x27;:completion:*&#x27;</span> menu <span class="keyword">select</span></span><br><span class="line"><span class="built_in">autoload</span> -Uz compinit</span><br><span class="line">compinit</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置历史记录文件的路径</span></span><br><span class="line">HISTFILE=~/.zsh_history</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置在会话（内存）中和历史文件中保存的条数，建议设置得大一些</span></span><br><span class="line">HISTSIZE=1000</span><br><span class="line">SAVEHIST=1000</span><br><span class="line"></span><br><span class="line"><span class="comment"># 忽略重复的命令，连续输入多次的相同命令只记一次</span></span><br><span class="line"><span class="built_in">setopt</span> HIST_IGNORE_DUPS</span><br><span class="line"></span><br><span class="line"><span class="comment"># 忽略以空格开头的命令（用于临时执行一些你不想保存的敏感命令）</span></span><br><span class="line"><span class="built_in">setopt</span> HIST_IGNORE_SPACE</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在多个终端之间实时共享历史记录 </span></span><br><span class="line"><span class="comment"># 这是实现多终端同步最关键的选项</span></span><br><span class="line"><span class="built_in">setopt</span> SHARE_HISTORY</span><br><span class="line"></span><br><span class="line"><span class="comment"># 让新的历史记录追加到文件，而不是覆盖</span></span><br><span class="line"><span class="built_in">setopt</span> APPEND_HISTORY</span><br><span class="line"><span class="comment"># 在历史记录中记录命令的执行开始时间和持续时间</span></span><br><span class="line"><span class="built_in">setopt</span> EXTENDED_HISTORY</span><br></pre></td></tr></table></figure><ol start="3"><li>重启终端</li></ol><h3 id="starship提示符美化"><a href="#starship提示符美化" class="headerlink" title="starship提示符美化"></a>starship提示符美化</h3><ol><li>安装nerd字体和starship：</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -S ttf-jetbrains-mono-nerd starship</span><br></pre></td></tr></table></figure><ol start="2"><li>编辑配置文件激活starship</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.zshrc</span><br><span class="line"><span class="built_in">eval</span> <span class="string">&quot;<span class="subst">$(starship init zsh)</span>&quot;</span></span><br></pre></td></tr></table></figure><ol start="3"><li><p>在<a href="https://starship.rs/presets/">starship</a>下载一个自己喜欢的预设主题，重命名为starship.toml，放到~&#x2F;.config</p></li><li><p>重启终端</p></li></ol><h3 id="Ghostty美化"><a href="#Ghostty美化" class="headerlink" title="Ghostty美化"></a>Ghostty美化</h3><ol><li><p>下载<a href="https://github.com/catppuccin/catppuccin">catppuccin</a>颜色配置，粘贴到~&#x2F;.config&#x2F;ghostty&#x2F;themes&#x2F;</p></li><li><p>修改~&#x2F;.config&#x2F;ghostty&#x2F;config 配置文件，例如下载的是frappe的话:</p></li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#颜色配置文件路径要使用/开头的绝对路径</span></span><br><span class="line">theme = /home/shorin/.config/ghostty/catppuccin-frappe.conf</span><br><span class="line"></span><br><span class="line"><span class="comment">#隐藏标题栏</span></span><br><span class="line">window-decoration = none</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置透明度</span></span><br><span class="line">background-opacity=0.8</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置字体和字体大小</span></span><br><span class="line">font-family = <span class="string">&quot;Adwaita Mono&quot;</span> </span><br><span class="line">font-size = 15</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置左右边距</span></span><br><span class="line">window-padding-x=10</span><br><span class="line"><span class="comment">#设置上下边距</span></span><br><span class="line">window-padding-y=10</span><br></pre></td></tr></table></figure><ol start="3"><li>重启终端</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 刷机 </tag>
+            
+            <tag> Liux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Ubuntu 如何开启 BBR</title>
+      <link href="/posts/13fdedbc/"/>
+      <url>/posts/13fdedbc/</url>
+      
+        <content type="html"><![CDATA[<h1 id="为什么我要开启bbr"><a href="#为什么我要开启bbr" class="headerlink" title="为什么我要开启bbr"></a>为什么我要开启bbr</h1><p>这几天我研究了一下公网ipv6，给配上ssl证书和域名，但我发现ipv6下载极其的慢（差不多50kb&#x2F;s）还有丢包现象。网上查了一下应该是应为运营商限速导致的，可以通过开启bbr来缓解。尝试了一下，确实不丢包了，也快了一点（虽然还是只有100kb&#x2F;s左右）</p><h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><p>1.BBR 需要 Linux 内核 4.9 或更高版本。Ubuntu 24.04 默认的内核版本应该已经满足要求，不过你可以通过以下命令检查内核版本：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">uname</span> -r</span><br></pre></td></tr></table></figure><p>如果没有4.9及以上先升级再来执行以下操作</p><p>2.查看是否已启用BBR</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl net.ipv4.tcp_congestion_control</span><br></pre></td></tr></table></figure><ul><li>如果输出结果为 tcp_congestion_control &#x3D; bbr，则表示 BBR 已启用；如果输出结果为 tcp_congestion_control &#x3D; cubic，则表示 BBR 未启用。</li></ul><p>3.如果未启动先编辑 sysctl 配置文件,输入</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> vi /etc/sysctl.conf</span><br></pre></td></tr></table></figure><p>4.在文件末尾添加以下两行内容：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Enable BBR</span></span><br><span class="line">net.core.default_qdisc = fq</span><br><span class="line">net.ipv4.tcp_congestion_control = bbr</span><br></pre></td></tr></table></figure><p>5.接下来应用更改</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> sysctl -p</span><br></pre></td></tr></table></figure><p>6.重新验证是否生效</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl net.ipv4.tcp_congestion_control</span><br></pre></td></tr></table></figure><ul><li>如果输出结果为 ·tcp_congestion_control &#x3D; bbr·，则表示 BBR 已启用。</li></ul><p>7.如果生效的话我们可以来看看,检查 BBR 的状态,输入</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ss -i | grep -i bbr</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">lsmod | grep bbr</span><br></pre></td></tr></table></figure><ul><li>若看到 bbr 字样，表示 BBR 已经生效，现在就大功告成了。</li></ul><h1 id="其他注意事项"><a href="#其他注意事项" class="headerlink" title="其他注意事项"></a>其他注意事项</h1><ul><li>如果你只想在特定的网络接口上启用 BBR，可以使用 tc 命令进行更精细的配置。</li></ul><h1 id="禁用-BBR"><a href="#禁用-BBR" class="headerlink" title="禁用 BBR"></a>禁用 BBR</h1><p>1.若你需要禁用 BBR，可以将 net.ipv4.tcp_congestion_control 设置为其他拥塞控制算法，例如 cubic：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> sysctl -w net.ipv4.tcp_congestion_control=cubic</span><br></pre></td></tr></table></figure><p>2.然后同样将其写入 &#x2F;etc&#x2F;sysctl.conf 以持久化配置：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;net.ipv4.tcp_congestion_control = cubic&quot;</span> | <span class="built_in">sudo</span> <span class="built_in">tee</span> -a /etc/sysctl.conf</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+            <tag> SEO </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>如何优化hexo网站 SEO</title>
+      <link href="/posts/cfd44e32/"/>
+      <url>/posts/cfd44e32/</url>
+      
+        <content type="html"><![CDATA[<h1 id="站点地图和索引"><a href="#站点地图和索引" class="headerlink" title="站点地图和索引"></a>站点地图和索引</h1><p>1.自动生成站点地图，输入安装插件：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-sitemap --save</span><br><span class="line">npm install hexo-generator-baidu-sitemap --save</span><br></pre></td></tr></table></figure><p>2.配置_config.yml：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 站点地图配置</span></span><br><span class="line">sitemap:</span><br><span class="line">  path: sitemap.xml</span><br><span class="line">  template: ./sitemap_template.xml</span><br><span class="line">  rel: <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">baidusitemap:</span><br><span class="line">  path: baidusitemap.xml</span><br></pre></td></tr></table></figure><p>3.robots.txt配置<br>创建source&#x2F;robots.txt：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">User-agent: *</span><br><span class="line">Allow: /</span><br><span class="line">Allow: /archives/</span><br><span class="line">Allow: /categories/</span><br><span class="line">Allow: /tags/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 禁止爬取管理页面</span></span><br><span class="line">Disallow: /admin/</span><br><span class="line">Disallow: /login/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 站点地图</span></span><br><span class="line">Sitemap: https://yourdomain.com/sitemap.xml</span><br><span class="line">Sitemap: https://yourdomain.com/baidusitemap.xml</span><br></pre></td></tr></table></figure><h1 id="永久链接"><a href="#永久链接" class="headerlink" title="永久链接"></a>永久链接</h1><p>1.hexo-abbrlink</p><p>在Hexo中，我们可以使用hexo-abbrlink插件，安装：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-abbrlink --save</span><br></pre></td></tr></table></figure><p>不同算法和进制生成的值：</p><p>crc16 &amp; hex<br><a href="http://www.example.com/posts/66c8.html">http://www.example.com/posts/66c8.html</a></p><p>crc16 &amp; dec<br><a href="http://post.example.com/posts/65535.html">http://post.example.com/posts/65535.html</a></p><p>crc32 &amp; hex<br><a href="http://post.example.com/posts/8ddf18fb.html">http://post.example.com/posts/8ddf18fb.html</a></p><p>crc32 &amp; dec<br><a href="http://post.example.com/posts/1690090958.html">http://post.example.com/posts/1690090958.html</a></p><p>2.修改站点配置文件：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">url: https://www.oneyangcrown.top/</span><br><span class="line">permalink: posts/:abbrlink/</span><br><span class="line">permalink_defaults:</span><br><span class="line">pretty_urls:</span><br><span class="line">  trailing_index: <span class="literal">true</span></span><br><span class="line">  trailing_html: <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># abbrlink config</span></span><br><span class="line">abbrlink:</span><br><span class="line">  alg: crc32  <span class="comment">#support crc16(default) and crc32</span></span><br><span class="line">  rep: hex    <span class="comment">#support dec(default) and hex</span></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+            <tag> SEO </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>openwrt如何开放ipv6端口</title>
+      <link href="/posts/b7bae503/"/>
+      <url>/posts/b7bae503/</url>
+      
+        <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>现在基本上ipv6已经普及了，但ipv6直接暴露在公网上很危险，市面上也很少路由有好的ipv6防火墙，于是openwrt反而变成最佳选择，我便教大家如何设置开放指定端口</p><h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><p>1.首先为了家庭安全，openwrt防火墙常规设置中转发一定要关闭</p><p><img src="https://tk.jxqf.us.kg/14_post/port.webp" alt="注意" title="关闭转发"></p><p>2.然后来到通信规则中，添加一条新的规则，源区域选择 wan，目标区域选择 lan，目标地址填写 ::a:b:c:b&#x2F;::ffff:ffff:ffff:ffff，然后填写需要放行的协议以及端口，最后点击保存并应用即可</p><ul><li>由于 IPv6 是动态的，因此我们放行时，本地 IP 地址要按 ::a:b:c:b&#x2F;::ffff:ffff:ffff:ffff 的格式进行填写，其中 a:b:c:b 部分替换为实际设备 IP 地址的后四段，而要通过这种形式指定设备时，需要提前将设备的 IPv6 后缀固定下来。</li></ul><p><img src="https://tk.jxqf.us.kg/14_post/bz.webp" alt="开放端口" title="开放端口"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 软路由 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>小米手环如何安装第三方应用(支持win,mac,android)</title>
+      <link href="/posts/44c5079a/"/>
+      <url>/posts/44c5079a/</url>
+      
+        <content type="html"><![CDATA[<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><ul><li>一个小米手环(一切的开始)</li><li><a href="https://astrobox.online/">AstroBox</a>或<a href="https://www.bandbbs.cn/threads/9797/">表盘自定义工具</a>(用于安装应用)</li><li><a href="https://www.bandbbs.cn/">米论账号</a>(用于扩展AstroBox应用与使用表盘自定义工具)</li></ul><h1 id="方法一-通过AstroBox-推荐-支持android-mac-win"><a href="#方法一-通过AstroBox-推荐-支持android-mac-win" class="headerlink" title="方法一:通过AstroBox(推荐,支持android,mac,win)"></a>方法一:通过AstroBox(推荐,支持android,mac,win)</h1><ul><li>优点:平台支持广，无广告，无会员，安装应用方便</li><li>缺点:资源少</li></ul><p>1.安装完AstroBox后点击软件，打开设置</p><p>2.登陆你自己的米论坛账号与小米账号</p><p>3.点击设备连接你的设备，之后你就可以去主页随便安装应用了</p><h1 id="方法二-通过表盘自定义工具-不推荐-支持android"><a href="#方法二-通过表盘自定义工具-不推荐-支持android" class="headerlink" title="方法二:通过表盘自定义工具(不推荐,支持android)"></a>方法二:通过表盘自定义工具(不推荐,支持android)</h1><ul><li>优点:资源丰富，开会员后功能丰富</li><li>缺点:有广告，功能很多要会员(免费试用两天，，没会员要看垃圾广告安装应用，会员最多三年)</li></ul><p>1.安装完表盘自定义工具后打开，点击我的，登录账号</p><p>2.如果不想捐赠点击使用捐赠者功能，就可以获得几天会员</p><p>3.点击工具，点击AuthKey读取工具按照提示读取</p><p>4.最后点击探索，安装应用就点击蓝牙一键安装就可以了</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 手环 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Ubuntu 如何释放53端口</title>
+      <link href="/posts/93fc4444/"/>
+      <url>/posts/93fc4444/</url>
+      
+        <content type="html"><![CDATA[<h1 id="前情"><a href="#前情" class="headerlink" title="前情"></a>前情</h1><ul><li>一天我部署adguardhome服务发现53端口占用了，一番搜索发现是因为ubuntu的一个systemd-resolved服务，它负责DNS解析</li></ul><h1 id="解决办法一：直接关闭systemd-resolved"><a href="#解决办法一：直接关闭systemd-resolved" class="headerlink" title="解决办法一：直接关闭systemd-resolved"></a>解决办法一：直接关闭systemd-resolved</h1><ul><li>注意：禁用 systemd-resolved 可能会影响 VPN 连接的 DNS 解析。如果 VPN 客户端或 NetworkManager 的 VPN 插件依赖 systemd-resolved 来推送 DNS 设置，禁用后可能需要手动配置 VPN 连接的 DNS。</li></ul><p>1.输入:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop systemd-resolved.service</span><br><span class="line">systemctl <span class="built_in">disable</span> systemd-resolved.service</span><br></pre></td></tr></table></figure><h1 id="解决办法二-推荐-：禁用-systemd-resolved-的-DNS-存根监听器"><a href="#解决办法二-推荐-：禁用-systemd-resolved-的-DNS-存根监听器" class="headerlink" title="解决办法二(推荐)：禁用 systemd-resolved 的 DNS 存根监听器"></a>解决办法二(推荐)：禁用 systemd-resolved 的 DNS 存根监听器</h1><p>1.先创建一个no-stub-listener.conf文件，输入:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /etc/systemd/resolved.conf.d/</span><br><span class="line">vim /etc/systemd/resolved.conf.d/no-stub-listener.conf</span><br></pre></td></tr></table></figure><p>2.写入如下内容：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[Resolve]</span><br><span class="line">DNS=180.76.76.76 8.8.8.8</span><br><span class="line">FallbackDNS=1.1.1.1 1.0.0.1</span><br><span class="line">DNSStubListener=no</span><br></pre></td></tr></table></figure><p>3、建立 &#x2F;etc&#x2F;resolv.conf 的链接</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ln</span> -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf</span><br></pre></td></tr></table></figure><p>4、之后重启 systemd-resolved 服务</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart systemd-resolved.service</span><br></pre></td></tr></table></figure><p>就解决了</p><p>如果打算安装并使用其他的 DNS 解析器（如 dnsmasq、Unbound 或 AdGuard Home），或者希望完全手动控制 DNS 配置，那么完全禁用 systemd-resolved 可能是更干净的选择。</p><p>如果只是想释放 53 端口给其他应用程序使用，但同时还想利用 systemd-resolved 来管理上游 DNS 服务器（比如处理从网络连接中获取的 DNS 信息），那么仅禁用其存根监听器是更合适且对系统原有功能影响较小的方案。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Windows忘记秘密如何解决</title>
+      <link href="/posts/989f7433/"/>
+      <url>/posts/989f7433/</url>
+      
+        <content type="html"><![CDATA[<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><ul><li>U盘</li><li>一台好的windows电脑</li><li><a href="https://www.wepe.com.cn/download.html">微PE</a></li></ul><h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><p>1.在另一台电脑插入U盘并打开微PE</p><p>2.点击右下角其他安装方式中的安装到U盘，之后选立即安装到U盘</p><p>3.在你忘记密码的电脑开机时，狂按delete键进如bios</p><ul><li>注意不一定是delete键，可能是其他按键，可是搜电脑型号+进入bios按键</li></ul><p>4.在bios界面中的启动选U盘启动</p><p>5.开机选第一个选项，之后打开dism++</p><p>6.在dism++选你电脑的系统&#x3D;&gt;打开会话&#x3D;&gt;工具箱&#x3D;&gt;用户管理,之后选自己的账号，点清除密码，重启后就没密码了</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> windows </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>通过 cloudflare tunnel 免费内网穿透并免费国内加速访问</title>
+      <link href="/posts/6e33bf44/"/>
+      <url>/posts/6e33bf44/</url>
+      
+        <content type="html"><![CDATA[<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><ul><li><a href="https://dash.cloudflare.com/sign-up">Cloudflare账号</a>(必须)</li><li>一个域名(推荐<a href="https://www.namesilo.com/">NameSilo</a>(购买)(必须)</li><li><a href="https://github.com/signup?source=form-home-signup&user_email=">github账号</a>(非必须)</li><li><a href="https://edgeone.ai/">edgeone账号</a>可以通过x发推文或测速获得免费套餐，也可以买一个月付费，到期后变免费(非必须)</li><li><a href="https://vercel.com/">vercel账号</a>(非必须)</li><li><a href="https://app.netlify.com/">Netlify账号</a>与<a href="https://nodejs.cn/download/">Nodejs</a>(非必须)</li></ul><h1 id="cloudflare-tunnel配置"><a href="#cloudflare-tunnel配置" class="headerlink" title="cloudflare tunnel配置"></a>cloudflare tunnel配置</h1><p>1.先在绑定自己购买的域名</p><p>2.在域名绑定完成后在cloudflare主页点击Zero Trust</p><p>3.进入后先随便取个名字，之后选择免费计划,之后点继续</p><p>4.在选择付款方式页面直接回到cloudflare主页，之后再点Zero Trust</p><p>5.进入后一次点击Networks&#x3D;&gt;Tunnels&#x3D;&gt;Add a tunnel&#x3D;&gt;cloudflared&#x3D;&gt;next</p><p>6.然后为隧道起个名字,之后点Save tunnel，然后根据自己的系统安装cloudflared,完成后点击next</p><p>7.在当前页面填写自己要穿透后访问的域名,和内网的服务协议与ip+端口</p><h1 id="免费国内加速访问"><a href="#免费国内加速访问" class="headerlink" title="免费国内加速访问"></a>免费国内加速访问</h1><ul><li>在成功配置cloudflare tunnel后你会发现国内访问很慢，这是应为cloudflare tunnel国内CDN很少，这时可以优选ip或cdn解决</li></ul><h2 id="方法一-cloudflare优选IP"><a href="#方法一-cloudflare优选IP" class="headerlink" title="方法一 cloudflare优选IP"></a>方法一 cloudflare优选IP</h2><p>1.进入cloudflare主页后点击Workers&#x3D;&gt;Workers 和 Pages</p><p>2.点击创建&#x3D;&gt;从 Hello World! 开始&#x3D;&gt;部署&#x3D;&gt;编辑代码,写入:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">addEventListener(</span><br><span class="line">  <span class="string">&quot;fetch&quot;</span>,event =&gt; &#123;</span><br><span class="line">     <span class="built_in">let</span> url=new URL(event.request.url);</span><br><span class="line">     url.hostname=<span class="string">&quot;example.com&quot;</span>;  //你的Cloudflare tunnel填写的域名</span><br><span class="line">     <span class="built_in">let</span> request=new Request(url,event.request);</span><br><span class="line">     event. respondWith(</span><br><span class="line">       fetch(request)</span><br><span class="line">     )</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure><p>3.之后点击设置，在域和路由点击添加，选择路由，区域选你的域名，路由写你以后要访问的域名，格式:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">example.com/*</span><br></pre></td></tr></table></figure><p>4.之后在Cloudflare主页点击你的域名，再点DNS,填写记录，添加一个DNS解析写你路由绑定的域名cname到cf.090227.xyz(社区优选域名)，之后就可以访问这个域名访问你的本地服务了</p><h2 id="方法二-Netlify反代网站"><a href="#方法二-Netlify反代网站" class="headerlink" title="方法二 Netlify反代网站"></a>方法二 Netlify反代网站</h2><p>1.在Github开一个新仓库，根目录创建一个 netlify.toml。在其中写入</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[[redirects]]</span><br><span class="line">  from = <span class="string">&quot;/*&quot;</span></span><br><span class="line">  to = <span class="string">&quot;https://cloudflare tunnel域名/:splat&quot;</span></span><br><span class="line">  status = 200</span><br><span class="line">  force = <span class="literal">true</span></span><br></pre></td></tr></table></figure><ul><li>注意，端口后面的斜杠一定不要丢！</li></ul><p>2.接下来回到 <a href="https://app.netlify.com/">https://app.netlify.com/</a> 创建一个新项目，导入你刚创建的Github项目，部署即可 最后绑定一下你的域名，就可以通过此域名访问你的内网服务了</p><h2 id="方法三-Vercel反代网站"><a href="#方法三-Vercel反代网站" class="headerlink" title="方法三 Vercel反代网站"></a>方法三 Vercel反代网站</h2><p>1.电脑安装Nodejs，我们需要用到npm 安装Vercel CLI</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -g vercel</span><br></pre></td></tr></table></figure><p>2.登录Vercel CLI</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vercel login</span><br></pre></td></tr></table></figure><p>3.找个地方（比如桌面）创建一个你随意命名的文件夹，然后在其中创建一个你随意命名的.json文件，其中写入:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;version&quot;</span>: 2,</span><br><span class="line">    <span class="string">&quot;routes&quot;</span>: [</span><br><span class="line">      &#123;<span class="string">&quot;src&quot;</span>: <span class="string">&quot;/(.*)&quot;</span>,<span class="string">&quot;dest&quot;</span>: <span class="string">&quot;https://cloudflare tunnel域名&quot;</span>&#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>4.然后部署</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">verceL -A 你命名的.json --prod</span><br></pre></td></tr></table></figure><p>5.最后绑定一下你的域名，就可以通过此域名访问你的内网服务了</p><h2 id="方法四-edgeone反代网站"><a href="#方法四-edgeone反代网站" class="headerlink" title="方法四 edgeone反代网站"></a>方法四 edgeone反代网站</h2><p>1.在<a href="https://console.tencentcloud.com/edgeone/zones">edgeone主页</a>新增站点，添加自己的域名，选择免费服务</p><p>2.进入后点击域名配置&#x3D;&gt;域名管理，添加域名，域名配置填写自己以后访问的域名，源站配置写cloudflare tunnel域名 回源 HOST 头选使用源站域名</p><p>3.之后在Cloudflare添加cname记录，等部署完后点击HTTPS 配置选申请免费证书&#x3D;&gt;确定</p><p>4.等部署完后，就可以通过此域名访问你的内网服务了</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 共享 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Ubuntu  Samba 安装和配置</title>
+      <link href="/posts/35cad5dd/"/>
+      <url>/posts/35cad5dd/</url>
+      
+        <content type="html"><![CDATA[<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>1.安装smb服务，输入;</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update &amp;&amp; apt install samba</span><br></pre></td></tr></table></figure><p>2.检查smb服务状态,输入:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status smbd --no-pager -l</span><br></pre></td></tr></table></figure><p>3.设置smb开机自启动,输入:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl is-enabled smbd</span><br><span class="line"><span class="comment"># enable it if inactive</span></span><br><span class="line">systemctl <span class="built_in">enable</span> smbd</span><br></pre></td></tr></table></figure><h1 id="设置文件夹访问权限"><a href="#设置文件夹访问权限" class="headerlink" title="设置文件夹访问权限"></a>设置文件夹访问权限</h1><p>1.为确保smb用户能添加与删除文件，要设置权限，输入:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">chown</span> -R yourusername:yourusername /data <span class="comment">#你的共享路径</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> -R 0755 /data <span class="comment">#你的共享路径</span></span><br></pre></td></tr></table></figure><h1 id="配置smb用户与密码"><a href="#配置smb用户与密码" class="headerlink" title="配置smb用户与密码"></a>配置smb用户与密码</h1><p>1.添加用户,输入</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> usermod -aG sambashare [username]</span><br></pre></td></tr></table></figure><p>2.设置密码,输入:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> smbpasswd -a [username]</span><br></pre></td></tr></table></figure><h1 id="创建共享"><a href="#创建共享" class="headerlink" title="创建共享"></a>创建共享</h1><p>1.创建共享</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nano /etc/samba/smb.conf</span><br></pre></td></tr></table></figure><p>如果没有nano使用一下命令安装:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update &amp;&amp; apt install nano</span><br></pre></td></tr></table></figure><p>2.接着添加一下内容:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[public]</span><br><span class="line">comment = Shared Folder</span><br><span class="line">path = /data</span><br><span class="line">available = <span class="built_in">yes</span></span><br><span class="line">browseable = <span class="built_in">yes</span></span><br><span class="line">public = <span class="built_in">yes</span></span><br><span class="line">writable = <span class="built_in">yes</span></span><br><span class="line">valid <span class="built_in">users</span> = yourusername</span><br><span class="line">create mask = 0644</span><br><span class="line">directory mask = 0755</span><br><span class="line">force create mode = 0644</span><br><span class="line">force directory mode = 0755</span><br></pre></td></tr></table></figure><p>提示:</p><ul><li>comment：共享文件夹的描述。</li><li>path：共享文件夹的路径。</li><li>available：是否允许访问。</li><li>browseable：是否在SMB浏览器中可见。</li><li>public：是否允许匿名访问。</li><li>writable：是否允许写入。</li><li>valid users：允许访问共享的用户。</li><li>create mask：新创建文件的权限。</li><li>directory mask：新创建文件夹的权限。</li></ul><p>3.最后重启一下服务即可:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart smbd</span><br><span class="line"><span class="built_in">sudo</span> systemctl restart nmbd</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 共享 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>rax3000m 刷机以及救砖</title>
+      <link href="/posts/78448596/"/>
+      <url>/posts/78448596/</url>
+      
+        <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>由于这款机子经过多次优化，而且有多个版本需要不通的方法刷入uboot，所以我将分不同的版本来写，可自行跳转至自己的版本刷入uboot</p><h1 id="确认版本"><a href="#确认版本" class="headerlink" title="确认版本"></a>确认版本</h1><p>一.判断自己是EMMC还是NAND</p><p>1.看自己机子的背面，如果有CH  EC那就是EMMC版，而如果只有CH那就是NAND版（当然也不绝对，但大多数是这样）</p><p>2.如果你不放心，可以拆开，其中两螺丝钉在背面标签的左下角与右下角，拧下后看PCB号</p><ul><li>128M SPI-NAND版（PCB号：RAX3000M_D4_PCB_P3，生产批次20230515, 20230606 和 20231027）</li><li>64G EMMC版（PCB号：RAX3000M_D4_SL_P1，生产批次20230626）</li></ul><p>二.看生产日期</p><p>1.如果为 20230606及以前则没有加密</p><p>2.如果为 20230606到20240115则已经加密</p><p>3.如果为 20240115或202401017则需要特别的方法</p><h1 id="不同版本进入终端方法"><a href="#不同版本进入终端方法" class="headerlink" title="不同版本进入终端方法"></a>不同版本进入终端方法</h1><h2 id="20230606及以前-和-20230606到20240115进入终端"><a href="#20230606及以前-和-20230606到20240115进入终端" class="headerlink" title="20230606及以前 和 20230606到20240115进入终端"></a>20230606及以前 和 20230606到20240115进入终端</h2><p>一.进入网页端管理页面中点击更多，然后再点击管理页面</p><p>二.点击配置管理并点击导出文件来来下载 cfg_export_config_file.conf</p><p>三.上传文件到 Linux系统（WSL）也可以</p><p>四.解压配置文件</p><ul><li>如果你是20230606及以前生产的，在linux命令行输入</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvzf cfg_export_config_file.conf </span><br></pre></td></tr></table></figure><ul><li>如果你是20230606到20240115生产的，在linux命令行输入</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl aes-256-cbc -d -pbkdf2 -k <span class="variable">$CmDc</span>#RaX30O0M@\!$ -<span class="keyword">in</span> cfg_export_config_file.conf -out - | tar -zxvf -</span><br></pre></td></tr></table></figure><p>然后你将要获得一个etc文件夹</p><p>五.修改配置文件<br>1.在命令行输入</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/shadow</span><br></pre></td></tr></table></figure><p>2.然后在第一行的root后面删除两个冒号（以在ssh进入系统时不用root密码）让后按照按Esc，之后按: 输入</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wq!</span><br></pre></td></tr></table></figure><p>回车保存</p><p>2.1.在命令行输入</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/config/dropbear</span><br></pre></td></tr></table></figure><p>在第二行把option enaber ‘0’ 改为option enaber ‘1’ 保存，开启ssh</p><p>六.重新加密配置文件</p><ul><li>如果你是20230606及以前生产的，在linux命令行输入</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zcvf  cfg_export_config_file_new.conf etc</span><br></pre></td></tr></table></figure><ul><li>如果你是20230606到20240115生产的，在linux命令行输入</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zcvf - etc | openssl aes-256-cbc -pbkdf2 -k <span class="variable">$CmDc</span>#RaX30O0M@\!$ -out cfg_export_config_file_new.conf</span><br></pre></td></tr></table></figure><p>七.导入配置并进入ssh<br>1.回到配置管理并点击导入配置文件，将我们的cfg_export_config_file_new.conf文件上传，之后就可以使用<a href="https://mobaxterm.mobatek.net/download-home-edition.html">mobaxterm</a>点击Session，然后点击SSH，在Remote host *中输入192.168.10.1(rax000m的ip)，Specify username中输入root，在点击ok，即可进入ssh</p><h2 id="20240115-进入终端"><a href="#20240115-进入终端" class="headerlink" title="20240115 进入终端"></a>20240115 进入终端</h2><ul><li>由于机子是新固件，新密码是根据SN生成的，所以每台机子不一样，而且新版原厂固件已经删除了dropbear，开不了SSH，所以我们将使用telnet的配置备份文件<br>一.进入网页端管理页面中点击更多，然后再点击管理页面</li></ul><p>二.点击配置管理并点击导出文件来来下载 cfg_export_config_file.conf</p><p>三.使用openwrt、ubuntu、WSL等linux系统或<a href="https://cygwin.com/install.html">Cygwin</a></p><p>四.输入在文件所在的目录打开命令窗口输入</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SN=123456789123456(在机子背面S/N:后的)</span><br><span class="line">mypassword=$(openssl passwd -1 -salt aV6dW8bD <span class="string">&quot;<span class="variable">$SN</span>&quot;</span>)</span><br><span class="line">mypassword=$(<span class="built_in">eval</span> <span class="string">&quot;echo <span class="variable">$mypassword</span>&quot;</span>)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$mypassword</span></span><br><span class="line">openssl aes-256-cbc -pbkdf2 -k <span class="string">&quot;<span class="variable">$mypassword</span>&quot;</span> -<span class="keyword">in</span> RAX3000M_XR30_cfg-telnet-20240117.conf -out cfg_import_config_file_new.conf</span><br></pre></td></tr></table></figure><p>五.导入配置并进入ssh<br>1.回到配置管理并点击导入配置文件，将我们的cfg_export_config_file_new.conf文件上传，之后就可以使用<a href="https://mobaxterm.mobatek.net/download-home-edition.html">mobaxterm</a>点击Session&#x3D;&gt;Telnet，在Remote host *中输入192.168.10.1(rax000m的ip)，Specify username中输入root，在点击ok，即可进入ssh</p><h2 id="20241017-ttl进入终端其他版本也通用"><a href="#20241017-ttl进入终端其他版本也通用" class="headerlink" title="20241017 ttl进入终端其他版本也通用"></a>20241017 ttl进入终端其他版本也通用</h2><p>1.准备 </p><ul><li>TTL转USB调试工具</li><li>相对应的驱动（不一定要驱动）</li><li><a href="https://www.putty.org/">PUTTY</a></li></ul><p>2.将在背面标签的左下角与右下角的两螺丝钉拧下，然后打开</p><p>3.然后你会看到 <img src="https://fast-tk.jxqf.dpdns.org/8_post/ttl.jpg" alt="这是图片" title="Magic Gardens"></p><p>4.在PUTTYputty选择serial，serial lan（端口）填写就填你在设备管理端口里看到的（此电脑右键点击管理&#x3D;&gt;设备管理器&#x3D;&gt;端口），speed填115200，之后点击open</p><p>5.在显示root@(none)后输入</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mount_root</span><br><span class="line">sed -i <span class="string">&#x27;s/.*local debug=.*/\tlocal debug=1/&#x27;</span> /etc/init.d/telnet</span><br></pre></td></tr></table></figure><p>6.之后输入</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd root</span><br></pre></td></tr></table></figure><p>改密码</p><p>6.接着写你要的root密码因为是linux所以不显示你输入的密码</p><p>7.之后就可以使用<a href="https://mobaxterm.mobatek.net/download-home-edition.html">mobaxterm</a>点击Session&#x3D;&gt;Telnet，在Remote host *中输入192.168.10.1(rax000m的ip)，Specify username中输入root，在点击ok，密码写你自己设置的，即可进入ssh</p><h1 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h1><ul><li>如果为emmc 输入命令</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mmcblk0p1 of=/mnt/mmcblk0p12/mmcblk0p1.bin</span><br><span class="line"></span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mmcblk0p2 of=/mnt/mmcblk0p12/mmcblk0p2.bin</span><br><span class="line"></span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mmcblk0p3 of=/mnt/mmcblk0p12/mmcblk0p3.bin</span><br><span class="line"></span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mmcblk0p4 of=/mnt/mmcblk0p12/mmcblk0p4.bin</span><br><span class="line"></span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mmcblk0p5 of=/mnt/mmcblk0p12/mmcblk0p5.bin</span><br><span class="line"></span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mmcblk0p6 of=/mnt/mmcblk0p12/mmcblk0p6.bin</span><br><span class="line"></span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mmcblk0p7 of=/mnt/mmcblk0p12/mmcblk0p7.bin</span><br><span class="line"></span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mmcblk0p8 of=/mnt/mmcblk0p12/mmcblk0p8.bin</span><br><span class="line"></span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mmcblk0p9 of=/mnt/mmcblk0p12/mmcblk0p9.bin</span><br><span class="line"></span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mmcblk0p10 of=/mnt/mmcblk0p12/mmcblk0p10.bin</span><br><span class="line"></span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mmcblk0p11 of=/mnt/mmcblk0p12/mmcblk0p11.bin</span><br></pre></td></tr></table></figure><p>然后复制拖到电脑，进行备份文件</p><ul><li>如果为nand 输入</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mtd0 | gzip &gt;/tmp/mtd0_spi0.0.bin.gz</span><br><span class="line"><span class="built_in">cd</span>  /tmp  进入到tmp目录</span><br><span class="line">把 mtd0_spi0.0.bin.gz</span><br><span class="line"><span class="built_in">rm</span>  -rf  mtd0_spi0.0.bin.gz </span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mtd1 of=/tmp/mtd1_BL2.bin</span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mtd2 of=/tmp/mtd2_u-boot-env.bin</span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mtd3 of=/tmp/mtd3_Factory.bin</span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mtd4 of=/tmp/mtd4_mtd4_FIP.bin</span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mtd5 of=/tmp/mtd5_ubi.bin</span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mtd6 of=/tmp/mtd6_plugins.bin</span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mtd7 of=/tmp/mtd7_fwk.bin</span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/mtd8 of=/tmp/mtd8_fwk2.bin</span><br></pre></td></tr></table></figure><p>然后复制拖到电脑，进行备份文件</p><h1 id="安装Uboot"><a href="#安装Uboot" class="headerlink" title="安装Uboot"></a>安装Uboot</h1><p>1.下载Hanwckf的<a href="https://github.com/hanwckf/bl-mt798x/releases">uboot</a>并解压</p><ul><li><p>nand留下mt7981_cmcc_rax3000m-fip-fixed-parts.bin</p></li><li><p>emmc留下mt7981_cmcc_rax3000m-emmc-fip.bin</p></li></ul><p>2.将文件上传到&#x2F;tmp路径然后nand输入</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mtd write /tmp/mt7981_cmcc_rax3000m-fip-fixed-parts.bin</span><br></pre></td></tr></table></figure><p>而emmc输入</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/tmp/mt7981_cmcc_rax3000m-emmc-fip.bin of=/dev/mmcblk0p3</span><br><span class="line"><span class="built_in">sync</span></span><br></pre></td></tr></table></figure><ul><li>特别提醒，如果报错了千万不要重启，不然砖一个给你看看，马上上网寻求帮助</li></ul><p>###进入Uboot并刷写系统（如果没有报错的话）<br>1.固件下载，以下为我用openwrt.ai网站生成，你也可以试试或去自己找找入恩山论坛中 (emmc)[<a href="https://fast-tk.jxqf.dpdns.org/8_post/emmc.bin">fast</a>] <a href="https://fast-tk.jxqf.dpdns.org/8_post/nand.bin">nand</a></p><p>2.点击控制面板&#x3D;&gt;网络与 Internet&#x3D;&gt;网络与共享中心&#x3D;&gt;更改适配器设置&#x3D;&gt;WLAN&#x3D;&gt;属性&#x3D;&gt;Internet 协议版本 4(TCP&#x2F;IPv4)</p><p>3.点击使用以下 IP 地址(S):然后在IP 地址(I)刷入:192.168.1.100之后确认</p><p>4.之后一个网线连接Rax3000m的LAN口，另一边连接电脑网口,然后先个rax3000m断电，接着长接复位插电重启</p><p>5.在指示灯变成红色时松手不按复位，之后在浏览器输入192.168.1.1，选择你的固件并上传（如果失败了就换个固件，这个没事）,如果成功了rax3000m将自动重启，然后将第3步中的使用以下 IP 地址(S)更改为自动获取 IP 地址(O)以及使用以下的 DNS 服务器（E）改为 自动获取 DNS 服务器(B)</p><p>6.之后在浏览器输入10.0.0.1 密码为root之后就可以进入（如果你用我的固件的话）</p><h1 id="救砖-如果接口被锡封了自己处理"><a href="#救砖-如果接口被锡封了自己处理" class="headerlink" title="救砖(如果接口被锡封了自己处理)"></a>救砖(如果接口被锡封了自己处理)</h1><p>1.准备 </p><ul><li>TTL转USB调试工具</li><li>相对应的驱动（不一定要驱动）</li><li><a href="https://www.putty.org/">PUTTY</a></li><li><a href="https://winscp.net/eng/index.php">WINSCP</a></li></ul><p>2.将在背面标签的左下角与右下角的两螺丝钉拧下，然后打开</p><p>3.然后你会看到 <img src="https://fast-tk.jxqf.dpdns.org/8_post/ttl.jpg" alt="这是图片" title="Magic Gardens"></p><p>4.在PUTTYputty选择serial，serial lan（端口）填写就填你在设备管理端口里看到的（此电脑右键点击管理&#x3D;&gt;设备管理器&#x3D;&gt;端口），speed填115200，之后点击open</p><p>5.在显示root@(none)后输入</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount_root</span><br></pre></td></tr></table></figure><p>6.然后输入：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd root </span><br></pre></td></tr></table></figure><p>更改root账户密码,要输入两遍确认且输入新密码的时候屏幕不显示输入信息</p><p>7.输入</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash ifconfig  </span><br></pre></td></tr></table></figure><p>查看ip如果没有就输入</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ifconfig eth0 0.0.0.0</span><br><span class="line">brctl addbr br-lan</span><br><span class="line">ifconfig br-lan 192.168.1.1 netmask 255.255.255.0 up</span><br><span class="line">ifconfig</span><br></pre></td></tr></table></figure><p>查看ip应该就出来了</p><p>8.点击控制面板&#x3D;&gt;网络与 Internet&#x3D;&gt;网络与共享中心&#x3D;&gt;更改适配器设置&#x3D;&gt;WLAN&#x3D;&gt;属性&#x3D;&gt;Internet 协议版本 4(TCP&#x2F;IPv4)</p><p>9.点击使用以下 IP 地址(S):然后在IP 地址(I)刷入:192.168.1.100之后确认电脑IP改 192.168.1.100，网线连接路由器LAN口</p><p>10.打开WinSCP，选择SCP协议<br>IP地址输入：192.168.1.1，开始链接，提示帐号密码，账号root，密码就之前设置的密码，登录后把目录换到tmp下面，emmc上传 mt7981_cmcc_rax3000m-fip-fixed-parts.bin ，nand上传mt7981_cmcc_rax3000m-fip-fixed-parts.bin <a href="https://github.com/hanwckf/bl-mt798x/releases">uboot固件</a></p><p>11.在PUTTY输入：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mtd erase FIP</span><br><span class="line">mtd write /tmp/自己刚刚上传unoot文件 FIP </span><br><span class="line">mtd verify /tmp/mt7981_cmcc_rax3000m-fip-fixed-parts.bin FIP </span><br></pre></td></tr></table></figure><p>12.校验结果两行相同就可以拔电了，电脑IP不要动</p><p>13.按住重置按钮，上电，查看指示灯，变绿色松开，浏览器输入192.168.1.1  进入第三方UBOOT</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 刷机 </tag>
+            
+            <tag> 路由器 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>电脑如何重装Windows系统</title>
+      <link href="/posts/186b5291/"/>
+      <url>/posts/186b5291/</url>
+      
+        <content type="html"><![CDATA[<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><h2 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h2><ul><li><a href="https://github.com/c0re100/qBittorrent-Enhanced-Edition/releases">bt下载器qbittorrent增强版</a></li><li>windwos镜像<a href="https://msdn.itellyou.cn/">msdn</a>，<a href="https://hellowindows.cn/">hellowindwos</a></li><li><a href="https://www.wepe.com.cn/download.html">微PE</a></li><li>你的Windwos驱动，自己去官网找(如果找不到就可以安装驱动安装软件，如:驱动人生，但下载一般较慢，还可能不适配)</li></ul><h2 id="软件准备"><a href="#软件准备" class="headerlink" title="软件准备"></a>软件准备</h2><p>1.安装qbittorrent后复制windwos镜像站的bt下载链接下载</p><p>2.在插入U盘，打开微PE安装，安装成功后Windwos镜像拖入U盘</p><p>3.重启电脑进入bios(如果不知道可以去网上查查，一般为Delete)</p><p>4.设置U盘为第一启动项</p><p>5.重启进入微PE，后打开DiskGenius，进行分区然后创建ESP&#x2F;MSR分区，如果有就不用了</p><p>6.打开Dism++，恢复功能&#x3D;&gt;还原系统，目标镜像路径为你的Windwos镜像，然后选择你的目标镜像版本，安装位置选你分的区域，记得勾选格式化，Compact，添加引导</p><p>7.引导为你的ESP分区</p><p>8.之后拔U盘重启应该就可以了进入系统，然后自己进行配置</p><p>9.进入系统后打开你的驱动文件，进行安装</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 刷机 </tag>
+            
+            <tag> Windows </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>广东爱家TV(E900V22C-b)刷入ATV</title>
+      <link href="/posts/f8b02b3d/"/>
+      <url>/posts/f8b02b3d/</url>
+      
+        <content type="html"><![CDATA[<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><ul><li><a href="https://www.123865.com/s/rRU4Td-CikMd">ATV固件</a>提取码:1213，E900V22C-a或b都可以</li><li>一个U盘</li></ul><h1 id="刷机"><a href="#刷机" class="headerlink" title="刷机"></a>刷机</h1><p>1.把ATV固件放入U盘根目录</p><p>2.打开电视盒子并遥控器狂按右键</p><p>3.不出意外的话你的电视就开始升级了</p><h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><p>1.自带root<br>2.不杀后台</p><h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>1.由于是移动端移植，不支持语音和一些按键不支持<br>2.wifi adb 需要拔网线连接wifi，不那么好用</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 刷机 </tag>
+            
+            <tag> 安卓 </tag>
+            
+            <tag> TV </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>电脑安装Android X86和Windows双系统</title>
+      <link href="/posts/9b9382b8/"/>
+      <url>/posts/9b9382b8/</url>
+      
+        <content type="html"><![CDATA[<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><h2 id="文件准备"><a href="#文件准备" class="headerlink" title="文件准备"></a>文件准备</h2><ul><li><a href="https://www.android-x86.org/">Android X86镜像获取</a></li><li><a href="https://www.ventoy.net/en/download.html">刷写工具ventoy</a></li><li><a href="https://www.diskgenius.cn/download.php">分区工具DiskGenius</a></li><li><a href="https://sourceforge.net/projects/grub2win/">Android X86引导 Grub2Win</a></li><li><a href="https://sourceforge.net/projects/subproject.grub2win.p/">AutoUpdate</a></li></ul><h2 id="软件准备"><a href="#软件准备" class="headerlink" title="软件准备"></a>软件准备</h2><p>1.将下载后的ventoy解压，然后点击Ventoy2Disk.exe(记得插入U盘)，然后点击安装</p><p>2.在进度条走完后，将下载后的Android X86进入拖入U盘</p><p>3.打开DiskGenius，分出一块空间给安卓系统使用(建议大于20G)</p><p>4.解压GrubWin后双击安装</p><p>5.如果安装不成功把AutoUpdate后缀名改为7z，解压并点击setup.bat</p><p>6.之后安装GrubWin</p><h1 id="正式教程"><a href="#正式教程" class="headerlink" title="正式教程"></a>正式教程</h1><h2 id="使用U盘安装Android-X86系统"><a href="#使用U盘安装Android-X86系统" class="headerlink" title="使用U盘安装Android X86系统"></a>使用U盘安装Android X86系统</h2><p>1.进入本机的BIOS(如果你这个不知道建议退出本教程),改为U盘启动</p><p>2.重启进入U盘后，选择第一项可以先试用安卓系统，如果行再进行小一步</p><p>3.重新启动后选择第三项，进行安装</p><p>4.选择你专门分给安卓的分区,然后选择ntfs的格式化并确认</p><p>5.选择安装GRUB(双系统启动项),如果出现Warning，再次选择Yes(之后在Windows解决启动问题)</p><p>6.下一步是root(发烧友都懂)，选择Yes，方便安装arm兼容库</p><p>7.之后等一俩分钟,之后选择Yes，创建空间存储用户数据，按照你之前分区空间的储存输入安卓的储存空间</p><p>8.然后选择Reboot</p><h2 id="创建Android-X86引导"><a href="#创建Android-X86引导" class="headerlink" title="创建Android X86引导"></a>创建Android X86引导</h2><p>1.打开GrubWin，点击Manage Boot Menu</p><p>2.点击Add A New Entry(添加启动项)</p><p>3.Type选择android，Select A New Kernel File选择安卓分区中的android-XX-XX文件夹中的kernel并选择</p><p>4.把安卓启动项改为第二个</p><h2 id="配置Android-X86"><a href="#配置Android-X86" class="headerlink" title="配置Android X86"></a>配置Android X86</h2><p>1.重启后选择安卓的启动项</p><p>2.先改ENGLISH语言为简体中文，然后选择中国</p><p>3.点击开始，然后连接网络，台式机不用配置继续</p><p>4.检查更新等它自己过，然后选择使用新设置，再设置你的时区，下一步，同意</p><p>5.点击Launcher3桌面并设置始终</p><h2 id="安装Android-X86-arm兼容库"><a href="#安装Android-X86-arm兼容库" class="headerlink" title="安装Android X86 arm兼容库"></a>安装Android X86 arm兼容库</h2><p>1.点击设置，开启兼容选项</p><p>2.打开终端模拟器输入</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">su</span><br><span class="line">enable_nativebridge</span><br></pre></td></tr></table></figure><p>3.等待下载完毕</p><p>4.总结Android X86兼容性不是很好，可以安装一下电视软件玩玩，但还不如安卓模拟器，未来可期</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 刷机 </tag>
+            
+            <tag> 安卓 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>gmg光猫开Telnet,获得超级管理员密码,改桥接</title>
+      <link href="/posts/d4ee457/"/>
+      <url>/posts/d4ee457/</url>
+      
+        <content type="html"><![CDATA[<h2 id="记录关键参数"><a href="#记录关键参数" class="headerlink" title="记录关键参数"></a>记录关键参数</h2><p>1.从WAN设置页，记下拨号帐号</p><p>2.如果不知道拨号密码可以问师傅或去移动官网改密码</p><p>3.WAN设置里INTERNET一项对应的VID</p><p>4.ONT认证密码。在登录页面右键，浏览页面源代码，搜索 LOID，把var pwd &#x3D; “——————“;记录下来</p><h2 id="获取管理员密码"><a href="#获取管理员密码" class="headerlink" title="获取管理员密码"></a>获取管理员密码</h2><ul><li>谨慎操作，很容易无法上网，如不能接受请退出</li></ul><p>1.捅光猫复位键，45～60秒。</p><p>2.打开登录页面，用管理员帐号CMCCAdmin和初始密码aDm8H%MdA登录进去。</p><p>3.在登陆光猫后<a href="http://192.168.1.1/getpage.gch?pid=1002&nextpage=tele_sec_tserver_t.gch">在此页面</a> 开启telnet，保存</p><p>4.退出登录，到主页“注册安装”，填入ONT密码，操作业务下发</p><p>5.下发完成后，现在可以正常上网了</p><p>6.使用windows自带的telnet或其他telnet工具连接到光猫，登录用户CMCCAdmin，密码输入光猫反面写的user密码加上@C1，如xxxxxxxx@C1。（如果不对请尝试省份首字母，比如@BJ）<br>待出现~$符号后，输入sidbg 1 DB p DevAuthInfo，超级密码一目了然。</p><h2 id="设置桥接"><a href="#设置桥接" class="headerlink" title="设置桥接"></a>设置桥接</h2><ul><li>部分地区可能需要删掉TR069才能正常使用，用F12法或者TELNET指令法。请自行删除。</li></ul><p>1.打开光猫网络标签页</p><p>2.在连接名称选择Internet_XXX这一项</p><p>3.点击删除</p><p>4.重新添加一个 Inetrnet</p><p>5.IP协议版本选择 IPv4&#x2F;v6</p><p>6.模式选择 桥接</p><p>7.端口绑定选择需要的LAN口</p><p>8.VLAN ID 填写之前抄</p><p>9.点击保存</p><h2 id="设置路由器"><a href="#设置路由器" class="headerlink" title="设置路由器"></a>设置路由器</h2><p>1.加入路由器后台</p><p>2.点击网络</p><p>3.写入自己的拨号账号和密码</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 光猫 </tag>
+            
+            <tag> 网络 </tag>
+            
+            <tag> 桥接 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>安装搭建Hexo博客在Github Pager和Cloudflare并更换主题 完整指南</title>
+      <link href="/posts/af147540/"/>
+      <url>/posts/af147540/</url>
+      
+        <content type="html"><![CDATA[<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><h2 id="软件准备"><a href="#软件准备" class="headerlink" title="软件准备"></a>软件准备</h2><ul><li><a href="https://github.com/">Github账号</a>(必须)</li><li><a href="https://dash.cloudflare.com/">Cloudflare账号</a>(必须)</li><li><a href="https://nodejs.org/en/">Node</a>(必须)</li><li><a href="https://git-scm.com/downloads/">Git</a>(必须)</li><li><a href="https://code.visualstudio.com/">VSCode</a>（建议,非必须）</li></ul><h2 id="检查"><a href="#检查" class="headerlink" title="检查"></a>检查</h2><p>1.在键盘按下win + R键，输入CMD，然后回车，打开CMD窗口，执行node -v命令，看到版本信息，则说明Node安装成功。</p><p>2.Node换华为源(会快一点)：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://mirrors.huaweicloud.com/repository/npm/</span><br></pre></td></tr></table></figure><h1 id="正式配置"><a href="#正式配置" class="headerlink" title="正式配置"></a>正式配置</h1><h2 id="配置-Git-密钥并连接至-Github"><a href="#配置-Git-密钥并连接至-Github" class="headerlink" title="配置 Git 密钥并连接至 Github"></a>配置 Git 密钥并连接至 Github</h2><p>1.配置用户名和邮箱</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;你的用户名&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;你的邮箱&quot;</span></span><br></pre></td></tr></table></figure><p>之后通过通过以下命令检查是否配置成功</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config -l </span><br></pre></td></tr></table></figure><p>2.配置公钥连接Github</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;你的邮箱&quot;</span></span><br></pre></td></tr></table></figure><p>3.用记事本打开上述图片中的公钥id_rsa.pub，复制里面的内容，然后开始在github中配置ssh密钥。</p><p>4.进入github，点击右上角头像 选择settings，进入设置页后选择 SSH and GPG keys，名字随便起，公钥填到Key那一栏。</p><p>5.测试连接，输入以下命令（不要开stam++连接）</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure><p>第一次连接会提示Are you sure you want to continue connecting (yes&#x2F;no&#x2F;[fingerprint])?，输入yes即可<br>出现连接到账户的信息，说明已经大功告成。</p><h2 id="创建GitHub-io仓库"><a href="#创建GitHub-io仓库" class="headerlink" title="创建GitHub.io仓库"></a>创建GitHub.io仓库</h2><p>1.点击右上角的+按钮，选择New repository，创建一个&lt;用户名&gt;.github.io的仓库。</p><p>2.仓库名字的格式必须为：&lt;用户名&gt;.github.io (注意：前缀必须为用户名，此为预览博客需要，后期可修改仓库名)</p><p>3.可见性必须选择 Public 方便第一次部署检查问题，点击 Creat repository 进行创建即可</p><h2 id="初始化-Hexo-博客"><a href="#初始化-Hexo-博客" class="headerlink" title="初始化 Hexo 博客"></a>初始化 Hexo 博客</h2><p>1.创建一个文件夹来保存博客源码（我这里选的路径为D:&#x2F;Hexo-Blog），在文件夹内右键鼠标，选择Open Git Bash here</p><p>2.在Git BASH输入如下命令安装 Hexo</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli &amp;&amp; hexo -v</span><br></pre></td></tr></table></figure><p>安装完后输入hexo -v验证是否安装成功。</p><p>3.初始化 Hexo 项目安装相关依赖。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo init blog</span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">npm i</span><br></pre></td></tr></table></figure><p>4.输入</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo cl &amp;&amp; hexo s</span><br></pre></td></tr></table></figure><p>启动项目,打开浏览器，输入地址：<a href="http://localhost:4000/">http://localhost:4000</a> 当看到网站，就成功了</p><h2 id="将静态博客挂载到-GitHub-Pages"><a href="#将静态博客挂载到-GitHub-Pages" class="headerlink" title="将静态博客挂载到 GitHub Pages"></a>将静态博客挂载到 GitHub Pages</h2><p>1.安装 hexo-deployer-git</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure><p>2.修改 _config.yml 文件在blog-demo目录下的_config.yml，就是整个Hexo框架的配置文件了。可以在里面修改大部分的配置。详细可参考官方的配置描述。修改最后一行的配置，将repository修改为你自己的github项目地址即可，还有分支要改为main代表主分支（注意缩进）。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repository: git@github.com:applezengzhe/applezengzhe.github.io.git</span><br><span class="line">  branch: main</span><br></pre></td></tr></table></figure><p>3.修改好配置后，运行如下命令，将代码部署到 GitHub（Hexo三连）</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo cl&amp;&amp;hexo g&amp;&amp;hexo d</span><br></pre></td></tr></table></figure><p>如果出现Deploy done，则说明部署成功了。<br>稍等两分钟，打开浏览器访问：<a href="https://applezengzhe.github.io/">https://applezengzhe.github.io</a> ，这时候我们就可以看到博客内容了。</p><h2 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h2><p>1.打开<a href="Hexo%E4%B8%BB%E9%A2%98%E7%BD%91%E7%AB%99">https://hexo.io/themes/</a>找到喜欢的主题打开github根据教程clone主题，或者将主题下载到本地hexo主题文件夹中进行使用。</p><p>2.以particlex为例</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> themes</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/theme-particlex/hexo-theme-particlex.git particlex --depth=1</span><br></pre></td></tr></table></figure><p>3.然后在根目录 _config.yml 设置主题为 ParticleX 即可。</p><ul><li>theme: particlex</li></ul><h2 id="部署到Cloudflare-Workers-和-Pages上"><a href="#部署到Cloudflare-Workers-和-Pages上" class="headerlink" title="部署到Cloudflare Workers 和 Pages上"></a>部署到Cloudflare Workers 和 Pages上</h2><p>1.登录Cloudflare后进入控制台页面</p><p>2.点击Workers 和 Pages然后创建应用程序</p><p>3.点击Pages，然后点击连接到 Git</p><p>4.输入你的github账号和密码，然后选择Hexo的仓库</p><p>5.构建配置中的构建命令输入</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo cl&amp;&amp;hexo g&amp;&amp;hexo d</span><br></pre></td></tr></table></figure><p>6.之后进入你创建的worker，点击自定义域名(要绑定在Cloudflare上的)(可选)</p><p>7.最后你就可以国内更稳定访问你的博客了，拜拜!!!(。・∀・)ノ</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+            <tag> 建站 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>OPPO/真我手机 MTK强解BL锁</title>
+      <link href="/posts/eac7cc92/"/>
+      <url>/posts/eac7cc92/</url>
+      
+        <content type="html"><![CDATA[<ul><li>我手上的手机是oppo reno5 pro，警告提前备份数据，一但变砖，本人概不负责</li></ul><h2 id="资源与文件"><a href="#资源与文件" class="headerlink" title="资源与文件"></a>资源与文件</h2><ul><li><a href="www.123865.com/s/rRU4Td-WiEMd">123盘</a> 提取码:1213</li><li><a href="wwi.lanzoup.com/i1KEp0toq8kd">dm模块(用于部分机型关闭dm校验)</a></li></ul><h2 id="准备工作："><a href="#准备工作：" class="headerlink" title="准备工作："></a>准备工作：</h2><p>1.安装python环境（Download Python | Python.org）记得勾选Add Python X.X to PATH</p><p>2.必要驱动</p><p>3.安装强解工具mtkclient</p><p>4.手机一定要降级到c11，因为c12及以后封了强解端口，不过好像可以拆机开端口，不过本人没有测试</p><h2 id="mtkclient配置："><a href="#mtkclient配置：" class="headerlink" title="mtkclient配置："></a>mtkclient配置：</h2><p>1.进入解压后的mtkclient文件夹</p><p>2.在此文件夹打开powershell</p><p>3.换清华或其他源（不一定，但会更快一些）：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip config <span class="built_in">set</span> global.index-url https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure><p>4.安装mtkclient需要的第三方库：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -r requirements.txt</span><br></pre></td></tr></table></figure><h2 id="解锁bl锁："><a href="#解锁bl锁：" class="headerlink" title="解锁bl锁："></a>解锁bl锁：</h2><h3 id="解锁安卓10以下设备的bl锁："><a href="#解锁安卓10以下设备的bl锁：" class="headerlink" title="解锁安卓10以下设备的bl锁："></a>解锁安卓10以下设备的bl锁：</h3><p>1.先将设备关机</p><p>2.在powershell里输入：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python mtk da seccfg unlock</span><br></pre></td></tr></table></figure><p>3.按住电源键+音量上下键，进入深刷模式，第一次会自动安装驱动，等待进度条完毕</p><p>4.如果重启出现：</p><ul><li>Your device has been unlocked and can’t be trusted.</li><li>Your device will boot in 5 seconds.<br>就解锁完毕</li></ul><p>5.此时可能无法启动手机，一直让它开机进入rec模式（大约半个小时），如果不行手动进入rec模式</p><p>6.直接清除数据分区，然后重启</p><h3 id="解锁安卓11以上设备bl锁："><a href="#解锁安卓11以上设备bl锁：" class="headerlink" title="解锁安卓11以上设备bl锁："></a>解锁安卓11以上设备bl锁：</h3><p>1.备份lk（因为安卓11之后有dm校验，又把它藏在了lk分区里）：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python mtk r lk,lk2 lk.bin,lk2.bin</span><br></pre></td></tr></table></figure><p>（网上看自己有几个lk分区，不要找着抄）</p><p>2.备份后自己重名后缀，例如我有两个lk分区：lk.base,lk2.base</p><p>3.下载我提供的lk文件</p><p>4.刷入我提供的lk文件</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python mtk w lk,lk2 lk.bin,lk.bin</span><br></pre></td></tr></table></figure><p>5.强解bl锁：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python mtk da seccfg unlock</span><br></pre></td></tr></table></figure><p>6.此时你可能像我手机变成一块黑砖，不用慌，输入</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python mtk w lk,lk2 lk.base,lk2.base</span><br></pre></td></tr></table></figure><p>刷如原厂lk文件，重新按住电源键+音量上+音量下，等到重新进入深刷模式</p><p>7.按一下电源键 如果看到了</p><ul><li>Your device has been unlocked and can’t be trusted.</li><li>Your device will boot in 5 seconds.<br>就成功了，不过之后重启可能像我的手机一样要再按一次电源键</li></ul><p>8.此时可能无法启动手机，一直让它开机进入rec模式（大约半个小时，如果不行手动进入rec模式</p><p>9.清除数据分区，然后重启</p><h2 id="Root手机："><a href="#Root手机：" class="headerlink" title="Root手机："></a>Root手机：</h2><p>1.重新进入深刷模式，输入</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python mtk r boot boot.img</span><br></pre></td></tr></table></figure><p>提取boot分区，因为boot分区不对可能会掉wifi</p><p>2.安装面具</p><p>3.修补boot镜像，不要开修补vbmeta</p><p>4.重新进入深刷模式，输入</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python mtk w boot 你修补的镜像</span><br></pre></td></tr></table></figure><p>5.不出意外应当后成功root了(如果升级c12，可以用官方升级工具，之后找到升级包，获得boot，修补之后fastbootd刷入)</p><h2 id="五-去除dm检验"><a href="#五-去除dm检验" class="headerlink" title="五.去除dm检验"></a>五.去除dm检验</h2><p>1.用软件提取vbmeta.img<br>2.进入fastbootd 之后输入:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastboot --disable-verity --disable-verification flash vbmeta vbmeta.img</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 强解 </tag>
+            
+            <tag> Root </tag>
+            
+            <tag> 安卓 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>骁龙410随身WiFi刷入Debian 系统和救砖教程</title>
+      <link href="/posts/b9672d3a/"/>
+      <url>/posts/b9672d3a/</url>
+      
+        <content type="html"><![CDATA[<h2 id="驱动与Debian"><a href="#驱动与Debian" class="headerlink" title="驱动与Debian"></a>驱动与Debian</h2><p>所需文件</p><ul><li><a href="https://www.123pan.com/s/7368Vv-3TyQh.html">高通 9008 驱动</a></li><li><a href="https://googledownloads.cn/android/repository/platform-tools-latest-windows.zip">ADB 工具</a></li><li><a href="https://www.123pan.com/s/7368Vv-hTyQh.html">Miko 备份工具</a></li><li><a href="https://www.123pan.com/s/XwVDVv-WICn3">Debian 刷机包</a></li><li><a href="https://www.123pan.com/s/NCtmjv-zRLav.html%E6%8F%90%E5%8F%96%E7%A0%81:1188">备份的全量包</a><br>如果不确定下载哪个，请先查看板子型号再下载刷机包。</li></ul><p>1.查看板子型号<br>用螺丝刀将随身 WiFi 的外壳拆开，查看板子上方的丝印，型号一般以 UFI、UZ 或 SP 开头。如红框中所示，此型号是 UFI003。</p><p>2.安装 9008 驱动<br>执行 driver.exe，并点击立即安装。在弹出如下窗口中，点击“安装”。</p><p>3.安装 ADB 工具<br>解压 platform-tools_r34.0.5-windows.zip</p><p>4.打开命令提示符，执行 adb version。如果出现</p><ul><li>Android Debug Bridge version 1.0.41</li><li>Version 34.0.5-10900879<br>即为正确</li></ul><p>5.安装 Miko 备份工具<br>解压 MiKo_Loder Pro.zip，运行 miko.exe 安装备份工具。安装完成后，桌面上会出现 Miko 备份工具的快捷方式。在图标上右键，打开文件所在位置，将解压得到的 Loader.exe 复制到 Miko 安装目录即可。</p><h2 id="开启-ADB"><a href="#开启-ADB" class="headerlink" title="开启 ADB"></a>开启 ADB</h2><p>1.将随身 WiFi 插入电脑 USB 接口。打开设备管理器，如果此时多了一个名叫 Android Composite ADB Interface 的设备，则表明随身 WiFi 已经开启 ADB，无需执行其他操作。<br>如果没有出现这个设备，则需要手动开启 ADB。以 UZ801 型号为例，连上随身 WiFi 的热点，并访问 <a href="http://192.168.100.1/usbdebug.html">http://192.168.100.1/usbdebug.html</a> 即可开启 ADB，再次访问即可关闭。</p><ul><li>提示</li><li>部分 UFI003 型号的随身 WiFi 默认不开 ADB，需要手动进 9008 模式刷入已开启 ADB 的安卓固件。</li><li><a href="https://www.123pan.com/s/NUK8Vv-nRdl%E6%8F%90%E5%8F%96%E7%A0%81%EF%BC%9A1LEW">固件下载</a></li></ul><p>2.手动进 9008 模式的方法：按住 reset 键不放（随身 WiFi 背面二维码右上角的小孔，用取卡针或牙签戳即可），并将随身 WiFi 插入电脑，松开 reset 键。</p><p>3.备份原厂固件<br>为避免刷错固件变砖等情况，强烈建议备份原厂固件。</p><p>4.打开命令提示符，执行 </p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb reboot edl</span><br></pre></td></tr></table></figure><p>，此时设备管理器中会多出高通 9008 设备。</p><p>5.我们运行上文所提到的 Loader.exe（即 Miko 工具）进行备份数据。</p><p>6.此时窗口右侧显示设备信息，表明随身 WiFi 已被成功识别。如果显示 Not Found 字样，请重新安装 9008 驱动并再次尝试。</p><p>7.依次点击 Read –&gt;Partition Backup&#x2F;Erase–&gt;Load Partition Structure。然后双击红色 Option 下面的灰条，选择备份目录，并点击 Read Full Image。再次选择备份目录，并取一个文件名，点击确定，即可开始备份。</p><p>8.等待几分钟，直到进度条达到 100%，右侧输出 Sucess 字样和用时，则表明备份完成 。</p><p>9.如果需要恢复备份，依次点击 Flash –&gt;emmc block0 flasher。然后双击 Emmc Data，选择之前备份的文件（.bin 格式），并点击下方 Flash 按钮，等待刷机完成即可。</p><h2 id="刷入-Debian"><a href="#刷入-Debian" class="headerlink" title="刷入 Debian"></a>刷入 Debian</h2><p>1.拔掉随身 WiFi 并重新插入 USB 接口，解压 Debian 刷机包。打开命令提示符，执行 adb reboot bootloader 进入 fastboot 模式。运行刷机包中的 flash.bat刷入系统，等待刷机完成。<br>输出 all done! 则表明刷机完成。</p><p>2.安装 RNDIS 网络驱动</p><ul><li>提示</li><li>如果设备管理器只显示 Android Device，右键更新驱动程序，依次选择 Microsoft - USB 移动宽带网络适配器，然后重新插入随身 WiFi，会出现一个未知设备，再根据下述步骤进行操作。</li><li>重新插入随身 WiFI，打开任务管理器，在其他设备中会出现一个未知设备或以 RNDIS 开头的设备。</li></ul><p>3.右键，更新驱动程序–&gt;浏览我的电脑以查找驱动程序–&gt;让我从计算机上的可用驱动程序列表中选取–&gt;显示所有设备，等待列表加载完成。</p><p>4.左侧选择 Microsoft，右侧选择 基于远程 NDIS 的 Internet 共享设备，在弹出窗口中选择是，并确定。<br>至此，RNDIS 驱动安装成功。</p><h2 id="连接随身-WiFi-终端"><a href="#连接随身-WiFi-终端" class="headerlink" title="连接随身 WiFi 终端"></a>连接随身 WiFi 终端</h2><p>1.驱动安装成功后，电脑上会多出一个名叫 4G_UFI_123456 的 NDIS 设备，同时会出现一个同名的热点，密码为 12345678。</p><p>2.Debian 默认用户名为 user，密码为 1，root 密码也为 1。请务必及时修改密码（命令：passwd）。</p><p>3.此时可以通过 adb 或 ssh 连接到 Debian 终端。</p><p>4.通过 adb 连接<br>将随身 WiFi 插入电脑 USB 接口，使用以下命令查看已连接 adb 设备：</p><ul><li>adb devices</li><li>List of devices attached</li><li>0123456789 device</li></ul><p>5.有新设备出现时，使用以下指令进入 </p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell</span><br></pre></td></tr></table></figure><p>6.通过 adb 连接时，使用 nmtui、htop 等需要显示图形的命令，可能会出现如下错误：<br>root@openstick:&#x2F;# nmtui<br>TERM environment variable needs set.<br>设置 TERM 环境变量即可解决。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> TERM=linux</span><br></pre></td></tr></table></figure><h2 id="通过-ssh-连接"><a href="#通过-ssh-连接" class="headerlink" title="通过 ssh 连接"></a>通过 ssh 连接</h2><p>1.将随身 WiFi 插入电脑 USB 接口或连接上随身 WiFi 的热点，使用以下指令进行连接：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh root@192.168.68.1</span><br></pre></td></tr></table></figure><p>如果连不上说明系统还在启动，请稍后再试。</p><h2 id="随身-WiFi-联网"><a href="#随身-WiFi-联网" class="headerlink" title="随身 WiFi 联网"></a>随身 WiFi 联网</h2><p>此时随身 WiFi 并没有联网，必须要关闭热点才能连接 WiFi。下面介绍详细步骤。</p><p>1.首先打开命令提示符，执行 adb shell 进入 Debian 终端。然后设置 TERM 环境变量：export TERM&#x3D;linux。</p><p>2.执行 nmtui，选择“编辑连接”。</p><p>3.左侧使用方向键选择 bridge，右侧选择“编辑”。并回车。</p><p>4.删除其中的 wifi，并选择确定。。</p><p>5.返回，选择启用连接，则可连接 WiFi。</p><h2 id="优化系统"><a href="#优化系统" class="headerlink" title="优化系统"></a>优化系统</h2><p>1.删除无效软件包仓库</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> -rf /etc/apt/sources.list.d/*</span><br></pre></td></tr></table></figure><p>2.删除多余软件包</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt autopurge -y adoptopenjdk-8-hotspot</span><br></pre></td></tr></table></figure><p>3.更换软件源</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> &lt;&lt;<span class="string">EOF&gt; /etc/apt/sources.list</span></span><br><span class="line"><span class="string">deb http://mirrors.ustc.edu.cn/debian/ bullseye main contrib non-free</span></span><br><span class="line"><span class="string"># deb-src http://mirrors.ustc.edu.cn/debian/ bullseye main contrib non-free</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">deb http://mirrors.ustc.edu.cn/debian/ bullseye-updates main contrib non-free</span></span><br><span class="line"><span class="string"># deb-src http://mirrors.ustc.edu.cn/debian/ bullseye-updates main contrib non-free</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">#deb http://mirrors.ustc.edu.cn/debian/ bullseye-backports main contrib non-free</span></span><br><span class="line"><span class="string"># deb-src http://mirrors.ustc.edu.cn/debian/ bullseye-backports main contrib non-free</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">deb http://mirrors.ustc.edu.cn/debian-security/ bullseye-security main contrib non-free</span></span><br><span class="line"><span class="string"># deb-src http://mirrors.ustc.edu.cn/debian-security/ bullseye-security main contrib non-free</span></span><br><span class="line"><span class="string">EOF</span></span><br></pre></td></tr></table></figure><p>4.更新软件包</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt update &amp;&amp; apt upgrade -y</span><br></pre></td></tr></table></figure><p>5.安装常用软件包</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install -y nano curl</span><br></pre></td></tr></table></figure><p>6.删除软件包缓存</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt clean</span><br></pre></td></tr></table></figure><h2 id="安装1Panel面板并换docker源-可选"><a href="#安装1Panel面板并换docker源-可选" class="headerlink" title="安装1Panel面板并换docker源(可选)"></a>安装1Panel面板并换docker源(可选)</h2><p>1.输入安装命令</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sSL https://resource.fit2cloud.com/1panel/package/quick_start.sh -o quick_start.sh &amp;&amp; bash quick_start.sh</span><br></pre></td></tr></table></figure><p>2.根据提示输入安装位置，账号密码，端口号和安全入口</p><p>3.输入随身wifi IP:端口号&#x2F;安全入口，然后输入密码进入</p><p>4.点击应用市场&#x3D;&gt;已安装&#x3D;&gt;配置镜像加速可以解决镜像拉取失败的问题 快速跳转</p><p>5.根据提示配置镜像源　</p><h2 id="关闭-LED-灯（可选）"><a href="#关闭-LED-灯（可选）" class="headerlink" title="关闭 LED 灯（可选）"></a>关闭 LED 灯（可选）</h2><p>1.随身 WiFi 开机后，LED 灯会不停地闪烁，如果不喜欢的话，执行以下命令即可关闭。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> none &gt; /sys/class/leds/blue:wifi/trigger</span><br><span class="line"><span class="built_in">echo</span> none &gt; /sys/class/leds/red:os/trigger</span><br></pre></td></tr></table></figure><p>执行后会立即生效。为避免重启后失效，建议设置开机自动执行。</p><p>2.编辑 &#x2F;etc&#x2F;rc.local 文件，并将以上两行命令添加到 exit 0 之前，并保存。-</p><h2 id="救砖"><a href="#救砖" class="headerlink" title="救砖"></a>救砖</h2><p>1.变砖后的棒子接入电脑直接进入9008模式,（如果没有可以尝试拆机按住reset键不动，再接入电脑）:</p><p>2.打开miko，分别点击Flash&gt;emmc block0 flasher&gt; Emmc Data&gt;FLASH!<br>如下选择就可以全量刷了，我当时用这个连分区表都恢复了</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 刷机 </tag>
+            
+            <tag> 救砖 </tag>
+            
+            <tag> linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+    
+    
+    <entry>
+      <title>分类</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>about</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
+      
+        <content type="html"><![CDATA[<p>你好,这是一个技术和生活分享网站</p><p>接下来我将在这个博客分享我喜欢的一些日常折腾的东西，希望对你们也有帮助</p>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>music</title>
+      <link href="/music/index.html"/>
+      <url>/music/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>友情链接</title>
+      <link href="/link/index.html"/>
+      <url>/link/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>标签</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+  
+</search>
